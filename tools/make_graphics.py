@@ -14,12 +14,12 @@ from PIL import Image, ImageDraw, ImageFont
 OUT = Path(__file__).resolve().parents[1] / "products/output/carotech-faceless-shop-graphics"
 OUT.mkdir(parents=True, exist_ok=True)
 
-# Palette
-NAVY = (10, 31, 68)        # #0A1F44
-NAVY2 = (20, 39, 78)       # #14274E (panel)
-GOLD = (201, 162, 75)      # #C9A24B
-CREAM = (244, 241, 234)    # #F4F1EA
-MUTED = (183, 195, 214)    # soft blue-grey
+# Palette — black + green
+NAVY = (10, 12, 11)        # near-black base
+NAVY2 = (18, 22, 20)       # panel
+GOLD = (46, 204, 113)      # #2ECC71 emerald green accent
+CREAM = (244, 247, 244)    # off-white text
+MUTED = (150, 170, 158)    # soft green-grey
 
 SERIF_B = "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf"
 SERIF_I = "/usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf"
@@ -34,7 +34,7 @@ def font(path: str, size: int) -> ImageFont.FreeTypeFont:
 def vgradient(w: int, h: int) -> Image.Image:
     """Subtle vertical navy gradient background."""
     base = Image.new("RGB", (w, h), NAVY)
-    top, bottom = (8, 24, 54), (16, 34, 72)
+    top, bottom = (6, 8, 7), (16, 24, 19)
     px = base.load()
     for y in range(h):
         t = y / max(h - 1, 1)
