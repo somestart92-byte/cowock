@@ -19,7 +19,7 @@
 
 ## Pinterest
 
-**Pin title:** Screen-Free Summer Activities for Kids (120+ Easy, No-Prep Ideas)
+**Pin title:** Screen-Free Summer Activities for Kids (129 Easy, No-Prep Ideas)
 
 **Description:** Tired of the tablet battle? Here are simple, no-prep screen-free
 activities to keep kids busy all summer — backyard games, rainy-day quiet time,
@@ -51,7 +51,7 @@ next "I'm boooored."
 You don't need fancy supplies or a Pinterest-perfect setup. You just need
 something *ready* before the boredom hits. 💛
 
-If you want it all done for you — 120+ no-prep ideas in one printable vault — it's
+If you want it all done for you — 129 no-prep ideas in one printable vault — it's
 in my bio. No pressure, these 5 alone will get you through the week.
 
 **Carousel slides:**
@@ -61,7 +61,7 @@ in my bio. No pressure, these 5 alone will get you through the week.
 - Slide 4: "3. Quiet-time box 📦"
 - Slide 5: "4. License-plate bingo 🚗"
 - Slide 6: "5. 'Pick a card' deck 🎴"
-- Slide 7: "Want all 120+? Link in bio 💛"
+- Slide 7: "Want all 129? Link in bio 💛"
 
 ---
 
@@ -85,7 +85,7 @@ full vault's in my bio if you want the easy button — no pressure.
 
 ## Cover / visual brief
 Faceless graphic, black background + emerald-green accents (no pink). Title
-"The Screen-Free Summer Vault" in serif; subtitle "120+ no-prep activities" in
+"The Screen-Free Summer Vault" in serif; subtitle "129 no-prep activities" in
 sans. Small green geometric corner marks. Optional tiny line icons (sun, leaf,
 car) in green outline only — no photos of children or people. CAROTECH +
 beacons.ai/carotech36 footer.

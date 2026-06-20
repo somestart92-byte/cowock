@@ -342,7 +342,58 @@ def build_html() -> str:
     </body></html>"""
 
 
+def build_markdown() -> str:
+    """Generate product.md from the SAME data as the PDF (single source of truth)."""
+    lines = [
+        "# The Screen-Free Summer Activity Vault",
+        f"### {TOTAL} Boredom-Busting Activities to Keep Kids Happy, Busy & Off "
+        "Screens — All Summer Long",
+        "",
+        "*A faceless CaroTech printable bundle. Print at home, grab-and-go, zero prep.*",
+        "",
+        "**Suggested price:** $27 (bundle of 8 printable packs)",
+        "",
+        "---",
+        "",
+        "## Welcome, Mama 💛",
+        "",
+        f"The Screen-Free Summer Vault is a done-for-you stack of **8 printable packs "
+        f"and {TOTAL} activities** so you always have something ready that doesn't "
+        "involve a tablet. Print the pages you want, pop them in a binder, and pull "
+        "one out whenever you need it.",
+        "",
+    ]
+    for p in PACKS:
+        lines.append(f"## Pack {p['n']} — {p['title']} ({p['count']} activities)")
+        lines.append("")
+        lines.append(f"*{p['blurb']}*")
+        lines.append("")
+        for i, item in enumerate(p["items"], 1):
+            lines.append(f"{i}. {item}")
+        lines.append("")
+        lines.append(f"**What's printable:** {p['printable']}")
+        lines.append("")
+        lines.append(f"> **Quick win:** {p['takeaway']}")
+        lines.append("")
+    lines += [
+        "---",
+        "",
+        "## You're doing a good job. 💛",
+        "",
+        f"Use one page or all {TOTAL} — there's no “right” way, and a screen day here "
+        "and there doesn't undo anything. The full CaroTech library lives at "
+        "beacons.ai/carotech36.",
+        "",
+        "*This is a general activity resource for families; it is not medical, "
+        "educational, or developmental advice. Adapt activities to your child's age "
+        "and always supervise water, kitchen, and craft play.*",
+        "",
+    ]
+    return "\n".join(lines)
+
+
 if __name__ == "__main__":
     out = OUT / "Screen-Free-Summer-Vault.pdf"
     HTML(string=build_html()).write_pdf(str(out))
-    print(f"saved {out}  ({TOTAL} activities)")
+    (OUT / "product.md").write_text(build_markdown(), encoding="utf-8")
+    print(f"saved {out} + product.md  ({TOTAL} activities)")
