@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.log
+
+# Generated business artifacts (keep the dirs, ignore the contents)
+products/output/*
+!products/output/.gitkeep
+approvals/*
+!approvals/.gitkeep

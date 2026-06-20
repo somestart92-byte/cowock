@@ -1,0 +1,52 @@
+# ─────────────────────────────────────────────────────────────
+# cowock — Halal Digital-Products Agent: Configuration
+# Change values here to point the agent at YOUR niche & brand.
+# ─────────────────────────────────────────────────────────────
+
+brand:
+  name: "Cowock"
+  voice: "warm, trustworthy, faith-aware, practical"
+  audience: "Muslim professionals and students who want practical, halal self-improvement"
+
+# The single most important setting. Make it specific.
+# Examples:
+#   "Islamic productivity & habit-building for busy professionals"
+#   "Modest-fashion styling guides for working women"
+#   "Halal personal-finance (no-riba) planning for young families"
+niche: "Islamic productivity & habit-building for busy Muslim professionals"
+
+# What kinds of digital products to produce.
+product_types:
+  - ebook          # multi-chapter guide (markdown -> PDF later)
+  - checklist      # one-page actionable checklist
+  - planner        # printable weekly/monthly planner pages
+
+# Marketing channels the agent drafts content for.
+channels:
+  - twitter        # short hooks / threads
+  - instagram      # caption + carousel outline
+  - email          # launch / nurture email
+
+llm:
+  model: "claude-opus-4-8"   # most capable; swap to claude-sonnet-4-6 for cheaper drafts
+  max_tokens: 4000
+  temperature: 0.7
+
+# Safety / Islamic compliance. The agent self-reviews every output
+# against these before anything is queued for your approval.
+halal_rules:
+  forbid:
+    - "riba (interest), conventional loans/credit framed positively"
+    - "gambling, lotteries, speculative get-rich-quick schemes"
+    - "alcohol, pork, haram food/products"
+    - "podcasting/promoting immodesty, nudity, or zina"
+    - "deceptive marketing, false scarcity, exaggerated guarantees"
+    - "music-heavy or imagery that contradicts Islamic etiquette"
+  require:
+    - "honesty and clear value (no overpromising)"
+    - "respect for Islamic etiquette (adab) and tone"
+    - "halal monetization (direct sale of beneficial product)"
+
+# Nothing is published automatically. Outputs land here for you to review.
+output_dir: "products/output"
+approvals_dir: "approvals"
