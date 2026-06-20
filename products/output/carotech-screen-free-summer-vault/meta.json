@@ -1,0 +1,28 @@
+{
+  "product": {
+    "product_type": "bundle",
+    "title": "The Screen-Free Summer Activity Vault",
+    "subtitle": "120+ Boredom-Busting Activities to Keep Kids Happy, Busy & Off Screens — All Summer Long",
+    "price_usd": 27.0,
+    "outline": [
+      "Pack 1 — Backyard & Outdoor Boredom-Busters",
+      "Pack 2 — Rainy-Day Quiet Time",
+      "Pack 3 — Road-Trip & Travel Pack",
+      "Pack 4 — Sensory & Life-Skills Activities",
+      "Pack 5 — Kids' Kitchen (no-cook + easy)",
+      "Pack 6 — Screen-Free Reward System",
+      "Pack 7 — Weekly Summer Rhythm Planner",
+      "Pack 8 — Boredom-Buster Cards (Master Deck)"
+    ]
+  },
+  "compliance": {
+    "ok": true,
+    "score": 97,
+    "issues": [],
+    "notes": "Value-first, faceless, no false scarcity or guarantees, non-money reward system, includes supervision/advice disclaimer. Halal-clean."
+  },
+  "source": "research/carotech-mom-niche-2026.md (ranked #1 opportunity)",
+  "channels": ["pinterest", "instagram", "tiktok"],
+  "created": "20260620",
+  "mode": "LIVE (authored by Claude Opus directly)"
+}
