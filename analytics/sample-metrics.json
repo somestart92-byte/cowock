@@ -1,0 +1,9 @@
+{
+  "_note": "Example shape of Buffer metrics (get_aggregated_post_metrics + list_posts includeMetrics=true). Replace with live data, then: python -m src.main analytics --metrics analytics/sample-metrics.json",
+  "aggregate": {"postCount": 12, "reactions": 340, "comments": 28},
+  "posts": [
+    {"channel": "pinterest", "text": "Screen-free summer activities for kids (120+ ideas)", "impressions": 4200, "saves": 190, "clicks": 95, "dueAt": "2026-06-18T21:00:00-04:00"},
+    {"channel": "pinterest", "text": "How to start a faceless digital shop in nap-time", "impressions": 2600, "saves": 110, "clicks": 60, "dueAt": "2026-06-15T21:00:00-04:00"},
+    {"channel": "threads", "text": "You don't need a following to make your first digital sale", "impressions": 900, "reactions": 22, "comments": 5, "dueAt": "2026-06-21T12:36:00-04:00"}
+  ]
+}

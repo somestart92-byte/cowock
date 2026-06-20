@@ -91,6 +91,26 @@ Two supported paths — see [`PLAYBOOK.md`](PLAYBOOK.md) for step-by-step:
 python tests/test_pipeline.py     # or: pytest tests/
 ```
 
+## The measure → improve loop (analytics)
+
+Close the loop so the agent gets smarter each cycle:
+**research → create → publish → measure → create better.**
+
+```bash
+# 1. Agent pulls live numbers via Buffer MCP (get_aggregated_post_metrics,
+#    list_posts includeMetrics=true) and saves them as JSON.
+# 2. Analyze them into recommendations + next product ideas:
+python -m src.main analytics --metrics analytics/sample-metrics.json
+```
+
+The report's recommendations can be pasted into `config.yaml → market_research.notes`
+(`AnalyticsReport.as_research_notes()`), so the next `run` builds products around
+what actually performed. Runs in DRY-RUN with no API key. See
+`src/agent/analytics.py`.
+
+> Note: replying to followers' comments is **not** supported with the current
+> connected tools (no Buffer Engage / platform comment API).
+
 ## What makes a digital-products business halal
 
 - Sell a **beneficial product directly** (no riba/interest, no gambling).

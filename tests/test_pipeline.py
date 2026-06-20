@@ -7,7 +7,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from src.agent import compliance
+from src.agent import analytics, compliance
 from src.agent.config import load_config
 from src.agent.llm import LLM
 from src.agent.pipeline import run
@@ -39,7 +39,17 @@ def test_compliance_flags_red_flags():
     assert good.ok is True
 
 
+def test_analytics_dry_run():
+    _dry_run_env()
+    llm = LLM(model="claude-opus-4-8")
+    report = analytics.analyze({"posts": []}, {"voice": "warm"}, llm)
+    assert "[DRY-RUN]" in report.summary
+    assert "Performance Analytics" in report.to_markdown()
+    assert isinstance(report.as_research_notes(), str)
+
+
 if __name__ == "__main__":
     test_pipeline_dry_run_creates_artifacts()
     test_compliance_flags_red_flags()
+    test_analytics_dry_run()
     print("OK")

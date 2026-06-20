@@ -14,7 +14,7 @@ from pathlib import Path
 # Allow running both as `python -m src.main` and `python src/main.py`.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from src.agent import market_research, pipeline
+from src.agent import analytics, market_research, pipeline
 from src.agent.config import load_config
 from src.agent.llm import LLM
 
@@ -28,6 +28,10 @@ def main(argv: list[str] | None = None) -> int:
 
     res_p = sub.add_parser("research", help="run market research only")
     res_p.add_argument("--config", default=None, help="path to config.yaml")
+
+    an_p = sub.add_parser("analytics", help="analyze post performance from a metrics JSON")
+    an_p.add_argument("--metrics", required=True, help="path to Buffer metrics JSON")
+    an_p.add_argument("--config", default=None, help="path to config.yaml")
 
     args = parser.parse_args(argv)
 
@@ -44,6 +48,20 @@ def main(argv: list[str] | None = None) -> int:
             temperature=cfg.llm.get("temperature", 0.7),
         )
         report = market_research.research(cfg.niche, cfg.brand, llm, notes=cfg.research_notes)
+        print(report.to_markdown())
+        return 0
+
+    if args.command == "analytics":
+        import json as _json
+        cfg = load_config(args.config)
+        llm = LLM(
+            model=cfg.llm.get("model", "claude-opus-4-8"),
+            max_tokens=cfg.llm.get("max_tokens", 4000),
+            temperature=cfg.llm.get("temperature", 0.7),
+        )
+        with open(args.metrics, encoding="utf-8") as fh:
+            metrics = _json.load(fh)
+        report = analytics.analyze(metrics, cfg.brand, llm)
         print(report.to_markdown())
         return 0
 
