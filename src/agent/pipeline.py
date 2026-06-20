@@ -13,7 +13,7 @@ import json
 import re
 from pathlib import Path
 
-from . import compliance, marketing, product
+from . import compliance, market_research, marketing, product
 from .config import Config
 from .llm import LLM
 
@@ -34,9 +34,24 @@ def run(cfg: Config) -> Path:
     print(f"▶ cowock run — {mode}")
     print(f"  niche: {cfg.niche}")
 
+    # Optional market research first; its top idea guides the product.
+    report = None
+    hint = ""
+    if cfg.market_research_enabled:
+        print("  researching the market…")
+        report = market_research.research(cfg.niche, cfg.brand, llm, notes=cfg.research_notes)
+        idea = report.top_idea()
+        if idea:
+            hint = (
+                f"{idea.get('title','')} — {idea.get('why','')} "
+                f"(target price ${idea.get('price_usd','?')}). "
+                f"Keywords: {', '.join(report.keywords[:8])}"
+            )
+        print(f"  → {len(report.product_ideas)} ideas; top: {idea.get('title','n/a') if idea else 'n/a'}")
+
     product_type = cfg.product_types[0]
     print(f"  building product ({product_type})…")
-    prod = product.build_product(product_type, cfg.niche, cfg.brand, llm)
+    prod = product.build_product(product_type, cfg.niche, cfg.brand, llm, hint=hint)
     print(f"  → {prod.title}  (${prod.price_usd:.0f})")
 
     print("  building marketing kit…")
@@ -64,11 +79,14 @@ def run(cfg: Config) -> Path:
         encoding="utf-8",
     )
     (run_dir / "marketing.md").write_text(_render_marketing(kit), encoding="utf-8")
+    if report is not None:
+        (run_dir / "market_report.md").write_text(report.to_markdown(), encoding="utf-8")
     (run_dir / "meta.json").write_text(
         json.dumps(
             {
                 "product": prod.to_dict(),
                 "compliance": verdict.to_dict(),
+                "market_research": report.to_dict() if report else None,
                 "channels": cfg.channels,
                 "created": stamp,
                 "mode": mode,

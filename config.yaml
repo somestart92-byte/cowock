@@ -47,6 +47,12 @@ halal_rules:
     - "respect for Islamic etiquette (adab) and tone"
     - "halal monetization (direct sale of beneficial product)"
 
+# Market research runs before product creation and guides what to build.
+# Paste live web findings into `notes` to ground the analysis in current data.
+market_research:
+  enabled: true
+  notes: ""
+
 # Nothing is published automatically. Outputs land here for you to review.
 output_dir: "products/output"
 approvals_dir: "approvals"

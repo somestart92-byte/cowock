@@ -27,16 +27,17 @@ class Product:
         }
 
 
-def _idea(niche: str, brand: dict, product_type: str, llm: LLM) -> dict:
+def _idea(niche: str, brand: dict, product_type: str, llm: LLM, hint: str = "") -> dict:
     system = (
         "You are a product strategist for a halal digital-products brand. "
         "Propose ONE specific, sellable product idea. Be concrete and useful."
     )
+    hint_block = f"\nMarket-research hint (favor this):\n{hint}\n" if hint else ""
     prompt = (
         f"Brand voice: {brand.get('voice', 'practical')}\n"
         f"Audience: {brand.get('audience', 'Muslims')}\n"
         f"Niche: {niche}\n"
-        f"Product type: {product_type}\n\n"
+        f"Product type: {product_type}{hint_block}\n\n"
         "Respond ONLY with JSON: "
         '{"title": str, "subtitle": str, "price_usd": number, '
         '"outline": [str, ...]}  (6-10 outline items for an ebook, 5-8 for others)'
@@ -72,8 +73,9 @@ def _write_body(product: Product, niche: str, brand: dict, llm: LLM) -> str:
     return "\n\n".join(sections)
 
 
-def build_product(product_type: str, niche: str, brand: dict, llm: LLM) -> Product:
-    idea = _idea(niche, brand, product_type, llm)
+def build_product(product_type: str, niche: str, brand: dict, llm: LLM,
+                  hint: str = "") -> Product:
+    idea = _idea(niche, brand, product_type, llm, hint)
     product = Product(
         product_type=product_type,
         title=idea.get("title", "Untitled"),

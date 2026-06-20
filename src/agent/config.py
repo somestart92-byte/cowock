@@ -42,6 +42,14 @@ class Config:
         return self.raw.get("halal_rules", {})
 
     @property
+    def market_research_enabled(self) -> bool:
+        return bool(self.raw.get("market_research", {}).get("enabled", True))
+
+    @property
+    def research_notes(self) -> str:
+        return self.raw.get("market_research", {}).get("notes", "")
+
+    @property
     def output_dir(self) -> Path:
         return ROOT / self.raw.get("output_dir", "products/output")
 
