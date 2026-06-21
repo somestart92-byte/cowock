@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "gmail": {
+      "command": "...",
+      "args": ["..."]
+    }
+  }
+}
