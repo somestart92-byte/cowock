@@ -1,0 +1,24 @@
+{
+  "product": {
+    "product_type": "planner",
+    "title": "The No-Guilt Budget Planner for Moms",
+    "subtitle": "A kind, simple way to see your money clearly — without the shame",
+    "price_usd": 17.0,
+    "pdf_pages": 12,
+    "pages": [
+      "Cover", "How to use", "Monthly Budget Overview", "Bill & Due-Date Tracker",
+      "Weekly Spending Log", "Savings Goals", "Guilt-Free Money", "No-Spend Challenge",
+      "Grocery & Meal Budget", "Sinking Funds", "Debt Pay-Off Tracker", "Monthly Review"
+    ]
+  },
+  "compliance": {
+    "ok": true,
+    "score": 98,
+    "issues": [],
+    "notes": "Halal: no riba/interest/credit promotion; debt page is neutral 'pay off what you owe'. Truthful: no income claims. US English, faceless. Includes 'not financial advice' disclaimer."
+  },
+  "source": "analytics/latest-report.md (top topic: budgeting/money-for-moms)",
+  "positioning": "all moms (broad)",
+  "created": "20260621",
+  "mode": "LIVE (authored by Claude Opus directly)"
+}
