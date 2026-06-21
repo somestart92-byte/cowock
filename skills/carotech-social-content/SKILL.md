@@ -69,7 +69,10 @@ Faceless graphics only — animated text/graphics, no on-camera footage. Brand p
 These protect the brand and keep content honest, so follow them every time:
 - **Value first, always.** If a post doesn't teach something usable on its own, rewrite it. The lesson is the product of the post; the link is a footnote.
 - **Never salesy.** No "buy now," no urgency-baiting, no hype, no pushy CTAs. One soft invitation per post, maximum.
-- Never invent income claims, guarantees, or "get rich quick" promises. Aspirational and honest only.
+- **It has to be TRUE.** Every claim must be literally true and defensible — no
+  exaggeration or hype (this is *najsh*, forbidden in Islam). No income/earnings
+  figures, no guarantees, no time-to-result promises ("first sale in a week",
+  "make $X"). Use "can/could", never "will/guaranteed". Aspirational but honest only.
 - Sound like a person who genuinely helped you — never an ad.
 - Include the soft beacons.ai/carotech36 nudge, but never let it dominate the post.
 - Respect the hashtag/character norms per platform above.

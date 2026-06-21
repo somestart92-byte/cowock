@@ -42,8 +42,11 @@ halal_rules:
     - "podcasting/promoting immodesty, nudity, or zina"
     - "deceptive marketing, false scarcity, exaggerated guarantees"
     - "music-heavy or imagery that contradicts Islamic etiquette"
+    - "income/earnings claims, guaranteed results, or time-to-result promises (e.g. 'first sale in a week', 'make $X')"
+    - "any statement that is not literally, verifiably true"
   require:
-    - "honesty and clear value (no overpromising)"
+    - "TRUTHFULNESS: every claim must be literally true and defensible; no hype, no exaggeration (avoiding najsh)"
+    - "honesty and clear value (no overpromising); use 'can/could', never 'will/guaranteed'"
     - "respect for Islamic etiquette (adab) and tone"
     - "halal monetization (direct sale of beneficial product)"
 
