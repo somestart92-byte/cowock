@@ -8,7 +8,16 @@ description: Generates value-first, non-salesy social media content packages for
 Produce genuinely useful, value-first social content for **CaroTech**, a faceless digital-products brand. The goal is to teach and build trust so moms *want* the product — not to pitch at them. The link to **beacons.ai/carotech36** is a soft invitation, never a hard sell.
 
 ## Who we sell to
-Busy moms who want to start an online business, earn passive income, and use AI to build faceless side hustles — without showing their face or quitting their day job. They are time-poor, skeptical of hype, and motivated by freedom: more time with kids, less financial stress. Speak to that.
+**Positioning (now): ALL moms — broad.** Speak to everyday mom life, not just one
+sub-niche. Content can span practical mom help (budgeting & money, kids'
+activities, getting organized, time/sanity) AND the online-business/side-hustle
+angle. The throughline: a smart friend helping busy moms with more time, less
+stress, and a little income of their own. **We will niche down later** once the
+data shows the strongest segment — until then, keep it relatable to moms generally.
+
+Core buyer when we do sell: busy moms who want to start an online business or
+earn a little extra — without showing their face or quitting their day job.
+Time-poor, skeptical of hype, motivated by freedom. Speak to that.
 
 ## Brand voice
 Write like a smart friend who already figured it out — never a guru. Warm, relatable, real. Authenticity over polish. Encouraging and judgment-free; never shame the reader for not having started. Short sentences, plain words, one idea per line. This is a **faceless** brand: never reference filming yourself, your appearance, or being on camera.
