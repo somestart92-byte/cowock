@@ -36,6 +36,9 @@ Runs with **no API key** in DRY-RUN mode (mocked text, real files & flow) so you
 can see the whole pipeline first. Add `ANTHROPIC_API_KEY` to generate real,
 sellable content with `claude-opus-4-8`.
 
+> **Publishing setup:** to enable Buffer posting & analytics, do the one-time
+> permission + channel steps in [`SETUP.md`](SETUP.md).
+
 ### Output
 ```
 products/output/<timestamp>-<title>/

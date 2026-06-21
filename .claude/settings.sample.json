@@ -1,0 +1,14 @@
+{
+  "_README": "Buffer allow-rule for cowock. To ACTIVATE: rename this file to 'settings.json' (in the .claude/ folder), then start a NEW Claude Code session on this branch. Permission rules load at session start, so a fresh session is required. Renaming is done by you (the human) on purpose — an agent is not allowed to grant itself these permissions.",
+  "permissions": {
+    "allow": [
+      "mcp__Buffer__create_post",
+      "mcp__Buffer__get_account",
+      "mcp__Buffer__list_channels",
+      "mcp__Buffer__get_channel",
+      "mcp__Buffer__list_posts",
+      "mcp__Buffer__get_post",
+      "mcp__Buffer__get_aggregated_post_metrics"
+    ]
+  }
+}
