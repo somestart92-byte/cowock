@@ -51,7 +51,14 @@ halal_rules:
 # Paste live web findings into `notes` to ground the analysis in current data.
 market_research:
   enabled: true
-  notes: ""
+  notes: >-
+    Audience is mostly USA (most clicks come from the US). Write for US moms:
+    US spelling (mom, color, vacation, favorite), price in USD ($), and use US
+    seasonal hooks (4th of July, summer break, back-to-school in August,
+    Thanksgiving, Black Friday). Schedule for US-evening peak times (≈8–11pm ET)
+    and weekend mornings. Top-performing angles: budgeting/money-for-moms,
+    contrarian "nobody tells you" hooks, low-barrier "start this week / zero
+    money / nap-time" promises.
 
 # Nothing is published automatically. Outputs land here for you to review.
 output_dir: "products/output"

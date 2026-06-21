@@ -18,6 +18,17 @@ treat as directional, not statistically solid.*
 | 15 | "For the mom who's been 'meaning to get organized'…" | organization |
 | 9 | "I put a budget planner in my shop for less than a takeout…" | product + price anchor |
 
+## Geography (user-reported)
+- **Most clicks come from the USA.** Implications baked into the strategy:
+  - **US English** (mom, color, vacation, favorite), **USD ($)** pricing.
+  - **US seasonal hooks:** 4th of July, summer break, back-to-school (Aug),
+    Thanksgiving, Black Friday.
+  - **Post at US-peak times:** weekdays ~8–11pm ET + weekend mornings. The
+    Pinterest channel is already set to America/New_York ✓.
+- *Caveat:* no per-country geo was available from the Buffer API here; acting on
+  the user-reported split. Precise tuning would need Pinterest's own audience
+  analytics.
+
 ## What's working
 - **Money/budgeting-for-moms** is your strongest topic — 3 of the top 5.
 - **Contrarian & "nobody tells you" hooks** ("unpopular opinion", "nobody tells you")
