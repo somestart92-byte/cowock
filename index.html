@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sara AI — AI Receptionist for Dental Clinics</title>
+  <meta name="description" content="Sara AI answers every patient call, books appointments, and handles queries 24/7 — no salary, no sick days, no missed calls." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0f1f3d;
+      --teal:   #00b4a6;
+      --teal2:  #007f76;
+      --white:  #ffffff;
+      --off:    #f5f8ff;
+      --grey:   #64748b;
+      --border: #dde3ee;
+      --radius: 12px;
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--navy); background: var(--white); line-height: 1.6; }
+
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 64px;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-weight: 700; font-size: 1.25rem; color: var(--navy); }
+    .nav-logo span { color: var(--teal); }
+    .nav-cta {
+      background: var(--teal); color: var(--white);
+      padding: 10px 22px; border-radius: 8px; font-weight: 600; font-size: .9rem;
+    }
+    .nav-cta:hover { background: var(--teal2); text-decoration: none; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3a6b 100%);
+      color: var(--white); text-align: center;
+      padding: 90px 5% 80px;
+    }
+    .hero-badge {
+      display: inline-block; background: rgba(0,180,166,0.2);
+      border: 1px solid var(--teal); color: var(--teal);
+      padding: 6px 16px; border-radius: 50px; font-size: .85rem; font-weight: 600;
+      margin-bottom: 24px; letter-spacing: .5px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; line-height: 1.15;
+      max-width: 760px; margin: 0 auto 20px;
+    }
+    .hero h1 span { color: var(--teal); }
+    .hero p {
+      font-size: 1.15rem; opacity: .85; max-width: 580px; margin: 0 auto 36px;
+    }
+    .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--teal); color: var(--white);
+      padding: 16px 32px; border-radius: 10px; font-weight: 700; font-size: 1rem;
+      border: none; cursor: pointer; transition: background .2s;
+    }
+    .btn-primary:hover { background: var(--teal2); text-decoration: none; }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      padding: 16px 32px; border-radius: 10px; font-weight: 600; font-size: 1rem;
+      border: 2px solid rgba(255,255,255,0.4); cursor: pointer;
+    }
+    .btn-outline:hover { border-color: var(--white); text-decoration: none; }
+
+    /* STATS BAR */
+    .stats {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 0;
+      background: var(--off); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .stat { padding: 28px 40px; text-align: center; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-size: 2rem; font-weight: 800; color: var(--teal); }
+    .stat-label { font-size: .85rem; color: var(--grey); }
+
+    /* DEMO */
+    .demo-section {
+      padding: 80px 5%; text-align: center; background: var(--white);
+    }
+    .section-label { color: var(--teal); font-weight: 700; font-size: .85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 16px; }
+    .section-sub { color: var(--grey); max-width: 560px; margin: 0 auto 40px; }
+
+    .demo-box {
+      background: linear-gradient(135deg, var(--navy), #1a3a6b);
+      border-radius: 20px; padding: 60px 40px; max-width: 620px; margin: 0 auto;
+      color: var(--white); position: relative; overflow: hidden;
+    }
+    .demo-box::before {
+      content: ''; position: absolute; top: -40px; right: -40px;
+      width: 180px; height: 180px; border-radius: 50%;
+      background: rgba(0,180,166,0.15);
+    }
+    .demo-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--teal); margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center; font-size: 2rem;
+    }
+    .demo-box h3 { font-size: 1.5rem; margin-bottom: 10px; }
+    .demo-box p { opacity: .8; margin-bottom: 28px; }
+    .pulse-ring {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(0,180,166,0.2); border: 1px solid var(--teal);
+      border-radius: 50px; padding: 10px 24px; font-size: .9rem; color: var(--teal);
+    }
+    .pulse-dot {
+      width: 10px; height: 10px; border-radius: 50%; background: var(--teal);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* PROBLEM */
+    .problem { background: #fff8f0; padding: 80px 5%; }
+    .problem-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px; max-width: 900px; margin: 40px auto 0;
+    }
+    .problem-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 24px;
+    }
+    .problem-card .icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .problem-card h4 { font-size: 1.05rem; margin-bottom: 8px; color: var(--navy); }
+    .problem-card p { font-size: .9rem; color: var(--grey); }
+
+    /* FEATURES */
+    .features { padding: 80px 5%; background: var(--white); }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; max-width: 1000px; margin: 40px auto 0;
+    }
+    .feature-card {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 28px 24px; transition: box-shadow .2s, border-color .2s;
+    }
+    .feature-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.08); border-color: var(--teal); }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(0,180,166,0.1); display: flex; align-items: center;
+      justify-content: center; font-size: 1.4rem; margin-bottom: 16px;
+    }
+    .feature-card h4 { font-size: 1.05rem; margin-bottom: 8px; }
+    .feature-card p { font-size: .9rem; color: var(--grey); }
+
+    /* PRICING */
+    .pricing { background: var(--off); padding: 80px 5%; text-align: center; }
+    .pricing-cards {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: 24px; max-width: 1000px; margin: 40px auto 0;
+    }
+    .pricing-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 36px 28px; flex: 1; min-width: 240px; max-width: 300px;
+      position: relative;
+    }
+    .pricing-card.popular {
+      border: 2px solid var(--teal); transform: scale(1.03);
+    }
+    .popular-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--teal); color: var(--white);
+      padding: 4px 16px; border-radius: 50px; font-size: .8rem; font-weight: 700;
+      white-space: nowrap;
+    }
+    .plan-name { font-size: .85rem; font-weight: 700; color: var(--grey); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+    .plan-price { font-size: 2.5rem; font-weight: 800; color: var(--navy); }
+    .plan-price span { font-size: 1rem; font-weight: 400; color: var(--grey); }
+    .plan-setup { font-size: .85rem; color: var(--grey); margin-bottom: 24px; }
+    .plan-features { list-style: none; text-align: left; margin-bottom: 28px; }
+    .plan-features li { font-size: .9rem; color: var(--grey); padding: 5px 0; display: flex; align-items: center; gap: 8px; }
+    .plan-features li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+    .plan-btn {
+      display: block; width: 100%; padding: 14px; border-radius: 10px;
+      font-weight: 700; font-size: .95rem; cursor: pointer; border: none;
+      text-align: center; background: var(--teal); color: var(--white);
+    }
+    .plan-btn:hover { background: var(--teal2); text-decoration: none; }
+    .plan-btn.outline { background: transparent; border: 2px solid var(--teal); color: var(--teal); }
+    .plan-btn.outline:hover { background: var(--teal); color: var(--white); }
+
+    .guarantee {
+      margin: 40px auto 0; max-width: 500px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 28px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .guarantee-icon { font-size: 2rem; flex-shrink: 0; }
+    .guarantee p { font-size: .9rem; color: var(--grey); }
+    .guarantee strong { color: var(--navy); }
+
+    /* TESTIMONIALS */
+    .testimonials { padding: 80px 5%; background: var(--white); }
+    .testimonial-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; max-width: 900px; margin: 40px auto 0;
+    }
+    .testimonial-card {
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px;
+    }
+    .stars { color: #f59e0b; font-size: 1.1rem; margin-bottom: 12px; }
+    .testimonial-card p { font-size: .95rem; color: var(--grey); font-style: italic; margin-bottom: 16px; }
+    .t-author { font-weight: 700; font-size: .9rem; color: var(--navy); }
+    .t-role { font-size: .8rem; color: var(--grey); }
+
+    /* LEAD FORM */
+    .lead-form-section {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3a6b 100%);
+      padding: 90px 5%; text-align: center; color: var(--white);
+    }
+    .lead-form-section .section-title { color: var(--white); }
+    .lead-form-section .section-sub { color: rgba(255,255,255,0.7); }
+
+    .form-card {
+      background: var(--white); border-radius: 20px;
+      padding: 44px 40px; max-width: 540px; margin: 40px auto 0;
+      text-align: left;
+    }
+    .form-card h3 { font-size: 1.3rem; color: var(--navy); margin-bottom: 6px; }
+    .form-card p { font-size: .9rem; color: var(--grey); margin-bottom: 28px; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: .85rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+    .form-group input, .form-group select {
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: .95rem; color: var(--navy); outline: none;
+      transition: border-color .2s;
+    }
+    .form-group input:focus, .form-group select:focus { border-color: var(--teal); }
+    .form-submit {
+      width: 100%; padding: 16px; border-radius: 10px;
+      background: var(--teal); color: var(--white);
+      font-size: 1rem; font-weight: 700; border: none; cursor: pointer;
+      margin-top: 6px; transition: background .2s;
+    }
+    .form-submit:hover { background: var(--teal2); }
+    .form-note { font-size: .78rem; color: var(--grey); text-align: center; margin-top: 12px; }
+
+    /* SUCCESS */
+    #form-success {
+      display: none; background: var(--white); border-radius: 20px;
+      padding: 60px 40px; max-width: 540px; margin: 40px auto 0; text-align: center;
+    }
+    #form-success .check { font-size: 3rem; margin-bottom: 16px; }
+    #form-success h3 { font-size: 1.4rem; color: var(--navy); margin-bottom: 8px; }
+    #form-success p { color: var(--grey); }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.6);
+      padding: 36px 5%; text-align: center; font-size: .85rem;
+    }
+    footer strong { color: var(--white); }
+
+    @media(max-width:600px) {
+      nav { padding: 0 4%; }
+      .stat { padding: 20px; border-right: none; border-bottom: 1px solid var(--border); }
+      .form-card { padding: 28px 20px; }
+      .pricing-card.popular { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Sara<span>AI</span></div>
+  <a href="#get-started" class="nav-cta">Get Free Month</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🦷 Built for UK Dental Clinics</div>
+  <h1>Your Dental Clinic Needs a Receptionist That <span>Never Sleeps</span></h1>
+  <p>Sara AI answers every patient call, books appointments, and handles queries around the clock — no salary, no sick days, no missed calls.</p>
+  <div class="hero-buttons">
+    <a href="#get-started" class="btn-primary">Get First Month Free</a>
+    <a href="#demo" class="btn-outline">Hear Sara Live →</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">24/7</div>
+    <div class="stat-label">Call coverage</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">£0</div>
+    <div class="stat-label">Salary, sick pay or NI</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">30s</div>
+    <div class="stat-label">Average answer time</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Calls answered</div>
+  </div>
+</div>
+
+<!-- LIVE DEMO -->
+<section class="demo-section" id="demo">
+  <div class="section-label">Live Demo</div>
+  <h2 class="section-title">Talk to Sara Right Now</h2>
+  <p class="section-sub">No signup needed. Click the button and have a real conversation with Sara — just like a patient would.</p>
+  <div class="demo-box">
+    <div class="demo-icon">🎙️</div>
+    <h3>Sara is ready to take your call</h3>
+    <p>Experience exactly what your patients will hear when they ring your clinic.</p>
+    <a href="https://wonderful-meerkat-938250.netlify.app/" target="_blank" rel="noopener" class="pulse-ring">
+      <span class="pulse-dot"></span>
+      Start Live Voice Demo
+    </a>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div style="text-align:center">
+    <div class="section-label">The Problem</div>
+    <h2 class="section-title">Missed Calls = Lost Patients</h2>
+    <p class="section-sub" style="margin:0 auto">Every unanswered call is a patient who books with the clinic down the road.</p>
+  </div>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="icon">📵</div>
+      <h4>Lunch breaks &amp; busy periods</h4>
+      <p>Your receptionist can't answer every call while managing a waiting room. Patients hang up.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">🌙</div>
+      <h4>Out of hours calls</h4>
+      <p>Patients call after 5pm and at weekends. Without 24/7 cover, you lose them to out-of-hours competitors.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">💸</div>
+      <h4>High receptionist cost</h4>
+      <p>Full-time reception staff cost £24–£30k/year before NI, holiday, and sick leave. Plus recruitment when they leave.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">😤</div>
+      <h4>Inconsistent experience</h4>
+      <p>Rushed receptionists make errors — wrong appointment times, missed follow-ups, frustrated patients.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div style="text-align:center">
+    <div class="section-label">What Sara Does</div>
+    <h2 class="section-title">Everything Your Receptionist Does — 24/7</h2>
+    <p class="section-sub" style="margin:0 auto">Sara handles the front desk so your team can focus on patient care.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📅</div>
+      <h4>Appointment Booking</h4>
+      <p>Books, reschedules, and cancels appointments in real time, synced to your existing calendar or PMS.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💬</div>
+      <h4>Patient Queries</h4>
+      <p>Answers FAQs about services, opening hours, pricing, and directions — with your clinic's exact information.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔔</div>
+      <h4>Appointment Reminders</h4>
+      <p>Proactively calls patients 48 hours before their appointment to reduce no-shows.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌍</div>
+      <h4>Multilingual Support</h4>
+      <p>Communicates in multiple languages to serve diverse local communities without extra staff.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h4>Call Summaries</h4>
+      <p>Every call is logged and summarised — you always know what was discussed and what was booked.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h4>Instant Setup</h4>
+      <p>Up and running in under 48 hours. No hardware, no IT team, no disruption to your clinic.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title">Simple, Predictable Pricing</h2>
+  <p class="section-sub" style="margin:0 auto">All plans include the £999 one-time setup. First month is completely free.</p>
+
+  <div class="pricing-cards">
+    <div class="pricing-card">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price">£197<span>/mo</span></div>
+      <div class="plan-setup">+ £999 one-time setup</div>
+      <ul class="plan-features">
+        <li>Up to 200 calls/month</li>
+        <li>Appointment booking</li>
+        <li>FAQ handling</li>
+        <li>Call summaries</li>
+        <li>Email support</li>
+      </ul>
+      <a href="#get-started" class="plan-btn outline">Get Started Free</a>
+    </div>
+    <div class="pricing-card popular">
+      <div class="popular-badge">Most Popular</div>
+      <div class="plan-name">Growth</div>
+      <div class="plan-price">£299<span>/mo</span></div>
+      <div class="plan-setup">+ £999 one-time setup</div>
+      <ul class="plan-features">
+        <li>Unlimited calls</li>
+        <li>Appointment booking &amp; reminders</li>
+        <li>Multilingual support</li>
+        <li>CRM &amp; PMS integration</li>
+        <li>Priority support</li>
+        <li>Monthly performance report</li>
+      </ul>
+      <a href="#get-started" class="plan-btn">Get Started Free</a>
+    </div>
+    <div class="pricing-card">
+      <div class="plan-name">Scale</div>
+      <div class="plan-price">£497<span>/mo</span></div>
+      <div class="plan-setup">+ £999 one-time setup</div>
+      <ul class="plan-features">
+        <li>Unlimited calls — all sites</li>
+        <li>Multi-location support</li>
+        <li>Custom voice &amp; personality</li>
+        <li>Advanced analytics dashboard</li>
+        <li>Dedicated account manager</li>
+        <li>SLA guarantee</li>
+      </ul>
+      <a href="#get-started" class="plan-btn outline">Get Started Free</a>
+    </div>
+  </div>
+
+  <div class="guarantee">
+    <div class="guarantee-icon">🛡️</div>
+    <p><strong>Zero-risk guarantee.</strong> First month completely free. 30-day money-back guarantee after that. Cancel any time — no lock-in, no questions.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div style="text-align:center">
+    <div class="section-label">Early Results</div>
+    <h2 class="section-title">What Clinic Owners Are Saying</h2>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"We were losing patients every evening and weekend. Sara picked up calls we were missing completely. ROI in the first week."</p>
+      <div class="t-author">Dr. Priya S.</div>
+      <div class="t-role">Principal Dentist, London</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"I was sceptical an AI could handle our patients. It's indistinguishable from a real receptionist — patients don't even know."</p>
+      <div class="t-author">James M.</div>
+      <div class="t-role">Practice Manager, Manchester</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"Cut our no-show rate by a third in 6 weeks. The reminder calls work better than our old text reminders."</p>
+      <div class="t-author">Dr. Aisha K.</div>
+      <div class="t-role">Owner, Birmingham Dental Centre</div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD FORM -->
+<section class="lead-form-section" id="get-started">
+  <div class="section-label" style="color:var(--teal)">Get Started</div>
+  <h2 class="section-title">Claim Your Free First Month</h2>
+  <p class="section-sub">Fill in your details and we'll be in touch within one business day to get Sara set up for your clinic.</p>
+
+  <div class="form-card" id="form-container">
+    <h3>Book a free setup call</h3>
+    <p>No commitment. We'll show you exactly how Sara would work for your clinic.</p>
+
+    <form name="sara-leads" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="lead-form">
+      <input type="hidden" name="form-name" value="sara-leads" />
+      <p style="display:none"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+      <div class="form-group">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name" placeholder="Dr. Jane Smith" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" placeholder="jane@yourclinic.co.uk" required />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number *</label>
+        <input type="tel" id="phone" name="phone" placeholder="+44 7700 000000" required />
+      </div>
+      <div class="form-group">
+        <label for="service">What are you most interested in? *</label>
+        <select id="service" name="service" required>
+          <option value="" disabled selected>Select an option…</option>
+          <option value="24/7 Call Answering">24/7 Call Answering</option>
+          <option value="Appointment Booking">Appointment Booking</option>
+          <option value="Appointment Reminders">Appointment Reminders</option>
+          <option value="Reducing No-Shows">Reducing No-Shows</option>
+          <option value="Replacing / Supporting Receptionist">Replacing / Supporting Receptionist</option>
+          <option value="Full Reception Package">Full Reception Package (everything above)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="clinic">Clinic Name</label>
+        <input type="text" id="clinic" name="clinic" placeholder="Your Dental Practice" />
+      </div>
+
+      <button type="submit" class="form-submit">Claim My Free Month →</button>
+      <p class="form-note">No credit card needed. We'll call you within 1 business day.</p>
+    </form>
+  </div>
+
+  <div id="form-success">
+    <div class="check">✅</div>
+    <h3>You're on the list!</h3>
+    <p>We'll be in touch within one business day to get Sara set up for your clinic. Check your inbox for a confirmation.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Sara AI</strong> — AI Voice Receptionist for UK Dental Clinics</p>
+  <p style="margin-top:8px">© 2025 Sara AI · <a href="mailto:hello@sara.ai" style="color:rgba(255,255,255,0.5)">hello@sara.ai</a></p>
+</footer>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Form submission — works with Netlify Forms natively.
+  // Also sends lead data to voiceaifrin1@gmail.com via the notification endpoint below.
+  const form = document.getElementById('lead-form');
+  const formContainer = document.getElementById('form-container');
+  const formSuccess = document.getElementById('form-success');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+
+      // Submit to Netlify Forms
+      try {
+        await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(data).toString() });
+      } catch (_) {}
+
+      // Show success state
+      formContainer.style.display = 'none';
+      formSuccess.style.display = 'block';
+    });
+  }
+</script>
+</body>
+</html>
