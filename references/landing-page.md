@@ -27,10 +27,10 @@ When using the link CTA in cold emails, link to the live demo URL.
 
 | Stat | Value |
 |------|-------|
-| Call coverage | 24/7 |
+| Always available | 24/7 — no breaks |
 | Salary / NI / sick pay | £0 |
-| Average answer time | 30 seconds |
-| Calls answered | 100% |
+| One-time setup | £999 (then from £197/mo) |
+| First month | Free — no credit card |
 
 ---
 
