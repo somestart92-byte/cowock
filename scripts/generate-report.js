@@ -13,7 +13,7 @@ function loadPipeline() {
   if (!existsSync(PIPELINE_FILE)) return [];
   const raw = readFileSync(PIPELINE_FILE, 'utf8').trim();
   if (!raw) return [];
-  try { return parse(raw, { columns: true, skip_empty_lines: true }); }
+  try { return parse(raw, { columns: true, skip_empty_lines: true, relax_column_count: true }); }
   catch (_) { return []; }
 }
 

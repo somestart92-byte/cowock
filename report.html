@@ -73,7 +73,7 @@
 <header>
   <div>
     <h1>Sara<span>AI</span> — Outreach Report</h1>
-    <div class="generated">Generated 22/06/2026, 11:15:21 · pipeline.csv</div>
+    <div class="generated">Generated 22/06/2026, 13:17:47 · pipeline.csv</div>
   </div>
 </header>
 
@@ -82,7 +82,7 @@
   <!-- KPIs -->
   <div class="kpi-grid">
     <div class="kpi">
-      <div class="kpi-num">0</div>
+      <div class="kpi-num">3</div>
       <div class="kpi-label">Total prospects</div>
     </div>
     <div class="kpi">
@@ -123,10 +123,45 @@
   <div class="table-card">
     <h3>Recent prospects (last 10)</h3>
     
-      <div class="empty-state">
-        <strong>No data yet</strong>
-        <p>The pipeline will populate after the first outreach run.</p>
-      </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Clinic</th>
+          <th>Location</th>
+          <th>Email</th>
+          <th>Sent</th>
+          <th>Follow-up</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td><strong>Queensway Dental Clinic</strong></td>
+          <td>Billingham</td>
+          <td><a href="mailto:reception@queensway.co.uk">reception@queensway.co.uk</a></td>
+          <td>2026-06-22</td>
+          <td>—</td>
+          <td><span class="badge badge-sent">draft-ready</span></td>
+        </tr>
+        <tr>
+          <td><strong>Blue Sky Dental &amp; Implant Clinic</strong></td>
+          <td>Belfast</td>
+          <td><a href="mailto:info@blueskydentist.com">info@blueskydentist.com</a></td>
+          <td>2026-06-22</td>
+          <td>—</td>
+          <td><span class="badge badge-sent">draft-ready</span></td>
+        </tr>
+        <tr>
+          <td><strong>Sensu Dental</strong></td>
+          <td>London</td>
+          <td><a href="mailto:smiles@sensu.co.uk">smiles@sensu.co.uk</a></td>
+          <td>2026-06-22</td>
+          <td>—</td>
+          <td><span class="badge badge-sent">draft-ready</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
 </main>
@@ -154,10 +189,10 @@ new Chart(document.getElementById('outcomeChart'), {
 new Chart(document.getElementById('activityChart'), {
   type: 'bar',
   data: {
-    labels: [],
+    labels: ["2026-06-22"],
     datasets: [{
       label: 'Emails sent',
-      data: [],
+      data: [3],
       backgroundColor: 'rgba(0,180,166,0.7)',
       borderRadius: 6,
     }],
