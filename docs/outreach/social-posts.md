@@ -1,29 +1,28 @@
 # Social Posts — Ready to Schedule
 
-14 posts to build authority and attract inbound. Mix of: tips, hot takes, before/after, and soft pitches. Post 3×/week on LinkedIn (and cross-post the short ones to X).
+14 posts to build authority and attract inbound for a halal-aligned copy studio. Mix of tips, honest hot takes, before/after, and soft pitches. Post 3×/week on LinkedIn (cross-post short ones to X).
 
 > I can schedule these for you via Buffer — just say the word and tell me which channels.
 
 ---
 
 **1. (Hot take)**
-"World-class, innovative, all-in-one platform."
-That's not a value proposition. That's three words a buyer has read 10,000 times and now ignores.
-Your homepage has ~5 seconds. Spend them on the outcome, not the adjectives.
+"Only 2 spots left!" — when there aren't.
+Fake scarcity is the oldest trick in marketing, and it quietly tells your audience you'll lie to them about small things. What do they assume about the big ones?
+Honest copy converts slower for a week and better for years.
 
 ---
 
 **2. (Tip)**
-The highest-ROI copy in SaaS isn't your homepage.
-It's the trial onboarding emails almost nobody bothers to write well.
-Fix the email that gets users to their first "aha," and trial-to-paid takes care of itself.
+In finance, your copy isn't selling a product. It's selling *trust*.
+For halal finance especially: don't just say "Sharia-compliant." Show the screening. Name the board. Link the proof. Specifics build belief; slogans don't.
 
 ---
 
 **3. (Before/after)**
-Before: "An AI-powered solution to streamline your workflow."
-After: "Your team ships 2 days faster — starting this week."
-Same product. One of them gets the click.
+Before: "The world's most innovative all-in-one halal platform."
+After: "Halal choices you don't have to second-guess."
+Same product. One of them actually means something.
 
 ---
 
@@ -31,86 +30,86 @@ Same product. One of them gets the click.
 A landing page that converts answers 4 questions, in order:
 1. What is this?
 2. What do I get?
-3. Why should I believe you?
+3. Why should I trust you?
 4. What do I do next?
-Most pages answer #1 four times and skip the rest.
+Faith-based and finance brands live or die on #3. Most pages skip it.
 
 ---
 
-**5. (Story/soft pitch)**
-I sign up for a SaaS trial every week just to read the onboarding emails.
-90% drop off after email one. No nudge to the activation moment. No human voice.
-That gap is the easiest revenue most SaaS teams are leaving on the table. It's most of what I do.
+**5. (Values / soft pitch)**
+I don't write copy for alcohol, gambling, interest-based finance, or adult brands. And I won't use fake urgency or deceptive claims for anyone.
+That's not a limitation. It's the reason founders building honest products come to me.
 
 ---
 
 **6. (Tip)**
 Stop writing copy from your own head.
-Open your review pages and support tickets. Your customers already wrote the copy for you — in their words, with their objections. Your job is to arrange it.
+Open your reviews and support tickets. Your customers already wrote it — their words, their hesitations, their "is this really halal?" questions. Your job is to answer them clearly.
 
 ---
 
 **7. (Hot take)**
-"We'll fix the copy later" is how you spend $50k on ads driving traffic to a page that doesn't convert.
-Copy isn't the polish. It's the conversion mechanism.
+Dark patterns work — until they don't.
+Confirm-shaming, buried unsubscribes, forced continuity: they squeeze a short-term number while teaching your audience to distrust you. Trust is the asset. Don't sell it for a conversion bump.
 
 ---
 
 **8. (Tip)**
 A good CTA removes a fear, not just describes an action.
-"Start free trial" → fine.
-"Start free — no card, cancel anytime" → better.
-The friction is rarely the click. It's what the reader imagines happens after.
+"Open account" → fine.
+"Open account — no minimum, halal-screened, close anytime" → better.
+Name what the reader is quietly worried about, then dissolve it.
 
 ---
 
 **9. (Listicle)**
-Words I delete from every SaaS homepage I touch:
+Words I delete from every homepage I touch:
 - Leverage
 - Seamless
-- Robust
-- Cutting-edge
-- Synergy
-None of them survive contact with a skeptical buyer.
+- Revolutionary
+- World-class
+- "Innovative all-in-one solution"
+None survive contact with a skeptical buyer.
 
 ---
 
 **10. (Contrarian)**
 You don't have a traffic problem.
-You have a "the page doesn't tell me why I'd switch" problem.
+You have a "the page doesn't tell me why I'd trust you" problem.
 More ad spend on a page that doesn't convert just loses money faster.
 
 ---
 
-**11. (Tip)**
-The best re-engagement email I write asks: "Should I close your account?"
-It gives the reader an easy out — which is exactly why so many of them reply "no, wait."
+**11. (Belief)**
+Honesty and conversion aren't a trade-off.
+The most persuasive thing you can do is *clearly* show a real benefit to the right person. Clarity is the technique. Deception is just the lazy shortcut that costs you later.
 
 ---
 
 **12. (Behind the scenes)**
 My copy process, in order:
 1. Mine reviews + interview customers
-2. Agree on the ONE metric we're moving
-3. Outline the argument
+2. Agree the ONE metric we're moving
+3. Outline the honest argument
 4. Then — and only then — write
 Writing is the last 20%. The research is the job.
 
 ---
 
 **13. (Soft pitch)**
-I write conversion copy for B2B SaaS — trial emails and landing pages, written to a metric instead of a word count.
-If your trials sign up and then ghost you, that's the exact problem I fix. DM open.
+I write honest conversion copy for the halal economy — Islamic finance, halal brands, and good products generally.
+If your signups go quiet or your page doesn't build trust, that's exactly what I fix. DMs open.
 
 ---
 
 **14. (Value/proof)**
-One extra trial-to-paid conversion a month often covers an entire copywriting retainer.
-That's the math I put in front of every client. When copy is tied to revenue, it stops being a "nice to have."
+One extra converted customer a month often covers an entire copywriting retainer.
+When copy is tied to real results — honestly — it stops being a "nice to have" and becomes the cheapest growth you've got.
 
 ---
 
 ## Scheduling notes
 - Lead with value; pitch (posts 5, 13, 14) no more than 1 in 4.
-- Engage in comments within the first hour — it's most of the algorithm.
-- Repurpose your portfolio before/afters (`portfolio-samples.md`) into carousels.
+- Match tone to platform; keep the values visible through *how* you write, not slogans.
+- Engage in comments in the first hour — most of the reach is there.
+- Repurpose the before/afters (`portfolio-samples.md`) into carousels.

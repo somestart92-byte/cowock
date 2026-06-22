@@ -1,39 +1,38 @@
 # Outreach Templates
 
-> Rule #1: **personalize the first line** so it's obvious it isn't a blast. Rule #2: one clear, low-friction ask. Rule #3: keep it under 120 words.
+> Rule #1: **personalize the first line** so it's clearly not a blast. Rule #2: one clear, low-friction ask. Rule #3: under 120 words. Rule #4: practice what you preach — no fake urgency in your own outreach.
 
 Replace `[Name]`, `[Company]`, `[specific observation]`, and `[your link]` every time.
 
 ---
 
-## Cold Email 1 — The "I noticed" (best opener)
+## Cold Email 1 — Islamic finance / halal fintech (best opener)
 
-**Subject:** quick idea for [Company]'s trial emails
+**Subject:** a trust gap on [Company]'s signup flow
 
-> Hi [Name],
+> Assalamu alaikum [Name], *(or "Hi [Name]," for non-Muslim recipients)*
 >
-> I signed up for [Company]'s trial yesterday to see the onboarding flow. The product's great — but the welcome sequence drops off after email one, and the [specific observation, e.g. "activation email never mentions the aha moment"].
+> I signed up for [Company] to see the onboarding. The product's strong — but the welcome emails don't yet do the one thing finance copy has to do: build trust. There's no clear "here's why your money is safe and Sharia-compliant" moment, and the flow drops off after email one.
 >
-> I write conversion copy for B2B SaaS — mostly trial-to-paid email and landing pages — and trial onboarding is the highest-ROI place to start.
+> I'm a conversion copywriter focused on the halal economy — I write honest copy (no fake urgency, no inflated claims) that converts *because* it earns trust.
 >
-> Want me to send over a free rewrite of your first onboarding email so you can see the approach? No strings.
+> Want a free rewrite of your first onboarding email so you can see the approach? No strings.
 >
-> — [Your name]
-> [your link]
+> — [Your name], [your link]
 
 ---
 
-## Cold Email 2 — The landing page angle
+## Cold Email 2 — Landing page angle (halal brand)
 
-**Subject:** [Company] homepage — one conversion thought
+**Subject:** [Company] homepage — one honest-conversion idea
 
 > Hi [Name],
 >
-> Read [Company]'s homepage this morning. It explains *what* the product does really well, but it doesn't lead with the outcome a buyer gets — which is usually what costs you the click on "Start free trial."
+> Read [Company]'s homepage this morning. It explains *what* you sell well, but it leads with features instead of the outcome your customer actually wants — which usually costs you the click.
 >
-> I'm a SaaS conversion copywriter. I rewrite homepages and landing pages around the customer's own words (pulled from reviews + interviews), written to a metric we agree on up front.
+> I write conversion copy for halal brands, the honest way: real benefits, real proof, no dark patterns. I rewrite pages around your customers' own words (pulled from reviews + interviews), written to a metric we agree on up front.
 >
-> Open to a 15-minute call this week? If it's not a fit, you'll still walk away with one concrete idea for the page.
+> Open to 15 minutes this week? If it's not a fit, you'll still walk away with one concrete idea for the page.
 >
 > — [Your name]
 
@@ -45,9 +44,9 @@ Replace `[Name]`, `[Company]`, `[specific observation]`, and `[your link]` every
 
 > Hi [Name],
 >
-> Rather than ask you to commit to a big project sight unseen, I offer a Conversion Pilot: I'll write one fully-researched landing-page section or a 3-email mini-sequence in 5 business days for $750 — and it credits toward a bigger project if you want to continue.
+> Rather than ask you to commit sight unseen, I offer a Conversion Pilot: one fully-researched landing-page section or a 3-email mini-sequence in 5 business days for $750 — and it credits toward a bigger project if you continue.
 >
-> It's the lowest-risk way to see whether my copy moves your numbers. Want me to send the details?
+> It's the lowest-risk way to see whether honest copy moves your numbers. Want the details?
 >
 > — [Your name]
 
@@ -59,24 +58,25 @@ Replace `[Name]`, `[Company]`, `[specific observation]`, and `[your link]` every
 
 ## Follow-up 2 (5 days after that, same thread)
 
-> Hey [Name] — last nudge from me. If trial onboarding isn't a priority this quarter, totally understand — I'll close the loop. If it is, I'm one reply away.
+> Hey [Name] — last note from me. If this isn't a priority this quarter, no problem at all — I'll close the loop. If it is, I'm one reply away.
 
 ---
 
 ## LinkedIn connection note (under 300 chars)
 
-> Hi [Name] — I write conversion copy for B2B SaaS (trial emails + landing pages). Not pitching, just connecting with growth folks at companies like [Company]. Your post on [topic] was spot on.
+> Hi [Name] — I write honest conversion copy for the halal economy (Islamic finance & halal brands). Not pitching, just connecting with founders building good products. Your post on [topic] was excellent.
 
 ## LinkedIn DM (after they accept)
 
-> Thanks for connecting, [Name]. Quick one: I took [Company]'s trial and spotted a gap in the onboarding emails. Want me to send a free rewrite of email #1? Worst case you get a free idea.
+> Thanks for connecting, [Name]. Quick one: I went through [Company]'s onboarding and spotted a trust gap in the emails. Want a free rewrite of email #1? Worst case, you get a free idea.
 
 ---
 
 ## Outreach hygiene
 
 - **10 emails/day, deeply personalized** beats 100 generic ones.
-- Track in a simple sheet: Company, Name, Date sent, Channel, Status, Next action.
-- Always offer a **free, specific deliverable** (a rewrite, an idea) — it's the unlock.
-- Expect ~1–3 replies per 10 well-researched emails. Volume + consistency wins.
-- Never attach a deck on the first email. Earn the call first.
+- Match the greeting to the recipient ("Assalamu alaikum" only when appropriate).
+- Always offer a **free, specific deliverable** — it's the unlock.
+- Track in a sheet: Company, Name, Date, Channel, Status, Next action.
+- Expect ~1–3 replies per 10 well-researched emails. Consistency wins.
+- **No fake urgency in your own outreach** — your method *is* the brand.

@@ -1,47 +1,46 @@
-# Business Plan — Northbound Copy
+# Business Plan — Bayan Copy
 
 ## 1. Summary
 
-A one-person (to start) conversion copywriting studio serving B2B SaaS companies. Revenue comes from project work (landing pages, email sequences) that converts into monthly retainers. The model is built for recurring revenue and high margins — the only real input cost is time.
+A halal-aligned conversion copywriting studio. We write emails, landing pages, and onboarding copy for businesses in the halal economy — and for any honest product that doesn't fall under our [excluded industries](halal-work-policy.md). Revenue comes from project work that converts into monthly retainers. High margin, recurring, and built on trust.
 
-**12-month goal:** 3–4 retainer clients at an average of $2,500/mo = **~$8–10k MRR**, plus occasional project work.
+**12-month goal:** 3–4 retainer clients at ~$2,500/mo = **~$8–10k MRR**, plus project work.
 
 ---
 
 ## 2. The market
 
-- The global B2B SaaS market keeps expanding, and nearly every company runs trials, email, and paid landing pages — all copy-dependent surfaces.
-- In-house copy talent is scarce and expensive; most sub-$30M-ARR companies outsource.
-- Generalist freelancers are a crowded commodity. **Specialization is the moat** — a SaaS-only positioning lets you charge 2–3× the generalist rate.
+The global **halal economy** spans finance, food, fashion, travel, and media, and serves a large, fast-growing, under-served Muslim consumer base — plus a wider audience that increasingly values ethical brands.
+
+- **Islamic finance & halal fintech** is the flagship: trust-heavy, copy-heavy, and well-funded. Sharia-compliant banking, halal investing apps, takaful, and zakat platforms all live and die on whether the audience *believes* them — which is a copywriting problem.
+- **Halal consumer brands** (food, modest fashion, lifestyle apps) need email and product copy and rarely have an in-house writer.
+- **Honesty as positioning** differentiates you from the crowded "growth hacker" market — and it's something Muslim founders specifically seek out.
 
 **Where the clients are:**
-- LinkedIn (Heads of Growth/Marketing post constantly)
-- Indie/bootstrapped SaaS communities (e.g. founder communities, Slack/Discord groups)
-- Job boards posting "contract copywriter" / "growth marketer" roles → pitch as a contractor
-- Referrals from your first 2–3 happy clients (the real engine after month 3)
+- LinkedIn (halal fintech & Islamic finance founders are active there)
+- Muslim founder & halal-business communities (Slack/Discord/WhatsApp groups, events)
+- Islamic finance / halal-economy newsletters, podcasts, and conferences
+- Referrals from your first happy clients — the real engine after month 3
 
 ---
 
 ## 3. Services
 
-| Service | What it is | Typical buyer trigger |
-|---------|-----------|----------------------|
-| **Landing page copy** | Homepage, feature, or paid-campaign page rewrite | "Our page doesn't convert" |
-| **Email sequences** | Trial onboarding, lifecycle, re-engagement, sales nurture | "Trials sign up then disappear" |
-| **Onboarding/activation copy** | In-app empty states, tooltips, activation emails | "Users don't reach the aha moment" |
+| Service | What it is | Buyer trigger |
+|---------|-----------|--------------|
+| **Email sequences** | Onboarding, lifecycle, re-engagement, sales nurture | "Signups don't convert / users go quiet" |
+| **Landing page copy** | Homepage, feature, or campaign page | "Our page doesn't explain why to trust us" |
+| **Onboarding/activation** | In-app copy, activation emails | "Users don't reach the value" |
 | **Messaging & positioning** | Core message, value props, page architecture | "We can't explain what we do" |
-| **Monthly retainer** | Ongoing copy across all of the above | "We need a writer on tap" |
+| **Monthly retainer** | Ongoing copy across all surfaces | "We need an honest writer on tap" |
 
-Start by **leading with email sequences + landing pages** — fastest to show measurable wins, easiest to turn into retainers.
+Lead with **email sequences + landing pages** — fastest measurable wins, easiest to turn into retainers.
 
 ---
 
 ## 4. Pricing model
 
-See [`pricing.md`](pricing.md) for full numbers. Principles:
-- **Never charge hourly.** Price per project or per month, tied to value.
-- **Anchor high, offer a tier below.** Most buyers pick the middle option.
-- **Push toward retainers** — they're the whole point of the business.
+See [`pricing.md`](pricing.md). Principles: price per project or per month (never hourly), anchor high with a middle option most buyers pick, and push toward retainers.
 
 ---
 
@@ -50,20 +49,22 @@ See [`pricing.md`](pricing.md) for full numbers. Principles:
 ### Days 1–14 — Foundation
 - [ ] Lock business name, buy domain, set up business email.
 - [ ] Deploy the landing page (`site/`).
-- [ ] Write 2–3 spec/portfolio samples (see `outreach/portfolio-samples.md`).
-- [ ] Set up a simple booking link (Cal.com / Calendly) and a payment method (Stripe/PayPal invoices or Wise).
-- [ ] Optimize your LinkedIn profile to match the positioning.
+- [ ] Publish the [halal work policy](halal-work-policy.md) on the site — it's a trust signal *and* a filter.
+- [ ] Write 2–3 spec/portfolio samples (see `outreach/portfolio-samples.md`) for halal-economy products.
+- [ ] Set up a booking link (Cal.com/Calendly) + payments (Stripe/Wise — choose Sharia-conscious options where possible).
+- [ ] Optimize LinkedIn to match the positioning.
 
 ### Days 15–45 — Outbound + visibility
-- [ ] Build a list of 100 target SaaS companies (use the ICP in `brand-foundation.md`).
+- [ ] Build a list of 100 target companies (Islamic finance/halal fintech first, then halal commerce).
 - [ ] Send 10 personalized cold emails/day (`outreach/cold-email-templates.md`).
 - [ ] Post 3×/week on LinkedIn/X (`outreach/social-posts.md`).
-- [ ] Goal: book 5–8 discovery calls.
+- [ ] Join 2–3 Muslim founder / halal business communities and add value (don't spam).
+- [ ] Goal: 5–8 discovery calls.
 
 ### Days 46–90 — Close + deliver + systematize
 - [ ] Close first 2 clients. Over-deliver. Ask for a metric-based testimonial.
 - [ ] Convert at least 1 project into a retainer.
-- [ ] Turn the first win into a case study for the site.
+- [ ] Turn the first win into a case study.
 - [ ] Ask every happy client for 1 referral.
 
 ---
@@ -78,26 +79,27 @@ See [`pricing.md`](pricing.md) for full numbers. Principles:
 | 6 | 2–3 retainers | $5–6k MRR |
 | 12 | 3–4 retainers + projects | $8–10k MRR |
 
-**Unit economics:** A $2,500/mo retainer at ~15–20 focused hours/week is an effective rate well above $100/hr. Three retainers ≈ a full-time income with room to raise rates as the portfolio grows.
+**Unit economics:** A $2,500/mo retainer at ~15–20 focused hours/week is an effective rate well above $100/hr. Three retainers ≈ a full-time income, with room to raise rates as the portfolio and case studies grow.
 
 ---
 
-## 7. Risks & how to handle them
+## 7. Risks & mitigations
 
 | Risk | Mitigation |
 |------|-----------|
+| Smaller pool by excluding haram work | The halal economy is large and under-served; honesty positioning attracts, not limits |
 | Feast/famine project cycles | Push every project toward a retainer; keep outreach constant |
-| Hard to prove results early | Use spec samples + offer a small paid pilot to de-risk for the client |
-| Price resistance | Niche positioning + case studies justify premium pricing |
-| Time = the only resource | Productize (fixed-scope packages), raise rates, eventually subcontract |
+| Hard to prove results early | Spec samples + a small paid pilot to de-risk for the client |
+| "Honest copy converts worse" objection | It converts *better over time* via trust; show it with real before/afters |
+| Verifying a client is truly halal | When unsure, ask a knowledgeable source; "not a fit for us" is always available |
 
 ---
 
 ## 8. Tools (cheap/free to start)
 
 - **Site:** GitHub Pages (free) — already in `site/`
-- **Scheduling:** Cal.com (free) or Calendly
-- **Invoicing/payments:** Stripe, Wise, or PayPal
-- **Email outreach:** your inbox (manual, personalized > automated blasts to start)
+- **Scheduling:** Cal.com (free) / Calendly
+- **Payments:** Stripe / Wise (prefer fee-based, interest-free arrangements)
+- **Outreach:** your inbox — personalized beats automated blasts
 - **Social scheduling:** Buffer
-- **Research:** customer review sites, the client's own support tickets / sales calls
+- **Research:** customer reviews, support tickets, community questions

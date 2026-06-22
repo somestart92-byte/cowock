@@ -1,80 +1,80 @@
 # Portfolio Samples (Spec Work)
 
-You don't need real clients to have a portfolio. Write **spec samples** — copy for real or fictional SaaS products that shows your thinking. These go on the site and get attached to pitches.
+You don't need real clients to have a portfolio. Write **spec samples** for real or fictional halal-economy products that show your thinking. These go on the site and get attached to pitches.
 
-For each sample, always show **the strategy, not just the words.** Buyers are paying for judgment.
+For each sample, show **the strategy, not just the words** — and demonstrate honest persuasion (real benefits, real proof, no fake urgency).
 
 ---
 
-## Sample 1 — Trial onboarding email (SaaS, fictional product "Tasklane")
+## Sample 1 — Onboarding email (halal investing app, fictional "Barakah Invest")
 
 **Context note (include this above the copy):**
-> *Goal: get new trial users to create their first project within 24 hours — the activation moment that predicts paid conversion. Research: mined 40 reviews of similar tools; the #1 frustration was "I signed up and didn't know where to start."*
+> *Goal: get new users to fund their first halal investment within 7 days — the action that predicts retention. In finance, the blocker isn't laziness, it's trust. Research: read 40 reviews of Sharia-compliant investing apps; the #1 hesitation was "is this actually halal, or just labelled halal?"*
 
-**Subject:** Your first project takes 90 seconds (here's how)
+**Subject:** Where your money goes (and the screening behind it)
 
-> Hi [First name],
+> Assalamu alaikum [First name],
 >
-> Most people who try Tasklane stall on the same thing: a blank dashboard.
+> Before you invest a single dollar, you probably want to know one thing: *is this genuinely halal?*
 >
-> So let's skip that. Create your first project right now — it takes about 90 seconds, and it's the moment Tasklane actually starts saving you time:
+> Fair question. Here's the honest answer — every company in your Barakah portfolio is screened against Sharia standards by [scholar/board], and we exclude alcohol, gambling, conventional finance, and the rest. You can see the full screening for any holding in the app.
 >
-> **→ Create your first project**
+> When you're ready, funding your first investment takes about two minutes:
 >
-> Don't overthink it. Use this week's real work. You can change everything later.
+> **→ Make your first halal investment**
 >
-> Reply to this email if you get stuck — a real person (me) reads these.
+> Not ready? Reply with any question — a real person answers these.
 >
-> — Sam, Tasklane
+> — The Barakah team
 
-**Why it works (note for the buyer):** Names the exact drop-off point, gives one action (not five), removes the fear of "doing it wrong," and opens a reply loop.
+**Why it works:** Names the real blocker (trust, not effort), answers it with specifics instead of a slogan, and only *then* asks for the action. No hype, no pressure.
 
 ---
 
-## Sample 2 — Landing page hero rewrite
+## Sample 2 — Landing page hero rewrite (halal brand)
 
-**Before (typical SaaS hero):**
-> *"An innovative, all-in-one platform that leverages AI to streamline your workflow."*
+**Before (typical):**
+> *"The world's most innovative, all-in-one halal lifestyle platform."*
 
 **After:**
 > ## Headline
-> **Your team ships projects 2 days faster. Starting this week.**
+> **Halal choices you don't have to second-guess.**
 >
 > ## Subhead
-> Tasklane replaces the 4 tools your team copy-pastes between. One workspace for tasks, docs, and timelines — set up in an afternoon, not a quarter.
+> Verified-halal restaurants, products, and brands in one place — each one screened so you can decide in seconds, not spend an evening reading ingredient lists.
 >
 > ## CTA
-> Start free — no card, no demo gatekeeping
+> Find halal near you — free
 
-**Why it works:** Leads with the outcome and a number, names the real-world pain (tool-switching), and removes friction at the CTA. No "innovative," no "leverage."
+**Why it works:** Leads with the real emotional outcome (peace of mind, less effort), is concrete, and drops the empty "innovative/all-in-one" stack. Honest and specific.
 
 ---
 
-## Sample 3 — Re-engagement email (churned/inactive trial)
+## Sample 3 — Re-engagement email (inactive user)
 
-**Subject:** should I close your Tasklane account?
+**Subject:** still building your halal pantry?
 
 > Hi [First name],
 >
-> You started a Tasklane trial a couple weeks back and then things went quiet — which usually means one of two things:
+> You started with [Company] a couple weeks ago and then things went quiet — which usually means one of two things:
 >
-> 1. It wasn't the right fit (totally fine — reply "close it" and I'll tidy up).
-> 2. You got busy and never finished setting it up.
+> 1. It wasn't quite right for you (totally fine — reply "not for me" and I'll stop emailing).
+> 2. Life got busy before you finished setting up.
 >
-> If it's #2, I'll do the setup *with* you in a 15-minute screen share. Just reply "help."
+> If it's #2, I'll walk you through it in a 10-minute call — no pressure to buy anything.
 >
 > Either way, I'd rather hear from you than keep emailing into the void.
 >
-> — Sam
+> — [Name]
 
-**Why it works:** Pattern-interrupt subject line, gives the reader an easy out (which builds trust), and turns re-engagement into a human offer instead of a discount.
+**Why it works:** Honest pattern-interrupt, gives an easy and genuine out (which builds trust), and offers help instead of a manipulative discount.
 
 ---
 
 ## How to build your real portfolio fast
 
-1. **Pick 2–3 SaaS products you actually use.** Sign up for trials, screenshot the real emails/pages.
-2. **Rewrite one piece each** with a clear before/after and a strategy note.
-3. **Publish them** — on the site (`site/`), as LinkedIn carousels, or in a simple Google Doc / Notion page you can link.
+1. **Pick 2–3 halal-economy products you actually use** (an Islamic finance app, a halal brand). Sign up, screenshot the real emails/pages.
+2. **Rewrite one piece each** with a before/after and a strategy note.
+3. **Publish them** — on the site (`site/`), as LinkedIn carousels, or a linkable Google Doc/Notion page.
 4. **Use them as your cold-email "free deliverable"** — send the rewrite to the actual company.
 5. Replace spec work with **real client results** the moment you have them (metrics > samples).
