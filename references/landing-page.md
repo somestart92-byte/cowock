@@ -106,6 +106,19 @@ Notification email: `voiceaifrin1@gmail.com`
 
 ---
 
+## Email copy rules
+
+Write like a real person — not a bot, not a template blast. Under 120 words per email.
+Never use bullet points, filler openers ("hope this finds you well"), or corporate adjectives.
+One ask per email only. Sign as "Sara AI" — but sound human.
+
+**Initial subject:** `Quick one before you hire`
+**Follow-up subject:** `Re: Quick one before you hire`
+
+See `.claude/skills/dental-outreach-agent/skill.md` for full templates.
+
+---
+
 ## Netlify Forms Setup
 
 To activate lead email notifications:
