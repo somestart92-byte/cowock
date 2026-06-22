@@ -13,6 +13,7 @@ This repository is the operating system for the business: brand, plan, pricing, 
 | [`docs/brand-foundation.md`](docs/brand-foundation.md) | Name options, positioning, voice, value prop, pitch |
 | [`docs/halal-work-policy.md`](docs/halal-work-policy.md) | What we write about + how we persuade (the core differentiator) |
 | [`docs/business-plan.md`](docs/business-plan.md) | Target market, services, 90-day roadmap, revenue targets |
+| [`docs/market-analysis.md`](docs/market-analysis.md) | Where your audience hangs out + ranked channel plan |
 | [`docs/pricing.md`](docs/pricing.md) | Packages, retainers, pilot offer, halal payment terms |
 | [`docs/outreach/cold-email-templates.md`](docs/outreach/cold-email-templates.md) | Cold email + LinkedIn + follow-up templates |
 | [`docs/outreach/portfolio-samples.md`](docs/outreach/portfolio-samples.md) | Spec/sample copy for halal-economy products |
