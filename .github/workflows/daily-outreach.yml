@@ -1,0 +1,54 @@
+name: Daily Outreach — Sara AI
+
+on:
+  schedule:
+    # Every weekday at 9:00am UK time (UTC+1 BST = 08:00 UTC)
+    - cron: '0 8 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (search only, no emails sent)'
+        required: false
+        default: 'false'
+
+jobs:
+  outreach:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to commit pipeline.csv + report.html back
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run daily outreach
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          REED_API_KEY:        ${{ secrets.REED_API_KEY }}
+          GMAIL_USER:          ${{ secrets.GMAIL_USER }}
+          GMAIL_CLIENT_ID:     ${{ secrets.GMAIL_CLIENT_ID }}
+          GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+        run: node scripts/daily-outreach.js
+
+      - name: Generate visual report
+        run: node scripts/generate-report.js
+
+      - name: Commit pipeline and report
+        run: |
+          git config user.name  "Sara AI Bot"
+          git config user.email "voiceaifrin1@gmail.com"
+          git add pipeline.csv report.html
+          git diff --staged --quiet || git commit -m "chore: outreach run $(date -u +%Y-%m-%d)"
+          git push

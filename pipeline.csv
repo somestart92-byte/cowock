@@ -1,1 +1,1 @@
-clinic_name,email,location,job_url,sent_date,followup_sent,reply,outcome
+clinic_name,email,location,job_url,sent_date,thread_id,followup_sent,reply,outcome

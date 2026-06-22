@@ -1,0 +1,16 @@
+{
+  "name": "sara-ai-outreach",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "outreach": "node scripts/daily-outreach.js",
+    "report": "node scripts/generate-report.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.38.0",
+    "csv-parse": "^5.6.0",
+    "csv-stringify": "^6.5.2",
+    "googleapis": "^140.0.0",
+    "node-fetch": "^3.3.2"
+  }
+}
