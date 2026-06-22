@@ -19,7 +19,7 @@
         <a href="#services">Services</a>
         <a href="#values">Our way</a>
         <a href="#pricing">Pricing</a>
-        <a href="#contact" class="btn btn--sm">Book a call</a>
+        <a href="#contact" class="btn btn--sm">Get in touch</a>
       </nav>
     </div>
   </header>
@@ -34,7 +34,7 @@
         the honest way. No fake scarcity, no deceptive claims, and no alcohol, gambling, or interest-based work.
       </p>
       <div class="hero__cta">
-        <a href="#contact" class="btn btn--lg">Book a free 15-min call</a>
+        <a href="#contact" class="btn btn--lg">Get a free copy teardown</a>
         <a href="#values" class="btn btn--ghost btn--lg">How we work</a>
       </div>
       <p class="hero__note">Any industry · Research-first · Honest by principle</p>
@@ -170,7 +170,7 @@
         <article class="card price">
           <h3>Monthly retainer</h3>
           <p class="price__amt">$2,500/mo</p>
-          <p class="price__desc">Ongoing copy across email, pages, and in-app, plus a monthly strategy call. A writer on tap.</p>
+          <p class="price__desc">Ongoing copy across email, pages, and in-app, plus a monthly strategy session. A writer on tap.</p>
           <a href="#contact" class="btn btn--ghost">Let's talk</a>
         </article>
       </div>
@@ -180,17 +180,60 @@
   <!-- ===== CTA / CONTACT ===== -->
   <section class="section cta" id="contact">
     <div class="container narrow center">
-      <h2 class="section__title">Let's grow your good product — honestly.</h2>
+      <h2 class="section__title">Tell me about your project.</h2>
       <p class="section__sub">
-        Book a free 15-minute call. Worst case, you walk away with one concrete idea to improve your conversion.
-        Best case, we start turning more of your visitors into customers who trust you.
+        Fill out the form and I'll reply within one business day. Worst case, you walk away with one concrete
+        idea to improve your conversion. Best case, we start turning more of your visitors into customers.
       </p>
-      <div class="hero__cta center">
-        <!-- TODO: replace with your real email + booking link -->
-        <a href="mailto:hello@bayancopy.com?subject=Conversion%20copy%20enquiry" class="btn btn--lg">Email me</a>
-        <a href="#" class="btn btn--ghost btn--lg">Book a call →</a>
-      </div>
-      <p class="muted">Or reach out at <a href="mailto:hello@bayancopy.com">hello@bayancopy.com</a></p>
+
+      <!--
+        TODO: connect this form.
+        Easiest options (both free, no backend needed):
+          • Formspree  — set action="https://formspree.io/f/YOUR_FORM_ID"
+          • Web3Forms  — keep action below and paste your key in the access_key field
+        Until then the form won't send. Pick one and update the marked spots.
+      -->
+      <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <!-- Web3Forms: paste your access key here (get one free at web3forms.com) -->
+        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+        <input type="hidden" name="subject" value="New enquiry from Bayan Copy" />
+        <!-- honeypot: hidden field to trap spam bots -->
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div class="form-row">
+          <label class="field">
+            <span>Name</span>
+            <input type="text" name="name" required placeholder="Your name" />
+          </label>
+          <label class="field">
+            <span>Email</span>
+            <input type="email" name="email" required placeholder="you@company.com" />
+          </label>
+        </div>
+        <label class="field">
+          <span>Website / company <em>(optional)</em></span>
+          <input type="text" name="website" placeholder="yourcompany.com" />
+        </label>
+        <label class="field">
+          <span>What do you need?</span>
+          <select name="project_type">
+            <option value="">Choose one…</option>
+            <option>Email sequence</option>
+            <option>Landing page</option>
+            <option>Website copy</option>
+            <option>Onboarding / activation</option>
+            <option>Monthly retainer</option>
+            <option>Conversion Pilot ($750)</option>
+            <option>Not sure yet</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Tell me a bit more</span>
+          <textarea name="message" rows="4" required placeholder="What are you trying to improve? Any links help."></textarea>
+        </label>
+        <button type="submit" class="btn btn--lg">Send my project details</button>
+        <p class="form-note muted">No spam, ever. Your details are only used to reply to you.</p>
+      </form>
     </div>
   </section>
 
