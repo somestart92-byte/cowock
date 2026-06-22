@@ -2,7 +2,7 @@
 
 ## 1. Summary
 
-A halal-aligned conversion copywriting studio. We write emails, landing pages, and onboarding copy for businesses in the halal economy — and for any honest product that doesn't fall under our [excluded industries](halal-work-policy.md). Revenue comes from project work that converts into monthly retainers. High margin, recurring, and built on trust.
+A halal-aligned **generalist** conversion copywriting studio. We write emails, landing pages, and web copy for businesses in any industry — as long as the work isn't on our [excluded list](halal-work-policy.md). Revenue comes from project work that converts into monthly retainers. High margin, recurring, built on trust.
 
 **12-month goal:** 3–4 retainer clients at ~$2,500/mo = **~$8–10k MRR**, plus project work.
 
@@ -10,17 +10,13 @@ A halal-aligned conversion copywriting studio. We write emails, landing pages, a
 
 ## 2. The market
 
-The global **halal economy** spans finance, food, fashion, travel, and media, and serves a large, fast-growing, under-served Muslim consumer base — plus a wider audience that increasingly values ethical brands.
+Almost every business needs conversion copy — websites, emails, landing pages, ads. The market is huge and not industry-bound. We don't compete on niche; we compete on **honesty + results**.
 
-- **Islamic finance & halal fintech** is the flagship: trust-heavy, copy-heavy, and well-funded. Sharia-compliant banking, halal investing apps, takaful, and zakat platforms all live and die on whether the audience *believes* them — which is a copywriting problem.
-- **Halal consumer brands** (food, modest fashion, lifestyle apps) need email and product copy and rarely have an in-house writer.
-- **Honesty as positioning** differentiates you from the crowded "growth hacker" market — and it's something Muslim founders specifically seek out.
+- **Demand is everywhere:** SaaS, e-commerce, coaches/creators, local services, B2B, agencies.
+- **The crowd is generic.** Most freelancers will write anything, any way. Our honest-method positioning is the differentiator that earns trust and referrals.
+- **Honesty is a magnet,** not a limit — clients who care about their brand reputation specifically seek it out.
 
-**Where the clients are:**
-- LinkedIn (halal fintech & Islamic finance founders are active there)
-- Muslim founder & halal-business communities (Slack/Discord/WhatsApp groups, events)
-- Islamic finance / halal-economy newsletters, podcasts, and conferences
-- Referrals from your first happy clients — the real engine after month 3
+**Where the clients are:** see [`market-analysis.md`](market-analysis.md) for the full channel map (LinkedIn, cold email, founder/marketer communities, job boards, referrals).
 
 ---
 
@@ -29,9 +25,9 @@ The global **halal economy** spans finance, food, fashion, travel, and media, an
 | Service | What it is | Buyer trigger |
 |---------|-----------|--------------|
 | **Email sequences** | Onboarding, lifecycle, re-engagement, sales nurture | "Signups don't convert / users go quiet" |
-| **Landing page copy** | Homepage, feature, or campaign page | "Our page doesn't explain why to trust us" |
+| **Landing page copy** | Homepage, sales page, or campaign page | "Our page doesn't convert" |
+| **Website copy** | Full site rewrite, message architecture | "We can't explain what we do" |
 | **Onboarding/activation** | In-app copy, activation emails | "Users don't reach the value" |
-| **Messaging & positioning** | Core message, value props, page architecture | "We can't explain what we do" |
 | **Monthly retainer** | Ongoing copy across all surfaces | "We need an honest writer on tap" |
 
 Lead with **email sequences + landing pages** — fastest measurable wins, easiest to turn into retainers.
@@ -49,16 +45,16 @@ See [`pricing.md`](pricing.md). Principles: price per project or per month (neve
 ### Days 1–14 — Foundation
 - [ ] Lock business name, buy domain, set up business email.
 - [ ] Deploy the landing page (`site/`).
-- [ ] Publish the [halal work policy](halal-work-policy.md) on the site — it's a trust signal *and* a filter.
-- [ ] Write 2–3 spec/portfolio samples (see `outreach/portfolio-samples.md`) for halal-economy products.
-- [ ] Set up a booking link (Cal.com/Calendly) + payments (Stripe/Wise — choose Sharia-conscious options where possible).
+- [ ] Publish the [halal work policy](halal-work-policy.md) on the site — a trust signal *and* a filter.
+- [ ] Write 2–3 spec/portfolio samples (`outreach/portfolio-samples.md`) across different industries.
+- [ ] Set up a booking link (Cal.com/Calendly) + payments (Stripe/Wise).
 - [ ] Optimize LinkedIn to match the positioning.
 
 ### Days 15–45 — Outbound + visibility
-- [ ] Build a list of 100 target companies (Islamic finance/halal fintech first, then halal commerce).
+- [ ] Build a list of 100 target businesses (any industry, screened halal).
 - [ ] Send 10 personalized cold emails/day (`outreach/cold-email-templates.md`).
 - [ ] Post 3×/week on LinkedIn/X (`outreach/social-posts.md`).
-- [ ] Join 2–3 Muslim founder / halal business communities and add value (don't spam).
+- [ ] Be active in 2–3 founder/marketer communities — add value, don't spam.
 - [ ] Goal: 5–8 discovery calls.
 
 ### Days 46–90 — Close + deliver + systematize
@@ -87,11 +83,11 @@ See [`pricing.md`](pricing.md). Principles: price per project or per month (neve
 
 | Risk | Mitigation |
 |------|-----------|
-| Smaller pool by excluding haram work | The halal economy is large and under-served; honesty positioning attracts, not limits |
+| Generalist = crowded, commoditized | Compete on honesty + research + results, not on niche |
 | Feast/famine project cycles | Push every project toward a retainer; keep outreach constant |
 | Hard to prove results early | Spec samples + a small paid pilot to de-risk for the client |
-| "Honest copy converts worse" objection | It converts *better over time* via trust; show it with real before/afters |
-| Verifying a client is truly halal | When unsure, ask a knowledgeable source; "not a fit for us" is always available |
+| "Honest copy converts worse" objection | It converts *better over time* via trust; show real before/afters |
+| Verifying a client is permissible | When unsure, ask a knowledgeable source; "not a fit for us" is always available |
 
 ---
 

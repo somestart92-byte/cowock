@@ -1,6 +1,6 @@
 # Social Posts — Ready to Schedule
 
-14 posts to build authority and attract inbound for a halal-aligned copy studio. Mix of tips, honest hot takes, before/after, and soft pitches. Post 3×/week on LinkedIn (cross-post short ones to X).
+14 posts to build authority and attract inbound for an honest, halal-aligned copy studio that serves any business. Mix of tips, honest hot takes, before/after, and soft pitches. Post 3×/week on LinkedIn (cross-post short ones to X).
 
 > I can schedule these for you via Buffer — just say the word and tell me which channels.
 
@@ -14,14 +14,15 @@ Honest copy converts slower for a week and better for years.
 ---
 
 **2. (Tip)**
-In finance, your copy isn't selling a product. It's selling *trust*.
-For halal finance especially: don't just say "Sharia-compliant." Show the screening. Name the board. Link the proof. Specifics build belief; slogans don't.
+The highest-ROI copy isn't your homepage.
+It's the onboarding emails almost nobody bothers to write well.
+Fix the email that gets a new user to their first "aha," and conversion takes care of itself.
 
 ---
 
 **3. (Before/after)**
-Before: "The world's most innovative all-in-one halal platform."
-After: "Halal choices you don't have to second-guess."
+Before: "An innovative, all-in-one platform that streamlines your workflow."
+After: "Choices you don't have to second-guess."
 Same product. One of them actually means something.
 
 ---
@@ -32,19 +33,19 @@ A landing page that converts answers 4 questions, in order:
 2. What do I get?
 3. Why should I trust you?
 4. What do I do next?
-Faith-based and finance brands live or die on #3. Most pages skip it.
+Most pages answer #1 four times and skip the rest.
 
 ---
 
 **5. (Values / soft pitch)**
 I don't write copy for alcohol, gambling, interest-based finance, or adult brands. And I won't use fake urgency or deceptive claims for anyone.
-That's not a limitation. It's the reason founders building honest products come to me.
+That's not a limitation. It's the reason people building honest products come to me.
 
 ---
 
 **6. (Tip)**
 Stop writing copy from your own head.
-Open your reviews and support tickets. Your customers already wrote it — their words, their hesitations, their "is this really halal?" questions. Your job is to answer them clearly.
+Open your reviews and support tickets. Your customers already wrote it — their words, their objections, their hesitations. Your job is to answer them clearly.
 
 ---
 
@@ -56,8 +57,8 @@ Confirm-shaming, buried unsubscribes, forced continuity: they squeeze a short-te
 
 **8. (Tip)**
 A good CTA removes a fear, not just describes an action.
-"Open account" → fine.
-"Open account — no minimum, halal-screened, close anytime" → better.
+"Start free trial" → fine.
+"Start free — no card, cancel anytime" → better.
 Name what the reader is quietly worried about, then dissolve it.
 
 ---
@@ -97,8 +98,8 @@ Writing is the last 20%. The research is the job.
 ---
 
 **13. (Soft pitch)**
-I write honest conversion copy for the halal economy — Islamic finance, halal brands, and good products generally.
-If your signups go quiet or your page doesn't build trust, that's exactly what I fix. DMs open.
+I write honest conversion copy — emails and landing pages that turn visitors into customers, without the tricks.
+If your signups go quiet or your page doesn't convert, that's exactly what I fix. DMs open.
 
 ---
 
@@ -110,6 +111,6 @@ When copy is tied to real results — honestly — it stops being a "nice to hav
 
 ## Scheduling notes
 - Lead with value; pitch (posts 5, 13, 14) no more than 1 in 4.
-- Match tone to platform; keep the values visible through *how* you write, not slogans.
+- Keep the values visible through *how* you write, not slogans.
 - Engage in comments in the first hour — most of the reach is there.
 - Repurpose the before/afters (`portfolio-samples.md`) into carousels.

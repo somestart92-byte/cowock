@@ -1,13 +1,13 @@
 # Brand Foundation
 
 ## The one-liner
-**Bayan Copy** — honest conversion copywriting for the halal economy. We help good products grow without fake scarcity, deceptive claims, or haram industries.
+**Bayan Copy** — honest conversion copywriting for any business. We write emails, landing pages, and web copy that convert — without fake scarcity, deceptive claims, or haram industries.
 
 ---
 
 ## What "Bayan" means (and why it fits)
 
-**Bayan (بيان)** = clear, eloquent expression — the power to make meaning land. It's the essence of copywriting, and it carries a built-in promise: *clarity, not manipulation.* The brand name itself says "we make your message clear," not "we trick people into clicking."
+**Bayan (بيان)** = clear, eloquent expression — the power to make meaning land. It's the essence of copywriting, and it carries a built-in promise: *clarity, not manipulation.* The name says "we make your message clear," not "we trick people into clicking."
 
 ### Name options
 
@@ -15,70 +15,74 @@
 |------|---------|------|
 | **Bayan Copy** ✅ | Clear, eloquent expression | Recommended. Professional, meaningful, easy to say |
 | Sidq Copy | Truthfulness / sincerity | Leans hard into "honest marketing" as the hook |
-| Amana Copy | Trust / trustworthiness | Good for a premium, trusted-advisor feel |
+| Amana Copy | Trust / trustworthiness | Premium, trusted-advisor feel |
 | Clearword Copy | (English equivalent of bayan) | If you want a fully English name |
 
 **Action:** Check `.com`/`.co` + handle availability before committing.
 
 ---
 
-## Positioning statement
+## Positioning
 
-> For founders in the halal economy — and any business that wants to grow honestly — Bayan Copy writes conversion-focused emails, landing pages, and onboarding copy grounded in customer research. Unlike typical "growth hackers," we persuade without fake urgency or deceptive claims, and we don't work with alcohol, gambling, interest-based finance, or adult brands. Honest copy that still converts.
+**We're generalists — no industry niche.** We write conversion copy for whoever has a good product and an honest story: SaaS, e-commerce, coaches & creators, local service businesses, agencies, B2B — anyone whose business isn't on our [excluded list](halal-work-policy.md).
+
+> The constant isn't an industry. It's *how* we work: research-driven, conversion-focused, and honest. No fake urgency, no deceptive claims, no haram industries.
+
+### Positioning statement
+
+> For businesses that want to grow without resorting to hype or manipulation, Bayan Copy writes conversion-focused emails, landing pages, and web copy grounded in customer research. Unlike typical "growth hackers," we persuade with real benefits and real proof — and we don't work with alcohol, gambling, interest-based finance, or adult brands. Honest copy that still converts.
 
 See the full [`halal-work-policy.md`](halal-work-policy.md).
 
 ---
 
-## Who it's for (ideal client)
+## Who it's for (broad, by need — not industry)
 
-**Primary niche — Islamic finance & halal fintech.** Sharia-compliant banks, halal investing apps, takaful, zakat/sadaqah platforms.
-- *Why:* highest budgets, most copy-heavy (trust is everything in finance), fast-growing global market, and inherently halal.
+We serve any permissible business with a conversion problem. Common types:
+- **SaaS / apps** — onboarding & lifecycle email, landing pages
+- **E-commerce & DTC** — product copy, email flows, campaign pages
+- **Coaches, creators, course sellers** — sales pages, email sequences
+- **Local & service businesses** — websites, Google/landing pages
+- **B2B & agencies** — case studies, homepages, nurture sequences
 
-**Secondary — the broader halal economy.** Halal food & e-commerce, modest fashion, Muslim lifestyle & education apps, Islamic charities.
-
-**Also welcome — any permissible business** that wants honest, high-converting copy and doesn't fall under the [excluded industries](halal-work-policy.md).
-
-**Buyer:** Founder, Head of Growth/Marketing, or a marketing lead at a seed–Series B company.
+**Buyer:** founder, marketer, or owner who knows their copy is underperforming.
 
 ---
 
 ## What we sell (the outcome)
 
 Clients don't buy "words." They buy:
-- More trials / signups / sales that convert
-- Trust — copy their audience believes, which matters double in finance and faith-based brands
+- More signups / sales / leads that convert
+- Trust — copy their audience actually believes
 - Lower churn through better onboarding and lifecycle email
 - A homepage that explains *why* in 5 seconds — clearly
 
 ---
 
-## The two-part differentiator
+## The differentiator (the whole pitch)
 
-This is the whole pitch. Use it everywhere.
-
-**1. We keep the work halal.** No alcohol, gambling, riba/interest finance, or adult brands.
+**1. We keep the work halal.** No alcohol, gambling, interest-based (riba) finance, or adult brands.
 
 **2. We keep the *method* halal.** No fake scarcity, no deceptive claims, no dark patterns. Honest persuasion — which builds trust and converts better over time.
 
-> This isn't a limitation. It's the reason a Muslim founder (and plenty of non-Muslim ones) will choose you over a generalist who'll write anything for anyone.
+> Not a limitation. It's the reason clients who care about their reputation choose you over a generalist who'll write anything, any way, for anyone.
 
 ---
 
 ## Brand voice
 
-**Personality:** Clear, sincere, confident, warm. Trustworthy without being preachy. Modern and professional — this is a credible studio, not a lecture.
+**Personality:** Clear, sincere, confident, warm. Trustworthy without being preachy. Modern and professional — a credible studio, not a lecture.
 
 **Do:**
 - Short sentences. Concrete nouns. Active verbs.
 - Lead with the reader's problem and the honest benefit.
 - Use real specifics and real proof — never invented numbers.
-- Let the values show through *how* we write, not constant religious slogans.
+- Let the values show through *how* we write, not constant slogans.
 
 **Don't:**
 - "Unlock," "leverage," "seamless," "world-class," hype stacks.
 - Fake urgency, manufactured scarcity, exaggerated claims.
-- Over-religify the marketing copy — credibility first; the values speak through the work.
+- Over-brand the religious angle — credibility first; the values speak through the work.
 
 **Tagline options:**
 - *Clear words. Honest persuasion.* ✅ (primary)
@@ -89,8 +93,8 @@ This is the whole pitch. Use it everywhere.
 
 ## Value proposition (for the site + pitches)
 
-1. **Halal by principle** — we don't write for haram industries, and we persuade honestly.
-2. **Specialists in the halal economy** — we speak Islamic finance, halal commerce, and Muslim audiences fluently.
+1. **Honest by principle** — no fake urgency, no deceptive claims, ever.
+2. **Halal work** — we don't write for haram industries.
 3. **Research-first** — every project starts with customer research, so the copy uses your buyers' own words.
 4. **Conversion-focused** — honest doesn't mean soft. We write to a metric we agree on up front.
 
@@ -98,4 +102,4 @@ This is the whole pitch. Use it everywhere.
 
 ## Elevator pitch (30 seconds)
 
-> "I'm a conversion copywriter for the halal economy — mostly Islamic finance, halal brands, and honest products generally. I write the emails and landing pages that turn visitors into customers, but the honest way: no fake scarcity, no deceptive claims. For finance and faith-based brands especially, that trust is exactly what converts. And I don't take alcohol, gambling, or interest-based work — so clients know what we stand for."
+> "I'm a conversion copywriter — I write the emails and landing pages that turn visitors into customers, for businesses across pretty much any industry. The difference is I do it the honest way: no fake scarcity, no inflated claims. That trust is usually what actually converts. And I don't take alcohol, gambling, or interest-based work — so clients know exactly what we stand for."

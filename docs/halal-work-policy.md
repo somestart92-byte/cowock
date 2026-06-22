@@ -34,12 +34,16 @@ Instead we persuade with: a real understanding of the customer's problem, honest
 
 ---
 
-## 3. Clients we actively pursue (halal economy)
+## 3. Clients we work with
 
-- **Islamic finance & halal fintech** — Sharia-compliant banking, halal investing, takaful, zakat tools.
-- **Halal consumer brands** — halal food & e-commerce, modest fashion, Muslim lifestyle apps.
-- **Education & non-profit** — Islamic education, courses, charities (sadaqah/zakat campaigns).
-- **Permissible B2B SaaS & services** — any honest product that doesn't fall under section 1.
+We're generalists — **any permissible business in any industry**, as long as it doesn't fall under section 1. Common examples:
+
+- **SaaS & apps** — onboarding/lifecycle email, landing pages
+- **E-commerce & DTC** — product copy, email flows, campaign pages
+- **Coaches, creators & course sellers** — sales pages, email sequences
+- **Local & service businesses** — websites, landing pages
+- **B2B & agencies** — case studies, homepages, nurture sequences
+- **Halal-economy & faith-based brands** — a natural fit, but one part of the mix, not the focus
 
 ---
 

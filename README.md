@@ -1,6 +1,6 @@
 # Bayan Copy
 
-**Honest conversion copywriting for the halal economy.** Email sequences, landing pages, and onboarding copy that turn visitors into customers — without fake scarcity, deceptive claims, or haram industries.
+**Honest conversion copywriting for any business.** Email sequences, landing pages, and web copy that turn visitors into customers — without fake scarcity, deceptive claims, or haram industries.
 
 > Clear words. Honest persuasion.
 
@@ -20,9 +20,9 @@ This repository is the operating system for the business: brand, plan, pricing, 
 | [`docs/outreach/social-posts.md`](docs/outreach/social-posts.md) | 14 ready-to-schedule social posts |
 | [`site/index.html`](site/index.html) | The landing page (static, deployable to GitHub Pages) |
 
-## The niche
+## Positioning
 
-**Primary: Islamic finance & halal fintech** (highest budgets, most copy-heavy, inherently halal), then the broader **halal economy** (halal food & e-commerce, modest fashion, Muslim lifestyle/education). Any permissible, honest business is welcome.
+**Generalist — no industry niche.** We write conversion copy for any permissible business: SaaS, e-commerce, coaches & creators, local services, B2B, agencies.
 
 **The two-part edge:** (1) we keep the *work* halal — no alcohol, gambling, riba, or adult brands; (2) we keep the *method* halal — no fake urgency or deceptive claims. Honest copy that still converts.
 
