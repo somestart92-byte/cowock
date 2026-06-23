@@ -5,20 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bayan Copy — Honest Conversion Copywriting</title>
   <meta name="description" content="Honest conversion copywriting for any business. Email sequences, landing pages, and web copy that convert — without fake scarcity, deceptive claims, or haram industries." />
+  <meta property="og:title" content="Bayan Copy — Honest Conversion Copywriting" />
+  <meta property="og:description" content="Emails and landing pages that convert — the honest way. No fake scarcity, no deceptive claims." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230d7a5f'/%3E%3Cpath d='M16 7l7 13H9z' fill='white'/%3E%3Ccircle cx='16' cy='23' r='2.2' fill='white'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <!-- ===== NAV ===== -->
-  <header class="nav">
+  <header class="nav" id="nav">
     <div class="container nav__inner">
-      <a href="#top" class="logo">Bayan<span>Copy</span></a>
+      <a href="#top" class="logo" aria-label="Bayan Copy home">
+        <span class="logo__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="28" height="28"><rect width="32" height="32" rx="8" fill="#0d7a5f"/><path d="M16 7l7 13H9z" fill="#fff"/><circle cx="16" cy="23" r="2.2" fill="#fff"/></svg>
+        </span>
+        <span class="logo__text">Bayan<span>Copy</span></span>
+      </a>
       <nav class="nav__links">
         <a href="#services">Services</a>
         <a href="#values">Our way</a>
         <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
         <a href="#contact" class="btn btn--sm">Get in touch</a>
       </nav>
     </div>
@@ -26,7 +36,7 @@
 
   <!-- ===== HERO ===== -->
   <section class="hero" id="top">
-    <div class="container hero__inner">
+    <div class="container hero__inner reveal">
       <p class="eyebrow">Honest conversion copywriting</p>
       <h1>Copy that converts — <span class="hl">without the tricks.</span></h1>
       <p class="lede">
@@ -35,9 +45,14 @@
       </p>
       <div class="hero__cta">
         <a href="#contact" class="btn btn--lg">Get a free copy teardown</a>
-        <a href="#values" class="btn btn--ghost btn--lg">How we work</a>
+        <a href="#values" class="btn btn--ghost btn--lg">How I work</a>
       </div>
-      <p class="hero__note">Any industry · Research-first · Honest by principle</p>
+      <ul class="hero__badges">
+        <li>✓ Any industry</li>
+        <li>✓ Research-first</li>
+        <li>✓ Honest by principle</li>
+        <li>✓ Reply within 1 business day</li>
+      </ul>
     </div>
   </section>
 
@@ -54,7 +69,7 @@
 
   <!-- ===== PROBLEM ===== -->
   <section class="section">
-    <div class="container narrow">
+    <div class="container narrow reveal">
       <h2 class="section__title">Your product is good. Your audience needs a reason to trust it.</h2>
       <p class="section__sub">
         Signups go quiet. Onboarding emails get ignored. The homepage lists features instead of answering the
@@ -68,29 +83,36 @@
   <section class="section section--alt" id="services">
     <div class="container">
       <h2 class="section__title center">What I write</h2>
-      <div class="grid grid--3">
+      <p class="section__sub center">Conversion copy for the places it matters most.</p>
+      <div class="grid grid--3 reveal">
         <article class="card">
-          <h3>📧 Email sequences</h3>
+          <span class="card__icon">📧</span>
+          <h3>Email sequences</h3>
           <p>Onboarding, lifecycle, and re-engagement flows that build trust and get users to value.</p>
         </article>
         <article class="card">
-          <h3>🖥️ Landing pages</h3>
+          <span class="card__icon">🖥️</span>
+          <h3>Landing pages</h3>
           <p>Homepages and campaign pages rewritten around your customers’ own words — built to convert.</p>
         </article>
         <article class="card">
-          <h3>🧭 Onboarding &amp; activation</h3>
+          <span class="card__icon">🧭</span>
+          <h3>Onboarding &amp; activation</h3>
           <p>In-app copy and activation emails that get new users to the moment that matters.</p>
         </article>
         <article class="card">
-          <h3>💬 Messaging &amp; positioning</h3>
+          <span class="card__icon">💬</span>
+          <h3>Messaging &amp; positioning</h3>
           <p>Core message, value props, and page architecture — the foundation everything builds on.</p>
         </article>
         <article class="card">
-          <h3>🔁 Monthly retainer</h3>
+          <span class="card__icon">🔁</span>
+          <h3>Monthly retainer</h3>
           <p>An honest, senior copywriter on tap across email, pages, and in-app — no agency overhead.</p>
         </article>
         <article class="card">
-          <h3>🧪 Conversion Pilot</h3>
+          <span class="card__icon">🧪</span>
+          <h3>Conversion Pilot</h3>
           <p>A low-risk first project: one researched page section or mini-sequence in 5 business days.</p>
         </article>
       </div>
@@ -101,15 +123,15 @@
   <section class="section" id="values">
     <div class="container">
       <h2 class="section__title center">Honest by principle</h2>
-      <p class="section__sub center">Two commitments that define every project — and why clients choose us.</p>
-      <div class="grid grid--2">
+      <p class="section__sub center">Two commitments that define every project — and why clients choose me.</p>
+      <div class="grid grid--2 reveal">
         <article class="card value">
-          <h3>We keep the work halal</h3>
-          <p>We work with businesses across any industry — but we don't write for alcohol, gambling, interest-based (riba) finance, or adult brands.</p>
+          <h3>I keep the work halal</h3>
+          <p>I work with businesses across any industry — but I don't write for alcohol, gambling, interest-based (riba) finance, or adult brands.</p>
         </article>
         <article class="card value">
-          <h3>We keep the method halal</h3>
-          <p>No fake urgency, no manufactured scarcity, no deceptive claims, no dark patterns. We persuade with real benefits and real proof — which builds trust and converts better over time.</p>
+          <h3>I keep the method halal</h3>
+          <p>No fake urgency, no manufactured scarcity, no deceptive claims, no dark patterns. Persuasion with real benefits and real proof — which builds trust and converts better over time.</p>
         </article>
       </div>
     </div>
@@ -119,7 +141,7 @@
   <section class="section section--alt" id="process">
     <div class="container">
       <h2 class="section__title center">How it works</h2>
-      <div class="grid grid--4 steps">
+      <div class="grid grid--4 steps reveal">
         <div class="step"><span class="step__n">01</span><h4>Research</h4><p>Mine reviews, interview customers, read support tickets. Your audience writes half the copy for me.</p></div>
         <div class="step"><span class="step__n">02</span><h4>Agree the metric</h4><p>We pick the one number we're moving — signups, activation, conversion — before I write a line.</p></div>
         <div class="step"><span class="step__n">03</span><h4>Write &amp; refine</h4><p>Draft, one or two revision rounds, copy mapped to a wireframe so your team can ship fast.</p></div>
@@ -133,7 +155,7 @@
     <div class="container">
       <h2 class="section__title center">A taste of the work</h2>
       <p class="section__sub center">Before/after on a typical hero. Same product — only one earns the click.</p>
-      <div class="grid grid--2 ba">
+      <div class="grid grid--2 ba reveal">
         <article class="card ba__before">
           <p class="ba__label">Before</p>
           <p class="ba__copy">“An innovative, all-in-one platform that streamlines your workflow.”</p>
@@ -144,7 +166,7 @@
           Everything vetted, in one place — so you decide in seconds instead of spending an evening on the fine print.</p>
         </article>
       </div>
-      <p class="center muted">More before/afters and full samples available on request — just ask on our call.</p>
+      <p class="center muted">More before/afters and full samples available on request — just mention it in your message.</p>
     </div>
   </section>
 
@@ -153,7 +175,7 @@
     <div class="container">
       <h2 class="section__title center">Simple, value-based pricing</h2>
       <p class="section__sub center">Priced per project or per month — never per hour, never with interest.</p>
-      <div class="grid grid--3 pricing">
+      <div class="grid grid--3 pricing reveal">
         <article class="card price">
           <h3>Conversion Pilot</h3>
           <p class="price__amt">$750</p>
@@ -163,13 +185,13 @@
         <article class="card price price--featured">
           <p class="price__badge">Most popular</p>
           <h3>Project work</h3>
-          <p class="price__amt">$1,500+</p>
+          <p class="price__amt">$1,500<span>+</span></p>
           <p class="price__desc">A complete landing page or email sequence — research, copy, and revisions. Tiered to your scope.</p>
           <a href="#contact" class="btn">Get a quote</a>
         </article>
         <article class="card price">
           <h3>Monthly retainer</h3>
-          <p class="price__amt">$2,500/mo</p>
+          <p class="price__amt">$2,500<span>/mo</span></p>
           <p class="price__desc">Ongoing copy across email, pages, and in-app, plus a monthly strategy session. A writer on tap.</p>
           <a href="#contact" class="btn btn--ghost">Let's talk</a>
         </article>
@@ -177,7 +199,50 @@
     </div>
   </section>
 
-  <!-- ===== CTA / CONTACT ===== -->
+  <!-- ===== ABOUT ===== -->
+  <section class="section" id="about">
+    <div class="container narrow reveal">
+      <h2 class="section__title center">Who you'll work with</h2>
+      <!-- TODO: replace with your real name, story, and a photo (add <img class="about__photo" src="you.jpg" alt="">) -->
+      <p class="section__sub center">
+        I'm a conversion copywriter who believes persuasion and honesty aren't opposites — they're the same skill.
+        I start every project with real customer research, write to a metric we agree on up front, and never reach
+        for fake urgency or inflated claims to hit a number. The result is copy you can stand behind, that keeps
+        working long after the launch.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="section section--alt" id="faq">
+    <div class="container narrow">
+      <h2 class="section__title center">Questions, answered</h2>
+      <div class="faq reveal">
+        <details>
+          <summary>What kinds of businesses do you write for?</summary>
+          <p>Almost any industry — SaaS, e-commerce, coaches and creators, local services, B2B. The only exceptions are alcohol, gambling, interest-based finance, and adult brands, which I don't take on.</p>
+        </details>
+        <details>
+          <summary>Doesn't “honest” copy convert worse than aggressive tactics?</summary>
+          <p>Aggressive tactics can spike a short-term number while eroding trust. Honest, research-driven copy converts well and keeps converting — because your audience believes it. I write to a metric, so we measure the result either way.</p>
+        </details>
+        <details>
+          <summary>How do we start?</summary>
+          <p>Send your project details through the form below. Many clients begin with a $750 Conversion Pilot — a small, fully-researched piece — so we can prove the fit before a bigger project.</p>
+        </details>
+        <details>
+          <summary>How fast will I hear back?</summary>
+          <p>Within one business day. Every message goes straight to my inbox.</p>
+        </details>
+        <details>
+          <summary>How does payment work?</summary>
+          <p>Fixed price per project or per month — never hourly, never with interest. A 50% deposit starts the work; the balance is due on delivery.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT FORM ===== -->
   <section class="section cta" id="contact">
     <div class="container narrow center">
       <h2 class="section__title">Tell me about your project.</h2>
@@ -187,18 +252,20 @@
       </p>
 
       <!--
-        TODO: connect this form.
-        Easiest options (both free, no backend needed):
-          • Formspree  — set action="https://formspree.io/f/YOUR_FORM_ID"
-          • Web3Forms  — keep action below and paste your key in the access_key field
-        Until then the form won't send. Pick one and update the marked spots.
+        FORM DELIVERY: submissions are emailed via FormSubmit.co — no backend, no signup.
+        They go to the address in the action URL below.
+        • First time you submit, FormSubmit sends a one-time confirmation email to that inbox — click it once to activate.
+        • To hide your email from the page source (spam), FormSubmit gives you a random alias after activation;
+          swap it into the action URL (e.g. https://formsubmit.co/abc123def).
+        • To show your own thank-you page, uncomment the _next field and set it to your live URL.
       -->
-      <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-        <!-- Web3Forms: paste your access key here (get one free at web3forms.com) -->
-        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
-        <input type="hidden" name="subject" value="New enquiry from Bayan Copy" />
+      <form class="contact-form reveal" action="https://formsubmit.co/somestart92@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New enquiry from Bayan Copy" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="true" />
+        <!-- <input type="hidden" name="_next" value="https://YOURDOMAIN.com/thanks.html" /> -->
         <!-- honeypot: hidden field to trap spam bots -->
-        <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+        <input type="text" name="_honey" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
 
         <div class="form-row">
           <label class="field">
@@ -240,12 +307,33 @@
   <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="container footer__inner">
-      <span class="logo logo--sm">Bayan<span>Copy</span></span>
+      <a href="#top" class="logo logo--sm">
+        <span class="logo__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="22" height="22"><rect width="32" height="32" rx="8" fill="#0d7a5f"/><path d="M16 7l7 13H9z" fill="#fff"/><circle cx="16" cy="23" r="2.2" fill="#fff"/></svg>
+        </span>
+        <span class="logo__text">Bayan<span>Copy</span></span>
+      </a>
       <p>Honest conversion copywriting · Clear words. Honest persuasion.</p>
+      <nav class="footer__links">
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
       <p class="muted">© <span id="year"></span> Bayan Copy</p>
     </div>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // shadow on nav after scroll
+    const nav = document.getElementById('nav');
+    addEventListener('scroll', () => nav.classList.toggle('nav--scrolled', scrollY > 8));
+    // scroll-reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
 </body>
 </html>
