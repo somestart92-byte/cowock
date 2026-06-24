@@ -29,18 +29,15 @@ max 2 emails per clinic ever, corporate mailboxes only, written like a real pers
 GitHub → **Settings → Branches → Default branch** → switch to `main`.
 (Scheduled workflows only run from the default branch.)
 
-### 2. Add three repository secrets
+### 2. Add two repository secrets
 GitHub → **Settings → Secrets and variables → Actions → New repository secret**:
 
 | Secret | Value |
 |--------|-------|
 | `GMAIL_APP_PASSWORD` | 16-char App Password from myaccount.google.com → Security → App passwords |
 | `GMAIL_USER` | `voiceaifrin1@gmail.com` |
-| `REED_API_KEY` | free key from reed.co.uk/developers |
 
-> Only `GMAIL_APP_PASSWORD` is strictly required to start sending. Without
-> `REED_API_KEY` it still sends existing drafts and follow-ups — it just won't
-> find new prospects until the key is added.
+New prospects are found automatically via Indeed UK — no API key needed.
 
 ### 3. Run it
 GitHub → **Actions → Daily Outreach → Run workflow** (or wait for 9am).

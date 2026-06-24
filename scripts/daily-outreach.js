@@ -24,7 +24,6 @@ import fetch from 'node-fetch';
 const PIPELINE_FILE  = 'pipeline.csv';
 const SENDER_EMAIL   = process.env.GMAIL_USER   || 'voiceaifrin1@gmail.com';
 const APP_PASSWORD   = process.env.GMAIL_APP_PASSWORD;
-const REED_API_KEY   = process.env.REED_API_KEY;
 const LANDING_PAGE   = 'https://wonderful-meerkat-938250.netlify.app/';
 const EMAIL_DELAY_MS = 12_000;
 
@@ -55,30 +54,49 @@ async function sendEmail({ to, subject, text, inReplyTo, references }) {
 }
 
 // ---------------------------------------------------------------------------
-// Reed API — UK dental receptionist jobs
+// Indeed UK RSS — no API key needed
 // ---------------------------------------------------------------------------
-async function searchJobs() {
-  if (!REED_API_KEY) {
-    console.log('REED_API_KEY not set — skipping new-prospect search this run.');
-    return [];
-  }
-  console.log('Searching Reed UK…');
-  const res = await fetch(
-    'https://www.reed.co.uk/api/1.0/search?keywords=dental+receptionist&locationName=United+Kingdom&resultsToTake=100',
-    { headers: { Authorization: 'Basic ' + Buffer.from(REED_API_KEY + ':').toString('base64') } }
-  );
-  if (!res.ok) {
-    console.error(`Reed search failed (${res.status}) — skipping new prospects this run.`);
-    return [];
-  }
-  return (await res.json()).results || [];
+function xmlText(block, tag) {
+  const re = new RegExp(`<${tag}[^>]*>(?:<!\\[CDATA\\[([\\s\\S]*?)\\]\\]>|([^<]*))<\\/${tag}>`);
+  const m = re.exec(block);
+  return m ? (m[1] ?? m[2] ?? '').trim() : '';
 }
 
-async function getJobDetail(jobId) {
-  const res = await fetch(`https://www.reed.co.uk/api/1.0/jobs/${jobId}`, {
-    headers: { Authorization: 'Basic ' + Buffer.from(REED_API_KEY + ':').toString('base64') },
-  });
-  return res.ok ? res.json() : null;
+async function searchJobs() {
+  console.log('Searching Indeed UK…');
+  const url = 'https://www.indeed.co.uk/rss?q=dental+receptionist&l=United+Kingdom&sort=date&radius=100';
+  try {
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36' },
+      signal: AbortSignal.timeout(12_000),
+    });
+    if (!res.ok) {
+      console.error(`Indeed RSS failed (${res.status}) — skipping new prospects this run.`);
+      return [];
+    }
+    const xml = await res.text();
+    const items = [];
+    const itemRe = /<item>([\s\S]*?)<\/item>/g;
+    let m;
+    while ((m = itemRe.exec(xml)) !== null) {
+      const block = m[1];
+      const title = xmlText(block, 'title');
+      const link  = xmlText(block, 'link');
+      const desc  = xmlText(block, 'description');
+      if (!title) continue;
+      // Indeed title format: "Job Title - Employer Name - Location, UK"
+      const parts = title.split(' - ');
+      if (parts.length < 2) continue;
+      const employerName = (parts.length >= 3 ? parts[parts.length - 2] : parts[1]).trim();
+      const locationName = parts[parts.length - 1].trim().replace(/,.*$/, '');
+      if (employerName) items.push({ employerName, locationName, jobUrl: link, jobDescription: desc });
+    }
+    console.log(`Found ${items.length} listings`);
+    return items;
+  } catch (err) {
+    console.error('Indeed search error:', err.message, '— skipping new prospects this run.');
+    return [];
+  }
 }
 
 function extractEmail(text = '') {
@@ -87,15 +105,14 @@ function extractEmail(text = '') {
 }
 
 async function findEmail(job) {
-  const detail = await getJobDetail(job.jobId);
-  if (detail) {
-    const found = extractEmail(detail.jobDescription || '');
-    if (found) return found;
-  }
-  const url = detail?.employerProfileUrl || job.employerProfileUrl;
-  if (url) {
+  const fromDesc = extractEmail(job.jobDescription || '');
+  if (fromDesc) return fromDesc;
+  if (job.jobUrl) {
     try {
-      const page = await fetch(url, { timeout: 8000 });
+      const page = await fetch(job.jobUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36' },
+        signal: AbortSignal.timeout(8_000),
+      });
       if (page.ok) {
         const found = extractEmail(await page.text());
         if (found) return found;
@@ -196,7 +213,6 @@ async function main() {
 
   // ── Step 1: New prospects ─────────────────────────────────────────────────
   const jobs = await searchJobs();
-  console.log(`Found ${jobs.length} listings\n`);
 
   for (const job of jobs) {
     const clinicName = (job.employerName || '').trim();
@@ -221,7 +237,7 @@ async function main() {
         clinic_name:   clinicName,
         email,
         location:      job.locationName || '',
-        job_url:       `https://www.reed.co.uk/jobs/${job.jobId}`,
+        job_url:       job.jobUrl || '',
         sent_date:     new Date().toISOString().split('T')[0],
         thread_id:     info.messageId || '',
         followup_sent: '',
