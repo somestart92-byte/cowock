@@ -4,6 +4,9 @@ on:
   schedule:
     # Every weekday at 9:00am UK time (UTC+1 BST = 08:00 UTC)
     - cron: '0 8 * * 1-5'
+  push:
+    branches: [main]
+    paths: ['.github/workflows/daily-outreach.yml']
   workflow_dispatch:
     inputs:
       dry_run:
