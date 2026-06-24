@@ -34,6 +34,13 @@ const CHAIN_KEYWORDS = [
   'pds dental', 'practice plan', 'rodericks', 'colosseum',
 ];
 
+// Locations we do not target (excluded regions / cities)
+const EXCLUDED_LOCATIONS = [
+  'scotland', 'edinburgh', 'glasgow', 'aberdeen', 'dundee',
+  'inverness', 'stirling', 'perth', 'paisley', 'falkirk',
+  'livingston', 'kirkcaldy', 'dunfermline', 'ayr',
+];
+
 // ---------------------------------------------------------------------------
 // Brevo SMTP transport (free, 300 emails/day, no 2FA needed)
 // ---------------------------------------------------------------------------
@@ -219,6 +226,8 @@ async function main() {
     const clinicName = (job.employerName || '').trim();
     if (!clinicName) continue;
     if (CHAIN_KEYWORDS.some(k => clinicName.toLowerCase().includes(k))) { skipped++; continue; }
+    const loc = (job.locationName || '').toLowerCase();
+    if (EXCLUDED_LOCATIONS.some(l => loc.includes(l))) { skipped++; continue; }
     if (knownNames.has(clinicName.toLowerCase())) continue;
 
     const email = await findEmail(job);
