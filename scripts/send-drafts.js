@@ -2,10 +2,8 @@
  * One-shot script: sends all pipeline rows with outcome = 'draft-ready'
  * then marks them 'sent' in pipeline.csv.
  *
- * Usage:
- *   GMAIL_APP_PASSWORD=xxxx node scripts/send-drafts.js
- *
- * GMAIL_USER defaults to voiceaifrin1@gmail.com if not set.
+ * Sends via Brevo SMTP (free, 300 emails/day, no 2FA required).
+ * Requires: BREVO_SMTP_LOGIN and BREVO_SMTP_KEY as env vars / GitHub secrets.
  */
 
 import { readFileSync, writeFileSync, existsSync } from 'fs';
@@ -15,22 +13,23 @@ import nodemailer from 'nodemailer';
 
 const PIPELINE_FILE  = 'pipeline.csv';
 const SENDER_EMAIL   = process.env.GMAIL_USER || 'voiceaifrin1@gmail.com';
-const APP_PASSWORD   = process.env.GMAIL_APP_PASSWORD;
+const BREVO_LOGIN    = process.env.BREVO_SMTP_LOGIN;
+const BREVO_KEY      = process.env.BREVO_SMTP_KEY;
 const LANDING_PAGE   = 'https://wonderful-meerkat-938250.netlify.app/';
 const DELAY_MS       = 12_000;
 
-if (!APP_PASSWORD) {
-  console.error('Error: GMAIL_APP_PASSWORD is not set.');
-  console.error('Run as: GMAIL_APP_PASSWORD=xxxx node scripts/send-drafts.js');
+if (!BREVO_LOGIN || !BREVO_KEY) {
+  console.error('Error: BREVO_SMTP_LOGIN or BREVO_SMTP_KEY is not set.');
+  console.error('Add both as GitHub repository secrets.');
   process.exit(1);
 }
 
 function createTransport() {
   return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: 'smtp-relay.brevo.com',
     port: 587,
     secure: false,
-    auth: { user: SENDER_EMAIL, pass: APP_PASSWORD },
+    auth: { user: BREVO_LOGIN, pass: BREVO_KEY },
   });
 }
 

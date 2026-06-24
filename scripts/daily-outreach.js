@@ -1,7 +1,7 @@
 /**
  * Sara AI — Daily Outreach Automation
  *
- * Sends via Gmail SMTP (App Password) — no OAuth needed.
+ * Sends via Brevo SMTP (free, 300 emails/day, no 2FA required).
  * Runs automatically every weekday at 9am via GitHub Actions.
  *
  * Halal outreach principles:
@@ -23,7 +23,8 @@ import fetch from 'node-fetch';
 // ---------------------------------------------------------------------------
 const PIPELINE_FILE  = 'pipeline.csv';
 const SENDER_EMAIL   = process.env.GMAIL_USER   || 'voiceaifrin1@gmail.com';
-const APP_PASSWORD   = process.env.GMAIL_APP_PASSWORD;
+const BREVO_LOGIN    = process.env.BREVO_SMTP_LOGIN;
+const BREVO_KEY      = process.env.BREVO_SMTP_KEY;
 const LANDING_PAGE   = 'https://wonderful-meerkat-938250.netlify.app/';
 const EMAIL_DELAY_MS = 12_000;
 
@@ -34,14 +35,14 @@ const CHAIN_KEYWORDS = [
 ];
 
 // ---------------------------------------------------------------------------
-// Gmail SMTP transport (App Password — no OAuth needed)
+// Brevo SMTP transport (free, 300 emails/day, no 2FA needed)
 // ---------------------------------------------------------------------------
 function createTransport() {
   return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: 'smtp-relay.brevo.com',
     port: 587,
     secure: false,
-    auth: { user: SENDER_EMAIL, pass: APP_PASSWORD },
+    auth: { user: BREVO_LOGIN, pass: BREVO_KEY },
   });
 }
 
@@ -200,8 +201,8 @@ async function main() {
   console.log('=== Sara AI Daily Outreach ===');
   console.log(new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' }), '\n');
 
-  if (!APP_PASSWORD) {
-    console.log('GMAIL_APP_PASSWORD not set — cannot send. Add it as a GitHub secret to go fully automatic. Exiting cleanly.');
+  if (!BREVO_LOGIN || !BREVO_KEY) {
+    console.log('BREVO_SMTP_LOGIN or BREVO_SMTP_KEY not set — cannot send. Add both as GitHub secrets to go fully automatic. Exiting cleanly.');
     return;
   }
 

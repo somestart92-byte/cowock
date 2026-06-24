@@ -38,15 +38,17 @@ jobs:
       - name: Send any ready drafts (pipeline draft-ready rows)
         if: ${{ github.event.inputs.dry_run != 'true' }}
         env:
-          GMAIL_USER:         ${{ secrets.GMAIL_USER }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GMAIL_USER:       ${{ secrets.GMAIL_USER }}
+          BREVO_SMTP_LOGIN: ${{ secrets.BREVO_SMTP_LOGIN }}
+          BREVO_SMTP_KEY:   ${{ secrets.BREVO_SMTP_KEY }}
         run: node scripts/send-drafts.js || true
 
       - name: Run daily outreach (find new + follow up)
         if: ${{ github.event.inputs.dry_run != 'true' }}
         env:
-          GMAIL_USER:         ${{ secrets.GMAIL_USER }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GMAIL_USER:       ${{ secrets.GMAIL_USER }}
+          BREVO_SMTP_LOGIN: ${{ secrets.BREVO_SMTP_LOGIN }}
+          BREVO_SMTP_KEY:   ${{ secrets.BREVO_SMTP_KEY }}
         run: node scripts/daily-outreach.js
 
       - name: Generate visual report
