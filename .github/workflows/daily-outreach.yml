@@ -32,7 +32,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run daily outreach
+      - name: Send any ready drafts (pipeline draft-ready rows)
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          GMAIL_USER:         ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: node scripts/send-drafts.js || true
+
+      - name: Run daily outreach (find new + follow up)
         if: ${{ github.event.inputs.dry_run != 'true' }}
         env:
           REED_API_KEY:       ${{ secrets.REED_API_KEY }}

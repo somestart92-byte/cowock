@@ -82,9 +82,9 @@ async function main() {
         subject: 'Quick one before you hire',
         text:    emailBody(row.clinic_name),
       });
-      row.outcome    = 'sent';
-      row.message_id = info.messageId || '';
-      row.sent_date  = new Date().toISOString().split('T')[0];
+      row.outcome   = 'sent';
+      row.thread_id = info.messageId || row.thread_id || '';
+      row.sent_date = new Date().toISOString().split('T')[0];
       console.log(`     ✓ sent (${info.messageId})`);
       sent++;
     } catch (err) {
@@ -98,8 +98,8 @@ async function main() {
     }
   }
 
-  const header = 'clinic_name,email,location,job_url,sent_date,thread_id,followup_sent,reply,outcome\n';
-  writeFileSync(PIPELINE_FILE, header + stringify(rows, { header: false }));
+  const COLUMNS = ['clinic_name', 'email', 'location', 'job_url', 'sent_date', 'thread_id', 'followup_sent', 'reply', 'outcome'];
+  writeFileSync(PIPELINE_FILE, COLUMNS.join(',') + '\n' + stringify(rows, { header: false, columns: COLUMNS }));
 
   console.log(`\nDone. Sent: ${sent}  Failed: ${failed}`);
   console.log('pipeline.csv updated.');

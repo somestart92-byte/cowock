@@ -58,12 +58,19 @@ async function sendEmail({ to, subject, text, inReplyTo, references }) {
 // Reed API — UK dental receptionist jobs
 // ---------------------------------------------------------------------------
 async function searchJobs() {
+  if (!REED_API_KEY) {
+    console.log('REED_API_KEY not set — skipping new-prospect search this run.');
+    return [];
+  }
   console.log('Searching Reed UK…');
   const res = await fetch(
     'https://www.reed.co.uk/api/1.0/search?keywords=dental+receptionist&locationName=United+Kingdom&resultsToTake=100',
     { headers: { Authorization: 'Basic ' + Buffer.from(REED_API_KEY + ':').toString('base64') } }
   );
-  if (!res.ok) throw new Error(`Reed: ${res.status}`);
+  if (!res.ok) {
+    console.error(`Reed search failed (${res.status}) — skipping new prospects this run.`);
+    return [];
+  }
   return (await res.json()).results || [];
 }
 
@@ -151,9 +158,11 @@ function loadPipeline() {
   catch (_) { return []; }
 }
 
+const COLUMNS = ['clinic_name', 'email', 'location', 'job_url', 'sent_date', 'thread_id', 'followup_sent', 'reply', 'outcome'];
+
 function savePipeline(rows) {
-  const header = 'clinic_name,email,location,job_url,sent_date,message_id,followup_sent,reply,outcome\n';
-  writeFileSync(PIPELINE_FILE, header + (rows.length ? stringify(rows, { header: false }) : ''));
+  const header = COLUMNS.join(',') + '\n';
+  writeFileSync(PIPELINE_FILE, header + (rows.length ? stringify(rows, { header: false, columns: COLUMNS }) : ''));
 }
 
 // ---------------------------------------------------------------------------
@@ -173,6 +182,11 @@ async function checkForOptOut(email) {
 async function main() {
   console.log('=== Sara AI Daily Outreach ===');
   console.log(new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' }), '\n');
+
+  if (!APP_PASSWORD) {
+    console.log('GMAIL_APP_PASSWORD not set — cannot send. Add it as a GitHub secret to go fully automatic. Exiting cleanly.');
+    return;
+  }
 
   const pipeline    = loadPipeline();
   const knownEmails = new Set(pipeline.map(r => r.email).filter(Boolean));
@@ -209,7 +223,7 @@ async function main() {
         location:      job.locationName || '',
         job_url:       `https://www.reed.co.uk/jobs/${job.jobId}`,
         sent_date:     new Date().toISOString().split('T')[0],
-        message_id:    info.messageId || '',
+        thread_id:     info.messageId || '',
         followup_sent: '',
         reply:         '',
         outcome:       'sent',
@@ -249,8 +263,8 @@ async function main() {
         to:         row.email,
         subject,
         text,
-        inReplyTo:  row.message_id || undefined,
-        references: row.message_id || undefined,
+        inReplyTo:  row.thread_id || undefined,
+        references: row.thread_id || undefined,
       });
 
       row.followup_sent = today.toISOString().split('T')[0];
