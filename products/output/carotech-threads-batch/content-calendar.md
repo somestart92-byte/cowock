@@ -124,6 +124,20 @@ small + honest + repeated is how real things get built. start there.
 
 ---
 
+## Refill log
+- **2026-06-26:** first batch (10) all published 2/day through Jun 25 ✅. Queue
+  refilled to 10/10 from the bank (price anchor, no-spend, grocery, you're-not-behind,
+  first-product, dollar-a-job, boredom-allowed, 5-things, name-savings, meal-plan).
+  Remaining READY: sinking funds, permission-to-start-small + fresh batch below.
+
+## Fresh READY bank (added 2026-06-26)
+- **Sinking funds:** the trick that ends "where did the money go?": sinking funds. birthdays, back-to-school, the holidays aren't surprises — they're scheduled. save a little each month into a named pot. future-you exhales.
+- **Permission to start small:** you don't need the perfect plan or the perfect time. you need one small step today — while tired, with kids around, on a normal Tuesday. small + honest + repeated is how real things get built.
+- **Declutter mindset:** you're not messy. you're busy with a house full of people who live here. 10 minutes + one trash bag beats waiting for a free weekend that never comes.
+- **Money + kids:** the best money lesson for kids isn't a lecture — it's letting them watch you pause and say "not this week." calm, honest money talk teaches more than any allowance chart.
+- **Budget check-in:** a 10-minute Sunday money date beats a panicked month. coffee, last week's spending, this week's plan. that's it. consistency > complexity.
+- **Self-worth (no CTA):** rest is not a reward you earn after everything's done. it's part of how the work gets done at all. you're allowed to stop before empty.
+
 ## Top-up workflow
 As posts publish (2/day), slots free under the 10-cap. To refill: open a session
 and say **"top up the Threads queue"** — I'll queue the next READY posts. For
