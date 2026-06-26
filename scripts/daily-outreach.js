@@ -26,6 +26,7 @@ const SENDER_EMAIL   = process.env.GMAIL_USER   || 'voiceaifrin1@gmail.com';
 const BREVO_LOGIN    = process.env.BREVO_SMTP_LOGIN;
 const BREVO_KEY      = process.env.BREVO_SMTP_KEY;
 const LANDING_PAGE   = 'https://wonderful-meerkat-938250.netlify.app/';
+const SENDER_NAME    = process.env.SENDER_NAME || 'The Sara team';
 const EMAIL_DELAY_MS = 12_000;
 
 const CHAIN_KEYWORDS = [
@@ -135,38 +136,39 @@ async function findEmail(job) {
 // ---------------------------------------------------------------------------
 function initialEmail(clinicName) {
   return {
-    subject: 'Quick one before you hire',
+    subject: 'A quick one about your phones',
     text: `Hi,
 
-Noticed ${clinicName} is looking for a receptionist — came up on my search this morning.
+Quick question — do you know how many calls ${clinicName} misses in a normal week?
 
-Before you go through the whole hiring process, have you looked at AI receptionists?
+Most practices are surprised when they check. The phone goes while the front desk is busy with someone at the counter, or after you've closed for the day, and the caller doesn't leave a message — they just ring the next dentist on Google. That's new patients gone before you ever speak to them.
 
-We built one called Sara specifically for dental clinics. She answers every call, books appointments, handles patient questions — nights and weekends included. No salary, no sick days, no handover period when someone leaves.
+That's the problem we solve. We'd set ${clinicName} up so every call gets answered — patients booked straight into your diary, the everyday questions on prices, hours and treatments all handled, day and night. It's automated, so nothing rings out, and it works alongside your team rather than replacing anyone.
 
-Growth plan is £299 a month. One-time setup is £999. First month is free.
-
-You can call her right now and hear exactly what your patients would hear:
+Best way to judge it is to ring it yourself and hear a real call:
 ${LANDING_PAGE}
 
-Worth 2 minutes before you post the role?
+It's £299 a month and the first month is free, so you can watch it catch the calls you're losing now before paying anything.
 
-Sara AI
+Worth a quick listen?
 
-If you'd rather not hear from us, just reply STOP — we'll remove you straight away.`,
+${SENDER_NAME}
+
+If you'd rather not hear from us, just reply STOP and we'll leave it there.`,
   };
 }
 
 function followUpEmail() {
   return {
-    subject: 'Re: Quick one before you hire',
+    subject: 'Following up',
     text: `Hi,
 
-Just checking this didn't get lost.
+Just circling back on this — didn't want it to get lost.
 
-Still happy to show you a 2-minute demo if it's useful — no obligation at all.
+The offer still stands: every call answered, day and night, with the first month free so there's no risk in testing it on your own calls. Have a quick listen whenever suits:
+${LANDING_PAGE}
 
-Sara AI
+${SENDER_NAME}
 
 Reply STOP to opt out.`,
   };
