@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sara CRM</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0f1f3d;--navy2:#162b52;--teal:#00b4a6;--teal2:#007f76;
+  --white:#fff;--off:#f5f8ff;--border:#e2e8f0;--grey:#64748b;--text:#1e293b;
+  --sw:220px;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--off);color:var(--text);height:100vh;overflow:hidden}
+#app{display:flex;height:100vh}
+
+/* SIDEBAR */
+#sidebar{width:var(--sw);background:var(--navy);color:#fff;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.s-logo{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.08)}
+.s-logo h2{font-size:1.15rem;color:var(--teal);font-weight:800;letter-spacing:-.3px}
+.s-logo p{font-size:.68rem;color:rgba(255,255,255,.4);margin-top:2px}
+.s-sect{padding:16px 20px 6px;font-size:.62rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em}
+.nav{display:flex;align-items:center;gap:10px;padding:9px 14px;margin:1px 8px;border-radius:8px;cursor:pointer;color:rgba(255,255,255,.6);font-size:.85rem;font-weight:500;transition:all .15s;user-select:none}
+.nav:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav.active{background:rgba(0,180,166,.15);color:var(--teal)}
+.nav-ic{font-size:.95rem;width:20px;text-align:center}
+.nbadge{margin-left:auto;background:var(--teal);color:var(--navy);font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:50px}
+.s-foot{margin-top:auto;padding:14px 18px;border-top:1px solid rgba(255,255,255,.08);font-size:.72rem;color:rgba(255,255,255,.35);line-height:1.5}
+
+/* MAIN */
+#main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+#topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;height:58px;display:flex;align-items:center;gap:14px;flex-shrink:0}
+#topbar h1{font-size:1.05rem;font-weight:700;color:var(--navy);white-space:nowrap}
+.searchbox{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--off);border:1px solid var(--border);border-radius:8px;padding:7px 13px;width:260px}
+.searchbox input{border:none;background:transparent;outline:none;font-size:.85rem;color:var(--text);width:100%}
+.tbtn{background:var(--teal);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:.83rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
+.tbtn:hover{background:var(--teal2)}
+#content{flex:1;overflow-y:auto;padding:24px}
+
+/* KANBAN */
+#kwrap{overflow-x:auto;overflow-y:hidden;height:100%;padding:24px}
+#kanban{display:flex;gap:14px;min-width:max-content;height:100%}
+.kcol{width:228px;flex-shrink:0;background:var(--off);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;height:100%}
+.khead{padding:11px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px}
+.kdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ktitle{font-size:.8rem;font-weight:700;color:var(--navy)}
+.kcount{margin-left:auto;font-size:.72rem;color:var(--grey);font-weight:600;background:var(--border);padding:2px 7px;border-radius:50px}
+.kbody{padding:8px;display:flex;flex-direction:column;gap:7px;overflow-y:auto;flex:1}
+.kcol.drag-over .kbody{background:rgba(0,180,166,.06);border-radius:0 0 11px 11px}
+
+/* CONTACT CARD */
+.cc{background:var(--white);border:1px solid var(--border);border-radius:9px;padding:11px;cursor:pointer;transition:box-shadow .15s,transform .15s;user-select:none}
+.cc:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
+.cc.dragging{opacity:.45;transform:scale(.96)}
+.cc h4{font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cc .ce{font-size:.7rem;color:var(--grey);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cc-meta{display:flex;align-items:center;justify-content:space-between;margin-top:7px}
+.cc-loc{font-size:.68rem;color:var(--grey)}
+
+/* TAGS */
+.tag{display:inline-block;padding:2px 7px;border-radius:50px;font-size:.62rem;font-weight:700}
+.t-unv{background:#fef3c7;color:#92400e}
+.t-hiring{background:#dbeafe;color:#1e40af}
+.t-won{background:#d1fae5;color:#065f46}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:15px;margin-bottom:26px}
+.kpi{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
+.kpi-n{font-size:2rem;font-weight:800;color:var(--teal);line-height:1}
+.kpi-l{font-size:.75rem;color:var(--grey);margin-top:4px}
+
+/* DASH GRID */
+.dgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:20px}
+@media(max-width:900px){.dgrid{grid-template-columns:1fr}}
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px}
+.card h3{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:14px}
+
+/* FUNNEL BAR */
+.funnel{display:flex;border-radius:8px;overflow:hidden;margin-top:6px}
+.funnel-seg{padding:10px 0;text-align:center;font-size:.68rem;font-weight:700;color:#fff;transition:flex .3s}
+
+/* ACTIVITY */
+.alist{display:flex;flex-direction:column;gap:10px}
+.aitem{display:flex;gap:9px}
+.adot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:5px}
+.atext{font-size:.8rem;color:var(--text)}
+.atime{font-size:.7rem;color:var(--grey);margin-top:1px}
+
+/* CONTACTS TABLE */
+.ctoolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.pills{display:flex;gap:7px;flex-wrap:wrap}
+.pill{padding:5px 13px;border-radius:50px;border:1px solid var(--border);font-size:.76rem;cursor:pointer;background:var(--white);color:var(--grey);font-weight:500;transition:all .15s}
+.pill.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.twrap{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead th{padding:11px 15px;font-size:.76rem;font-weight:700;color:var(--grey);text-align:left;border-bottom:1px solid var(--border);background:var(--off);white-space:nowrap}
+tbody td{padding:11px 15px;font-size:.8rem;border-bottom:1px solid var(--border)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:rgba(0,180,166,.03);cursor:pointer}
+.sbadge{display:inline-block;padding:3px 9px;border-radius:50px;font-size:.7rem;font-weight:700}
+
+/* PANEL */
+#pov{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:100;display:none}
+#pov.open{display:block}
+#panel{position:fixed;top:0;right:0;bottom:0;width:470px;background:var(--white);z-index:101;box-shadow:-4px 0 28px rgba(0,0,0,.13);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s ease}
+#panel.open{transform:translateX(0)}
+.ph{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px}
+.pclose{margin-left:auto;background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--grey);padding:3px;line-height:1}
+.pav{width:42px;height:42px;border-radius:9px;background:linear-gradient(135deg,var(--navy),var(--teal));display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;color:#fff;flex-shrink:0}
+.pname{font-size:.98rem;font-weight:700;color:var(--navy)}
+.pemail{font-size:.78rem;color:var(--grey);margin-top:2px}
+#pb{flex:1;overflow-y:auto;padding:18px 22px}
+.psect{margin-bottom:22px}
+.psect h4{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--grey);margin-bottom:10px}
+.igrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.iitem label{font-size:.7rem;color:var(--grey);display:block;margin-bottom:2px}
+.iitem span{font-size:.82rem;color:var(--text);font-weight:500}
+.ssel{width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:8px;font-size:.83rem;color:var(--text);background:var(--white);cursor:pointer;outline:none}
+.ssel:focus{border-color:var(--teal)}
+.ntarea{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:8px;font-size:.83rem;resize:vertical;min-height:68px;font-family:inherit;outline:none;color:var(--text)}
+.ntarea:focus{border-color:var(--teal)}
+.bsm{background:var(--teal);color:#fff;border:none;border-radius:8px;padding:7px 15px;font-size:.8rem;font-weight:600;cursor:pointer}
+.bsm:hover{background:var(--teal2)}
+.bghost{background:none;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:7px 13px;font-size:.8rem;font-weight:500;cursor:pointer}
+.bghost:hover{background:var(--off)}
+.arow{display:flex;gap:7px;flex-wrap:wrap;margin-top:4px}
+.abtn{display:flex;align-items:center;gap:5px;padding:7px 12px;border-radius:8px;border:1px solid var(--border);background:var(--white);font-size:.77rem;font-weight:600;cursor:pointer;color:var(--text);text-decoration:none;transition:all .15s;white-space:nowrap}
+.abtn:hover{background:var(--off);border-color:var(--teal);color:var(--teal)}
+.abtn.pri{background:var(--teal);color:#fff;border-color:var(--teal)}
+.abtn.pri:hover{background:var(--teal2)}
+
+/* MODAL */
+#mov{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:none;align-items:center;justify-content:center}
+#mov.open{display:flex}
+#modal{background:var(--white);border-radius:14px;padding:26px;width:460px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+#modal h3{font-size:1.05rem;font-weight:700;margin-bottom:18px}
+.fg{margin-bottom:14px}
+.fg label{font-size:.77rem;font-weight:600;color:var(--grey);display:block;margin-bottom:5px}
+.fg input,.fg select{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:8px;font-size:.86rem;outline:none;color:var(--text);font-family:inherit}
+.fg input:focus,.fg select:focus{border-color:var(--teal)}
+.mact{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}
+
+.empty{text-align:center;padding:36px;color:var(--grey);font-size:.85rem}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
+</style>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <div class="s-logo"><h2>Sara CRM</h2><p>Dental Outreach · UK</p></div>
+    <div class="s-sect">Main</div>
+    <div class="nav active" data-view="dashboard" onclick="go('dashboard')"><span class="nav-ic">📊</span>Dashboard</div>
+    <div class="nav" data-view="pipeline" onclick="go('pipeline')"><span class="nav-ic">🔄</span>Pipeline</div>
+    <div class="nav" data-view="contacts" onclick="go('contacts')"><span class="nav-ic">🏥</span>Contacts<span class="nbadge" id="cbadge">0</span></div>
+    <div class="s-sect">Outreach</div>
+    <div class="nav" data-view="conversations" onclick="go('conversations')"><span class="nav-ic">📧</span>Conversations</div>
+    <div class="nav" data-view="calendar" onclick="go('calendar')"><span class="nav-ic">📅</span>Demos</div>
+    <div class="s-foot">Sender: Jordan<br>voiceaifrin1@gmail.com</div>
+  </aside>
+
+  <div id="main">
+    <header id="topbar">
+      <h1 id="ptitle">Dashboard</h1>
+      <div class="searchbox"><span>🔍</span><input id="sq" type="text" placeholder="Search clinics…" oninput="onSearch(this.value)"/></div>
+      <button class="tbtn" onclick="openModal()">+ Add Lead</button>
+    </header>
+    <div id="content"></div>
+  </div>
+</div>
+
+<div id="pov" onclick="closePanel()"></div>
+<div id="panel">
+  <div class="ph" id="ph"></div>
+  <div id="pb"></div>
+</div>
+
+<div id="mov" onclick="if(event.target===this)closeModal()">
+  <div id="modal">
+    <h3>Add New Lead</h3>
+    <div class="fg"><label>Clinic Name *</label><input id="fn" placeholder="e.g. Riverside Dental"/></div>
+    <div class="fg"><label>Email *</label><input id="fe" type="email" placeholder="info@clinic.co.uk"/></div>
+    <div class="fg"><label>Location</label><input id="fl" placeholder="e.g. Manchester"/></div>
+    <div class="fg"><label>Stage</label><select id="fs"></select></div>
+    <div class="fg"><label>Job Posting URL</label><input id="fu" type="url" placeholder="https://…"/></div>
+    <div class="fg"><label>Phone</label><input id="fph" placeholder="+44 …"/></div>
+    <div class="mact"><button class="bghost" onclick="closeModal()">Cancel</button><button class="bsm" onclick="saveNew()">Add Lead</button></div>
+  </div>
+</div>
+
+<script>
+const STAGES=[
+  {id:'new',       label:'New Lead',        color:'#94a3b8',bg:'#f1f5f9'},
+  {id:'draft',     label:'Draft Ready',     color:'#f59e0b',bg:'#fffbeb'},
+  {id:'emailed',   label:'Emailed',         color:'#3b82f6',bg:'#eff6ff'},
+  {id:'followup',  label:'Follow-up Sent',  color:'#8b5cf6',bg:'#f5f3ff'},
+  {id:'replied',   label:'Replied',         color:'#06b6d4',bg:'#ecfeff'},
+  {id:'demo',      label:'Demo Booked',     color:'#f97316',bg:'#fff7ed'},
+  {id:'won',       label:'Closed Won',      color:'#10b981',bg:'#ecfdf5'},
+  {id:'lost',      label:'Lost',            color:'#ef4444',bg:'#fef2f2'},
+];
+
+function oStage(o){
+  if(!o||o==='new') return 'new';
+  if(o==='draft-ready'||o==='draft-ready-guessed') return 'draft';
+  if(o==='sent') return 'emailed';
+  if(o==='followup-sent') return 'followup';
+  if(o==='replied') return 'replied';
+  if(o==='closed'||o==='won') return 'won';
+  if(o==='lost') return 'lost';
+  return 'new';
+}
+
+const SEED=[
+  {cn:'Sensu Dental',em:'smiles@sensu.co.uk',loc:'London',url:'',sd:'2026-06-22',tid:'r763218952654187373',out:'draft-ready'},
+  {cn:'Blue Sky Dental & Implant Clinic',em:'info@blueskydentist.com',loc:'Belfast',url:'',sd:'2026-06-22',tid:'r8089267731483763999',out:'draft-ready'},
+  {cn:'Queensway Dental Clinic',em:'reception@queensway.co.uk',loc:'Billingham',url:'',sd:'2026-06-22',tid:'r5830427542883252333',out:'draft-ready'},
+  {cn:'Pond Square Dental',em:'info@pondsquaredental.co.uk',loc:'London',url:'',sd:'2026-06-22',tid:'r-2191711002742822761',out:'draft-ready'},
+  {cn:'Dental Touch Bristol',em:'info@dental-touch.co.uk',loc:'Bristol',url:'',sd:'2026-06-22',tid:'r-6011801501888096835',out:'draft-ready'},
+  {cn:'Inspire Dental Walthamstow',em:'info@inspiredentalwalthamstow.co.uk',loc:'London',url:'',sd:'2026-06-22',tid:'r-5651699107722240763',out:'draft-ready'},
+  {cn:'Meliora Dental',em:'reception@melioradental.co.uk',loc:'Leeds',url:'https://www.melioradental.co.uk/contact-us',sd:'2026-06-27',tid:'r-7226743600805651580',out:'draft-ready'},
+  {cn:'Green Apple Dental',em:'dental@greenappledental.co.uk',loc:'Oakham',url:'https://www.bdjjobs.com/job/857332/dental-receptionist/',sd:'2026-06-27',tid:'r-3158917735642698002',out:'draft-ready'},
+  {cn:'One Dental Peterborough',em:'hello@one-dental.co.uk',loc:'Peterborough',url:'https://www.one-dental.co.uk/',sd:'2026-06-27',tid:'r4178547198483258054',out:'draft-ready'},
+  {cn:'Stanley Dental Practice',em:'reception@stanleypractice.co.uk',loc:'Kidderminster',url:'https://www.stanleypractice.co.uk/',sd:'2026-06-27',tid:'r3281123787989157805',out:'draft-ready'},
+  {cn:'Aesthetique Dental Care',em:'info@smileclinicleeds.com',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r683193221454006602',out:'draft-ready'},
+  {cn:'Dentozen Leeds',em:'info@dentozenclinics.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r-579644375780774637',out:'draft-ready'},
+  {cn:'LS1 Dental',em:'info@ls1dental.co.uk',loc:'Leeds',url:'https://ls1dental.co.uk/',sd:'2026-06-27',tid:'r5892738657853287857',out:'draft-ready'},
+  {cn:'Leeds City Dentalcare',em:'info@leedscitydentalcare.co.uk',loc:'Leeds',url:'https://www.leedscitydentalcare.co.uk/',sd:'2026-06-27',tid:'r6397402674032670089',out:'draft-ready'},
+  {cn:'Langdale Dental',em:'reception@langdaledentists.co.uk',loc:'Leeds',url:'https://www.langdaledental.co.uk/',sd:'2026-06-27',tid:'r9048293611397771618',out:'draft-ready'},
+  {cn:'Briggate Dental Practice',em:'briggatedentalpractice@gmail.com',loc:'Leeds',url:'https://www.briggatedental.co.uk/',sd:'2026-06-27',tid:'r4064093661008300917',out:'draft-ready'},
+  {cn:'Teeth at Oakwood',em:'info@teethatoakwood.co.uk',loc:'Leeds',url:'https://www.teethatoakwood.co.uk/',sd:'2026-06-27',tid:'r-5861739975313610310',out:'draft-ready'},
+  {cn:'Adel Dental Practice',em:'info@adeldentalpractice.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r-4035569958721584287',out:'draft-ready-guessed'},
+  {cn:'Headingley Dental Care',em:'info@headingleydentalcare.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r6426942756470323810',out:'draft-ready-guessed'},
+  {cn:'Far Headingley Dental Care',em:'info@fhdc.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r-6607775292527449252',out:'draft-ready-guessed'},
+  {cn:'Smiles on Harrogate Road',em:'info@smilesonharrogateroad.com',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r2250569625326662967',out:'draft-ready-guessed'},
+  {cn:'North Leeds Dental Clinic',em:'info@northleedsdental.com',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r-3638533630936826964',out:'draft-ready-guessed'},
+  {cn:'Chelwood Dental Care',em:'info@chelwooddentalleeds.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r-213467312977613922',out:'draft-ready-guessed'},
+  {cn:'Tracey Black Dental Surgery',em:'info@traceyblackdental.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r-1883629002432815687',out:'draft-ready-guessed'},
+  {cn:'Horsforth Dental',em:'info@horsforthdental.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r731207783652574680',out:'draft-ready-guessed'},
+  {cn:'Farsley Dental Practice',em:'info@farsleydental.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r4563274722690088079',out:'draft-ready-guessed'},
+  {cn:'68 Dental',em:'info@68dental.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r5390887180333104',out:'draft-ready-guessed'},
+  {cn:'Leeds Wellness',em:'info@leedswellness.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r-2382806132126585469',out:'draft-ready-guessed'},
+  {cn:'XenSmiles',em:'info@xensmiles.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r5716426917134267630',out:'draft-ready-guessed'},
+  {cn:'Yorkshire Dental Suite',em:'info@yorkshiredentalsuite.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r1193444398913649947',out:'draft-ready-guessed'},
+  {cn:'Oakwood Dental Practice',em:'enquries@oakwood-dental.co.uk',loc:'Leeds',url:'https://www.oakwood-dental.co.uk/',sd:'2026-06-27',tid:'r-3489572101662050',out:'draft-ready'},
+  {cn:'Maia Dental',em:'info@maiadental.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r5230837851853628409',out:'draft-ready-guessed'},
+  {cn:'Rothwell Dental Care',em:'info@rothwelldentalcare.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r4513707499070141726',out:'draft-ready-guessed'},
+  {cn:'VICI Dental',em:'info@vicidental.com',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r9190894864422410992',out:'draft-ready-guessed'},
+  {cn:'The Dental Architect',em:'info@thedentalarchitect.com',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r-5658298587322383927',out:'draft-ready-guessed'},
+  {cn:'Primley Park Dental',em:'info@primleypark.com',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r-6989134438685419793',out:'draft-ready-guessed'},
+  {cn:'Vitruvian Dental Studio',em:'info@vitruviandentalstudio.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r-562797971875455516',out:'draft-ready-guessed'},
+  {cn:'Bridge Street Dental',em:'info@bridgestreetdentalotley.co.uk',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r-3380672435560760779',out:'draft-ready-guessed'},
+  {cn:'One Two Three Dental',em:'info@onetwothreedental.com',loc:'Leeds',url:'',sd:'2026-06-27',tid:'r-2906523923283007464',out:'draft-ready-guessed'},
+];
+
+// ── STATE ──
+let contacts=[];
+let view='dashboard';
+let selId=null;
+let sq='';
+let sf='';
+let dragId=null;
+let charts={};
+
+function save(){localStorage.setItem('sara-crm-v2',JSON.stringify(contacts))}
+function today(){return new Date().toISOString().slice(0,10)}
+function gstage(id){return STAGES.find(s=>s.id===id)||STAGES[0]}
+function inits(name){return name.split(' ').map(w=>w[0]||'').join('').slice(0,2).toUpperCase()}
+function badge(sid){const s=gstage(sid);return`<span class="sbadge" style="background:${s.bg};color:${s.color}">${s.label}</span>`}
+
+function load(){
+  const raw=localStorage.getItem('sara-crm-v2');
+  if(raw){contacts=JSON.parse(raw);return}
+  contacts=SEED.map((s,i)=>({
+    id:i+1,
+    clinic_name:s.cn,email:s.em,location:s.loc,job_url:s.url,
+    sent_date:s.sd,thread_id:s.tid,
+    stage:oStage(s.out),
+    unverified:s.out==='draft-ready-guessed',
+    hiring:!!s.url,
+    phone:'',notes:[],
+    activity:[{text:'Contact added to pipeline',time:s.sd||today()}],
+  }));
+  save();
+}
+
+// ── NAVIGATE ──
+function go(v){
+  view=v;sq='';sf='';
+  document.getElementById('sq').value='';
+  document.querySelectorAll('.nav').forEach(el=>el.classList.toggle('active',el.dataset.view===v));
+  const T={dashboard:'Dashboard',pipeline:'Pipeline',contacts:'Contacts',conversations:'Conversations',calendar:'Demos'};
+  document.getElementById('ptitle').textContent=T[v]||v;
+  render();
+}
+function onSearch(v){sq=v.toLowerCase();if(view==='contacts'||view==='pipeline')render()}
+
+// ── MAIN RENDER ──
+function render(){
+  Object.values(charts).forEach(c=>{try{c.destroy()}catch(e){}});
+  charts={};
+  const el=document.getElementById('content');
+  const main=document.getElementById('main');
+
+  if(view==='pipeline'){
+    el.style.cssText='padding:0;overflow:hidden;display:flex;flex-direction:column;height:100%';
+    main.style.overflow='hidden';
+    el.innerHTML=pipelineHTML();
+  } else {
+    el.style.cssText='padding:24px;overflow-y:auto';
+    main.style.overflow='';
+    if(view==='dashboard'){el.innerHTML=dashHTML();initCharts()}
+    else if(view==='contacts'){el.innerHTML=contactsHTML()}
+    else if(view==='conversations'){el.innerHTML=convsHTML()}
+    else if(view==='calendar'){el.innerHTML=calHTML()}
+  }
+  document.getElementById('cbadge').textContent=contacts.length;
+}
+
+// ── DASHBOARD ──
+function dashHTML(){
+  const all=contacts;
+  const drafts=all.filter(c=>c.stage==='draft').length;
+  const emailed=all.filter(c=>['emailed','followup'].includes(c.stage)).length;
+  const replied=all.filter(c=>c.stage==='replied').length;
+  const demo=all.filter(c=>c.stage==='demo').length;
+  const won=all.filter(c=>c.stage==='won').length;
+  const recent=all.flatMap(c=>(c.activity||[]).map(a=>({...a,name:c.clinic_name,id:c.id})))
+    .sort((a,b)=>b.time.localeCompare(a.time)).slice(0,8);
+
+  return`
+<div class="kpi-grid">
+  <div class="kpi"><div class="kpi-n">${all.length}</div><div class="kpi-l">Total Leads</div></div>
+  <div class="kpi"><div class="kpi-n">${drafts}</div><div class="kpi-l">Drafts Ready</div></div>
+  <div class="kpi"><div class="kpi-n">${emailed}</div><div class="kpi-l">Emailed</div></div>
+  <div class="kpi"><div class="kpi-n">${replied}</div><div class="kpi-l">Replied</div></div>
+  <div class="kpi"><div class="kpi-n">${demo}</div><div class="kpi-l">Demos Booked</div></div>
+  <div class="kpi" style="border-color:var(--teal)"><div class="kpi-n" style="color:#10b981">£${(won*299).toLocaleString()}</div><div class="kpi-l">Monthly Revenue</div></div>
+</div>
+<div class="dgrid">
+  <div class="card"><h3>Leads by Stage</h3><canvas id="cs" height="190"></canvas></div>
+  <div class="card"><h3>Recent Activity</h3>
+    <div class="alist">
+      ${recent.map(a=>`<div class="aitem" onclick="openPanel(${a.id})" style="cursor:pointer"><div class="adot"></div><div><div class="atext">${a.text} — <strong>${a.name}</strong></div><div class="atime">${a.time}</div></div></div>`).join('')||'<div class="empty">No activity yet.</div>'}
+    </div>
+  </div>
+</div>
+<div class="card"><h3>Conversion Funnel</h3>
+  <div class="funnel">
+    ${STAGES.map(s=>{const n=all.filter(c=>c.stage===s.id).length;return n?`<div class="funnel-seg" title="${s.label}: ${n}" style="flex:${n};background:${s.color}">${n}</div>`:''}).join('')}
+  </div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px">
+    ${STAGES.map(s=>`<div style="display:flex;align-items:center;gap:5px;font-size:.7rem;color:var(--grey)"><div style="width:7px;height:7px;border-radius:50%;background:${s.color}"></div>${s.label}</div>`).join('')}
+  </div>
+</div>`;
+}
+
+function initCharts(){
+  const ctx=document.getElementById('cs');
+  if(!ctx)return;
+  charts.s=new Chart(ctx,{type:'bar',data:{
+    labels:STAGES.map(s=>s.label),
+    datasets:[{data:STAGES.map(s=>contacts.filter(c=>c.stage===s.id).length),
+      backgroundColor:STAGES.map(s=>s.color+'bb'),borderColor:STAGES.map(s=>s.color),
+      borderWidth:1,borderRadius:5}]
+  },options:{responsive:true,plugins:{legend:{display:false}},
+    scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#f1f5f9'},beginAtZero:true,ticks:{precision:0}}}}});
+}
+
+// ── PIPELINE ──
+function pipelineHTML(){
+  const filtered=contacts.filter(c=>{
+    if(!sq)return true;
+    return c.clinic_name.toLowerCase().includes(sq)||c.email.toLowerCase().includes(sq);
+  });
+  return`<div id="kwrap" style="overflow:auto;flex:1;padding:20px">
+  <div id="kanban" style="display:flex;gap:13px;min-width:max-content;height:100%;min-height:500px">
+    ${STAGES.map(s=>{
+      const cols=filtered.filter(c=>c.stage===s.id);
+      return`<div class="kcol" id="col-${s.id}"
+        ondragover="dvr(event,'${s.id}')" ondrop="drp(event,'${s.id}')" ondragleave="dlv(event)">
+        <div class="khead"><div class="kdot" style="background:${s.color}"></div><div class="ktitle">${s.label}</div><div class="kcount">${cols.length}</div></div>
+        <div class="kbody" id="kb-${s.id}">
+          ${cols.map(c=>ccard(c)).join('')}
+        </div>
+      </div>`;
+    }).join('')}
+  </div></div>`;
+}
+
+function ccard(c){
+  return`<div class="cc" id="card-${c.id}" draggable="true"
+    ondragstart="dstart(event,${c.id})" ondragend="dend(event)"
+    onclick="openPanel(${c.id})">
+    <h4>${c.clinic_name}</h4>
+    <div class="ce">${c.email}</div>
+    <div class="cc-meta">
+      <div class="cc-loc">${c.location||''}${c.sent_date?' · '+c.sent_date.slice(5):''}</div>
+      ${c.unverified?'<span class="tag t-unv">Unverified</span>':c.hiring?'<span class="tag t-hiring">Hiring</span>':''}
+    </div>
+  </div>`;
+}
+
+// drag/drop
+function dstart(e,id){dragId=id;setTimeout(()=>{const el=document.getElementById('card-'+id);if(el)el.classList.add('dragging')},0);e.dataTransfer.effectAllowed='move'}
+function dend(){if(dragId){const el=document.getElementById('card-'+dragId);if(el)el.classList.remove('dragging')}}
+function dvr(e,sid){e.preventDefault();e.dataTransfer.dropEffect='move';document.getElementById('col-'+sid).classList.add('drag-over')}
+function dlv(e){e.currentTarget.classList.remove('drag-over')}
+function drp(e,sid){
+  e.preventDefault();
+  document.querySelectorAll('.kcol').forEach(c=>c.classList.remove('drag-over'));
+  if(dragId==null)return;
+  const c=contacts.find(x=>x.id===dragId);
+  if(c&&c.stage!==sid){
+    const old=gstage(c.stage),nw=gstage(sid);
+    c.stage=sid;
+    c.activity=c.activity||[];
+    c.activity.unshift({text:`Moved: ${old.label} → ${nw.label}`,time:today()});
+    save();render();
+  }
+  dragId=null;
+}
+
+// ── CONTACTS ──
+function contactsHTML(){
+  let list=contacts;
+  if(sf)list=list.filter(c=>c.stage===sf);
+  if(sq)list=list.filter(c=>c.clinic_name.toLowerCase().includes(sq)||c.email.toLowerCase().includes(sq)||(c.location||'').toLowerCase().includes(sq));
+  return`
+<div class="ctoolbar">
+  <div class="pills">
+    <div class="pill ${sf===''?'active':''}" onclick="setf('')">All (${contacts.length})</div>
+    ${STAGES.map(s=>{const n=contacts.filter(c=>c.stage===s.id).length;return n?`<div class="pill ${sf===s.id?'active':''}" onclick="setf('${s.id}')">${s.label} ${n}</div>`:''}).join('')}
+  </div>
+  <span style="margin-left:auto;font-size:.78rem;color:var(--grey)">${list.length} leads</span>
+</div>
+<div class="twrap">
+  <table>
+    <thead><tr><th>Clinic</th><th>Email</th><th>Location</th><th>Stage</th><th>Date</th><th>Notes</th></tr></thead>
+    <tbody>
+      ${list.length===0?`<tr><td colspan="6" class="empty">No leads match.</td></tr>`:
+        list.map(c=>`<tr onclick="openPanel(${c.id})">
+          <td><strong>${c.clinic_name}</strong>${c.unverified?' <span class="tag t-unv">Unverified</span>':''}</td>
+          <td style="color:var(--grey);font-size:.76rem">${c.email}</td>
+          <td>${c.location||'—'}</td>
+          <td>${badge(c.stage)}</td>
+          <td style="color:var(--grey)">${c.sent_date||'—'}</td>
+          <td style="color:var(--grey)">${(c.activity||[]).length} events</td>
+        </tr>`).join('')}
+    </tbody>
+  </table>
+</div>`;
+}
+function setf(f){sf=f;render()}
+
+// ── CONVERSATIONS ──
+function convsHTML(){
+  const list=contacts.filter(c=>c.thread_id);
+  return`<div class="twrap"><table>
+    <thead><tr><th>Clinic</th><th>Email</th><th>Stage</th><th>Date</th><th>Open</th></tr></thead>
+    <tbody>
+      ${list.map(c=>`<tr onclick="openPanel(${c.id})">
+        <td><strong>${c.clinic_name}</strong></td>
+        <td style="color:var(--grey);font-size:.76rem">${c.email}</td>
+        <td>${badge(c.stage)}</td>
+        <td style="color:var(--grey)">${c.sent_date||'—'}</td>
+        <td><a class="abtn" href="https://mail.google.com/mail/u/0/#inbox/${c.thread_id}" target="_blank" onclick="event.stopPropagation()">📧 Gmail</a></td>
+      </tr>`).join('')}
+    </tbody>
+  </table></div>`;
+}
+
+// ── CALENDAR / DEMOS ──
+function calHTML(){
+  const demos=contacts.filter(c=>c.stage==='demo');
+  const won=contacts.filter(c=>c.stage==='won');
+  return`<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:800px">
+  <div class="card"><h3>📅 Demo Booked (${demos.length})</h3>
+    ${demos.length===0?'<div class="empty" style="padding:20px 0">No demos yet.<br><small>Move a lead to "Demo Booked" to see it here.</small></div>':
+      demos.map(c=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+        <div style="font-size:1.3rem">📅</div>
+        <div style="flex:1"><div style="font-weight:700;font-size:.85rem">${c.clinic_name}</div><div style="font-size:.75rem;color:var(--grey)">${c.email}</div></div>
+        <button class="bsm" onclick="openPanel(${c.id})">View</button>
+      </div>`).join('')}
+  </div>
+  <div class="card"><h3>🏆 Closed Won (${won.length})</h3>
+    ${won.length===0?'<div class="empty" style="padding:20px 0">No closed deals yet.</div>':
+      won.map(c=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+        <div style="font-size:1.3rem">🏆</div>
+        <div style="flex:1"><div style="font-weight:700;font-size:.85rem">${c.clinic_name}</div><div style="font-size:.75rem;color:#10b981;font-weight:600">£299/mo</div></div>
+        <button class="bsm" onclick="openPanel(${c.id})">View</button>
+      </div>`).join('')}
+  </div></div>`;
+}
+
+// ── DETAIL PANEL ──
+function openPanel(id){
+  selId=id;
+  const c=contacts.find(x=>x.id===id);
+  if(!c)return;
+  document.getElementById('ph').innerHTML=`
+    <div class="pav">${inits(c.clinic_name)}</div>
+    <div>
+      <div class="pname">${c.clinic_name}</div>
+      <div class="pemail">${c.email}</div>
+      <div style="margin-top:5px">${badge(c.stage)}</div>
+    </div>
+    <button class="pclose" onclick="closePanel()">✕</button>`;
+
+  document.getElementById('pb').innerHTML=`
+  <div class="psect"><h4>Quick Actions</h4>
+    <div class="arow">
+      ${c.thread_id?`<a class="abtn pri" href="https://mail.google.com/mail/u/0/#inbox/${c.thread_id}" target="_blank">📧 Open Gmail</a>`:''}
+      ${c.job_url?`<a class="abtn" href="${c.job_url}" target="_blank">🔗 Job Post</a>`:''}
+      <button class="abtn" onclick="chStage(${c.id},'emailed')">✉️ Mark Emailed</button>
+      <button class="abtn" onclick="chStage(${c.id},'replied')">💬 Mark Replied</button>
+      <button class="abtn" onclick="chStage(${c.id},'demo')">📅 Demo Booked</button>
+      <button class="abtn" onclick="chStage(${c.id},'won')">🏆 Mark Won</button>
+      <button class="abtn" style="color:#ef4444" onclick="chStage(${c.id},'lost')">✕ Mark Lost</button>
+    </div>
+  </div>
+  <div class="psect"><h4>Stage</h4>
+    <select class="ssel" onchange="chStage(${c.id},this.value)">
+      ${STAGES.map(s=>`<option value="${s.id}"${c.stage===s.id?' selected':''}>${s.label}</option>`).join('')}
+    </select>
+  </div>
+  <div class="psect"><h4>Details</h4>
+    <div class="igrid">
+      <div class="iitem"><label>Location</label><span>${c.location||'—'}</span></div>
+      <div class="iitem"><label>Phone</label><span>${c.phone||'—'}</span></div>
+      <div class="iitem"><label>Sent Date</label><span>${c.sent_date||'—'}</span></div>
+      <div class="iitem"><label>Email Verified</label><span>${c.unverified?'No (guessed)':'Yes'}</span></div>
+      <div class="iitem"><label>Hiring Signal</label><span>${c.hiring?'Yes (job post)':'Not confirmed'}</span></div>
+      <div class="iitem"><label>Reply</label><span>${c.reply||'—'}</span></div>
+    </div>
+    ${c.thread_id?`<div style="margin-top:10px;font-size:.72rem;color:var(--grey)">Thread: ${c.thread_id.slice(0,20)}…</div>`:''}
+  </div>
+  <div class="psect"><h4>Add Note</h4>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <textarea class="ntarea" id="ni" placeholder="Type a note…"></textarea>
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button class="bsm" onclick="addNote(${c.id})">Save Note</button>
+      </div>
+    </div>
+  </div>
+  <div class="psect"><h4>Activity (${(c.activity||[]).length})</h4>
+    <div class="alist">
+      ${(c.activity||[]).map(a=>`<div class="aitem"><div class="adot"></div><div><div class="atext">${a.text}</div><div class="atime">${a.time}</div></div></div>`).join('')||'<div class="empty" style="padding:12px 0">No activity.</div>'}
+    </div>
+  </div>`;
+
+  document.getElementById('panel').classList.add('open');
+  document.getElementById('pov').classList.add('open');
+}
+
+function closePanel(){
+  document.getElementById('panel').classList.remove('open');
+  document.getElementById('pov').classList.remove('open');
+  selId=null;
+}
+
+function chStage(id,sid){
+  const c=contacts.find(x=>x.id===id);if(!c)return;
+  const old=gstage(c.stage),nw=gstage(sid);
+  if(c.stage===sid)return;
+  c.stage=sid;
+  c.activity=c.activity||[];
+  c.activity.unshift({text:`Stage: ${old.label} → ${nw.label}`,time:today()});
+  save();openPanel(id);
+  if(view==='pipeline'||view==='dashboard')render();
+}
+
+function addNote(id){
+  const inp=document.getElementById('ni');
+  const txt=(inp.value||'').trim();if(!txt)return;
+  const c=contacts.find(x=>x.id===id);if(!c)return;
+  c.activity=c.activity||[];
+  c.activity.unshift({text:'📝 '+txt,time:today()});
+  save();openPanel(id);
+}
+
+// ── ADD CONTACT MODAL ──
+function openModal(){
+  const sel=document.getElementById('fs');
+  sel.innerHTML=STAGES.map(s=>`<option value="${s.id}">${s.label}</option>`).join('');
+  document.getElementById('mov').classList.add('open');
+}
+function closeModal(){
+  document.getElementById('mov').classList.remove('open');
+  ['fn','fe','fl','fu','fph'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});
+}
+function saveNew(){
+  const name=document.getElementById('fn').value.trim();
+  const email=document.getElementById('fe').value.trim();
+  if(!name||!email){alert('Name and email required.');return}
+  const c={
+    id:Date.now(),
+    clinic_name:name,email,
+    location:document.getElementById('fl').value.trim(),
+    job_url:document.getElementById('fu').value.trim(),
+    phone:document.getElementById('fph').value.trim(),
+    sent_date:today(),thread_id:'',
+    stage:document.getElementById('fs').value,
+    unverified:false,hiring:!!document.getElementById('fu').value.trim(),
+    notes:[],activity:[{text:'Contact added to pipeline',time:today()}],
+  };
+  contacts.push(c);save();closeModal();render();
+}
+
+// ── INIT ──
+load();render();
+</script>
+</body>
+</html>
