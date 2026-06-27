@@ -60,7 +60,7 @@
   .hero p {
     font-size: 18px;
     color: rgba(255,255,255,0.7);
-    max-width: 600px;
+    max-width: 620px;
     margin: 0 auto;
   }
 
@@ -85,12 +85,13 @@
     color: var(--muted);
     font-size: 16px;
     margin-bottom: 40px;
+    max-width: 640px;
   }
 
   /* ── STAT CARDS ── */
   .stat-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 20px;
     margin-bottom: 48px;
   }
@@ -114,7 +115,7 @@
   .stat-card.teal::before { background: var(--teal); }
   .stat-card.dark::before { background: var(--dark); }
   .stat-number {
-    font-size: 52px;
+    font-size: 48px;
     font-weight: 900;
     line-height: 1;
     margin-bottom: 6px;
@@ -133,6 +134,32 @@
     font-size: 12px;
     color: var(--muted);
   }
+
+  /* ── NHS COLLAPSE BAND ── */
+  .nhs-section { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .nhs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .nhs-card {
+    border-radius: 16px;
+    padding: 28px 24px;
+    background: var(--red-light);
+    border: 1px solid #fca5a5;
+  }
+  .nhs-card .big { font-size: 44px; font-weight: 900; color: var(--red); line-height: 1; margin-bottom: 8px; }
+  .nhs-card .lbl { font-size: 14px; color: var(--mid); font-weight: 600; }
+  .nhs-takeaway {
+    background: var(--dark);
+    color: white;
+    border-radius: 16px;
+    padding: 28px 32px;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .nhs-takeaway strong { color: #5eead4; }
 
   /* ── PROBLEM BLOCKS ── */
   .problem-grid {
@@ -164,6 +191,7 @@
   .problem-icon.amber { background: var(--amber-light); }
   .problem-icon.purple { background: #f3e8ff; }
   .problem-icon.blue { background: #dbeafe; }
+  .problem-icon.green { background: var(--green-light); }
   .problem-card-head h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
   .problem-card-head p { font-size: 13px; color: var(--muted); }
   .problem-card-body { padding: 20px 24px; }
@@ -179,6 +207,7 @@
   .fact-dot.amber { background: var(--amber); }
   .fact-dot.purple { background: #9333ea; }
   .fact-dot.blue { background: #2563eb; }
+  .fact-dot.green { background: var(--green); }
   .fact-row p { font-size: 14px; color: var(--mid); }
   .fact-row strong { color: var(--dark); }
 
@@ -229,9 +258,6 @@
   }
   .flow-header.before { color: var(--red); }
   .flow-header.after { color: var(--teal); }
-
-  /* ── DIVIDER ── */
-  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
 
   /* ── SOLUTION SECTION ── */
   .solution-grid {
@@ -321,7 +347,7 @@
     gap: 20px;
   }
   .savings-banner h3 { font-size: 20px; font-weight: 800; }
-  .savings-banner p { font-size: 14px; opacity: 0.8; margin-top: 4px; }
+  .savings-banner p { font-size: 14px; opacity: 0.8; margin-top: 4px; max-width: 560px; }
   .savings-big { font-size: 48px; font-weight: 900; line-height: 1; }
   .savings-sub { font-size: 13px; opacity: 0.7; }
 
@@ -339,7 +365,6 @@
   .burnout-bar-fill {
     height: 100%;
     border-radius: 99px;
-    transition: width 1s ease;
   }
 
   /* ── CALLER BEHAVIOUR ── */
@@ -361,6 +386,26 @@
   .caller-card:nth-child(2) .caller-pct { color: var(--amber); }
   .caller-card:nth-child(3) .caller-pct { color: var(--teal); }
   .caller-card p { font-size: 13px; color: var(--mid); }
+
+  /* ── WHY NOW ── */
+  .whynow-section { background: linear-gradient(135deg, #0d4f47 0%, #0f172a 100%); color: white; }
+  .whynow-section .section-label { color: #5eead4; }
+  .whynow-section .section-title { color: white; }
+  .whynow-section .section-sub { color: rgba(255,255,255,0.55); }
+  .whynow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .whynow-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 26px 24px;
+  }
+  .whynow-card .num { font-size: 13px; font-weight: 700; color: #5eead4; letter-spacing: 1px; margin-bottom: 10px; }
+  .whynow-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .whynow-card p { font-size: 14px; color: rgba(255,255,255,0.65); }
 
   /* ── QUOTE ── */
   .quote-block {
@@ -410,7 +455,16 @@
     text-decoration: none;
   }
 
-  /* ── FOOTER ── */
+  /* ── SOURCES / FOOTER ── */
+  .sources {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+  }
+  .sources h4 { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .sources ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 8px; }
+  .sources li { font-size: 12px; color: var(--muted); padding-left: 16px; position: relative; }
+  .sources li::before { content: '•'; position: absolute; left: 0; color: var(--teal); }
   .footer {
     text-align: center;
     padding: 24px;
@@ -432,7 +486,7 @@
 <div class="hero">
   <div class="badge">UK Dental Market Analysis · 2026</div>
   <h1>The Phone is <span>Losing You Patients</span><br>Every Single Day</h1>
-  <p>A data-driven look at what dental receptionists are struggling with — and exactly how Sara AI closes the gap.</p>
+  <p>Demand for dental care has never been higher — and the front desk has never been more overwhelmed. Here's the data on what's breaking, and exactly how Sara fixes it.</p>
 </div>
 
 <!-- STATS BAR -->
@@ -460,10 +514,47 @@
         <div class="stat-note">Average practice, all hours</div>
       </div>
       <div class="stat-card amber">
+        <div class="stat-number">82%</div>
+        <div class="stat-label">Locked out of NHS care</div>
+        <div class="stat-note">New adult patients, England, May 2025</div>
+      </div>
+      <div class="stat-card teal">
         <div class="stat-number">61%</div>
         <div class="stat-label">Staff: high burnout</div>
-        <div class="stat-note">UK dental professionals, BDJ study 2024</div>
+        <div class="stat-note">UK dental professionals, BDJ 2024</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- NHS COLLAPSE -->
+<section class="nhs-section">
+  <div class="container">
+    <div class="section-label">The Backdrop</div>
+    <div class="section-title">The NHS Access Collapse Is Flooding Your Phone Line</div>
+    <div class="section-sub">Millions of patients can't get an NHS dentist — so they're ringing every practice they can find. The demand is there. The question is who picks up.</div>
+
+    <div class="nhs-grid">
+      <div class="nhs-card">
+        <div class="big">82%</div>
+        <div class="lbl">of new adult patients couldn't access NHS dental care (England, May 2025) — rising as high as 97% in some areas</div>
+      </div>
+      <div class="nhs-card">
+        <div class="big">2.2M</div>
+        <div class="lbl">people each year have unmet NHS dental needs they can't satisfy</div>
+      </div>
+      <div class="nhs-card">
+        <div class="big">48%</div>
+        <div class="lbl">of surgeries have no capacity for additional adult NHS patients</div>
+      </div>
+      <div class="nhs-card">
+        <div class="big">73M</div>
+        <div class="lbl">units of dental activity delivered across England in 2024–25 — a system at full stretch</div>
+      </div>
+    </div>
+
+    <div class="nhs-takeaway">
+      Here's the opportunity hiding in the crisis: with NHS lists closed, a flood of patients are <strong>actively searching and phoning private practices</strong>. Every one of those calls is a new patient worth thousands — but only if someone answers. <strong>The practices that pick up first, win.</strong>
     </div>
   </div>
 </section>
@@ -473,7 +564,7 @@
   <div class="container">
     <div class="section-label">The Problem</div>
     <div class="section-title">Why the Front Desk Is Breaking</div>
-    <div class="section-sub">Four compounding pressure points hitting receptionists at once</div>
+    <div class="section-sub">Five compounding pressure points hitting receptionists at once — and why none of them are the receptionist's fault</div>
 
     <div class="problem-grid">
 
@@ -497,6 +588,30 @@
           <div class="fact-row">
             <div class="fact-dot red"></div>
             <p>New patients call once. <strong>They don't try again.</strong> They move on.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-card-head">
+          <div class="problem-icon green">📅</div>
+          <div>
+            <h3>No-Shows & Diary Gaps</h3>
+            <p>Empty chairs that were never confirmed</p>
+          </div>
+        </div>
+        <div class="problem-card-body">
+          <div class="fact-row">
+            <div class="fact-dot green"></div>
+            <p>NHS missed-appointment rates reach <strong>23% for children and 32%+ in deprived areas</strong> — chairs sitting empty.</p>
+          </div>
+          <div class="fact-row">
+            <div class="fact-dot green"></div>
+            <p>Every no-show is <strong>wasted clinician time and lost revenue</strong> that a confirmation call would have saved.</p>
+          </div>
+          <div class="fact-row">
+            <div class="fact-dot green"></div>
+            <p>The desk is too busy to chase reminders manually, so <strong>gaps go unfilled</strong>.</p>
           </div>
         </div>
       </div>
@@ -551,7 +666,31 @@
 
       <div class="problem-card">
         <div class="problem-card-head">
-          <div class="problem-icon blue">📋</div>
+          <div class="problem-icon blue">📱</div>
+          <div>
+            <h3>Patients Want It Instant</h3>
+            <p>The phone is just one of many channels now</p>
+          </div>
+        </div>
+        <div class="problem-card-body">
+          <div class="fact-row">
+            <div class="fact-dot blue"></div>
+            <p><strong>73% of UK dental searches happen on mobile</strong> — patients expect to book in the moment they decide.</p>
+          </div>
+          <div class="fact-row">
+            <div class="fact-dot blue"></div>
+            <p>A fast, simple booking experience lifts completion from <strong>12% to 28%</strong>.</p>
+          </div>
+          <div class="fact-row">
+            <div class="fact-dot blue"></div>
+            <p>If the practice can't respond fast, the patient <strong>books with whoever does</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-card-head">
+          <div class="problem-icon amber">📋</div>
           <div>
             <h3>Admin Overload</h3>
             <p>Far more than just answering the phone</p>
@@ -559,16 +698,16 @@
         </div>
         <div class="problem-card-body">
           <div class="fact-row">
-            <div class="fact-dot blue"></div>
+            <div class="fact-dot amber"></div>
             <p><strong>CQC compliance paperwork</strong>, NHS UDA tracking, FP17 submissions — on top of front desk duties.</p>
           </div>
           <div class="fact-row">
-            <div class="fact-dot blue"></div>
+            <div class="fact-dot amber"></div>
             <p>Recall and follow-up campaigns done <strong>manually</strong> — patients fall through the gap.</p>
           </div>
           <div class="fact-row">
-            <div class="fact-dot blue"></div>
-            <p>Practice software (Dentally, SystmOne) adding complexity. <strong>Something always gets dropped</strong> — and it's usually the phone.</p>
+            <div class="fact-dot amber"></div>
+            <p>Practice software adding complexity. <strong>Something always gets dropped</strong> — usually the phone.</p>
           </div>
         </div>
       </div>
@@ -624,15 +763,27 @@
     </div>
 
     <div class="flow-row">
+      <div class="flow-box before"><strong>Patient books at 9pm on mobile</strong>No one to answer. They scroll to the next clinic and book there instead.</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box after"><strong>Patient books at 9pm on mobile</strong>Sara answers instantly, captures the booking while the intent is hot. Conversion saved.</div>
+    </div>
+
+    <div class="flow-row">
+      <div class="flow-box before"><strong>Appointment tomorrow, unconfirmed</strong>No reminder goes out. Patient forgets. Chair sits empty — clinician paid for nothing.</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box after"><strong>Appointment tomorrow, unconfirmed</strong>Sara calls/texts to confirm, offers to rebook if needed, fills the gap from the waitlist.</div>
+    </div>
+
+    <div class="flow-row">
       <div class="flow-box before"><strong>Receptionist is off sick</strong>Locum scrambles, phones neglected, urgent calls missed. Chaos for 1–3 days.</div>
       <div class="flow-arrow">→</div>
       <div class="flow-box after"><strong>Receptionist is off sick</strong>Sara keeps answering every call. Nothing falls through. No cover needed for routine calls.</div>
     </div>
 
     <div class="flow-row">
-      <div class="flow-box before"><strong>Patient calls with "is my crown covered?"</strong>Receptionist interrupts patient check-in to look it up. Queue backs up.</div>
+      <div class="flow-box before"><strong>Patient asks "is my crown covered?"</strong>Receptionist interrupts patient check-in to look it up. Queue backs up.</div>
       <div class="flow-arrow">→</div>
-      <div class="flow-box after"><strong>Patient calls with "is my crown covered?"</strong>Sara handles FAQs instantly — hours, prices, parking, recall dates — no interruption.</div>
+      <div class="flow-box after"><strong>Patient asks "is my crown covered?"</strong>Sara handles FAQs instantly — hours, prices, parking, recall dates — no interruption.</div>
     </div>
 
     <div class="flow-row">
@@ -702,6 +853,13 @@
       </div>
 
       <div class="solution-card">
+        <div class="solution-icon">🔔</div>
+        <h3>Confirms & Fills Gaps</h3>
+        <p>Sara sends reminders, confirms upcoming appointments, and offers open slots to the waitlist — cutting no-shows and empty chairs.</p>
+        <span class="solution-tag">Fewer No-Shows</span>
+      </div>
+
+      <div class="solution-card">
         <div class="solution-icon">💬</div>
         <h3>Handles FAQs Instantly</h3>
         <p>Opening hours, prices, parking, recalls, cancellations — Sara answers the routine questions without interrupting your team.</p>
@@ -718,15 +876,8 @@
       <div class="solution-card">
         <div class="solution-icon">🇬🇧</div>
         <h3>Built for UK Dental Clinics</h3>
-        <p>Understands NHS and private structures, UK insurance, GDC context, and British dental practice terminology.</p>
+        <p>Understands NHS and private structures, UK terminology, and the way British dental practices actually run.</p>
         <span class="solution-tag">UK-Specific</span>
-      </div>
-
-      <div class="solution-card">
-        <div class="solution-icon">⚡</div>
-        <h3>Live in Days, Not Months</h3>
-        <p>No long integrations. Sara is configured for your clinic quickly — your team doesn't need to change how they work.</p>
-        <span class="solution-tag">Fast Setup</span>
       </div>
 
     </div>
@@ -767,7 +918,7 @@
     <div class="savings-banner">
       <div>
         <h3>Annual saving with Sara</h3>
-        <p>Sara works as the overflow + out-of-hours layer — not a full replacement, but even as support it pays for itself in the first month of missed calls recovered.</p>
+        <p>Sara works as the overflow + out-of-hours layer — not a full replacement, but even as support she pays for herself in the first month of recovered missed calls.</p>
       </div>
       <div style="text-align:right;">
         <div class="savings-big">£31,000+</div>
@@ -777,9 +928,36 @@
 
     <div style="margin-top: 32px; background: var(--amber-light); border-radius: 14px; padding: 24px 28px; border: 1px solid #fcd34d;">
       <strong style="color: var(--amber); font-size:13px; letter-spacing:1px; text-transform:uppercase;">Revenue recovered</strong>
-      <p style="margin-top:8px; color: var(--mid); font-size:15px;">If Sara recovers just <strong>10 new patient calls per month</strong> that would otherwise be missed — at £650 average lifetime value — that's <strong>£6,500/month</strong> in recovered revenue against a £299/month cost. The ROI is not close.</p>
+      <p style="margin-top:8px; color: var(--mid); font-size:15px;">A new-patient private exam in the UK now runs around <strong>£80</strong>, and the lifetime value of that patient reaches several thousand pounds. If Sara recovers just <strong>10 new patient calls per month</strong> that would otherwise be missed — at a conservative £650 lifetime value — that's <strong>£6,500/month</strong> in recovered revenue against a £299/month cost. The ROI is not close.</p>
     </div>
 
+  </div>
+</section>
+
+<!-- WHY NOW -->
+<section class="whynow-section">
+  <div class="container">
+    <div class="section-label">The Timing</div>
+    <div class="section-title">Why 2026 Is the Year to Fix This</div>
+    <div class="section-sub">Three forces have converged — the practices that move now capture the patients everyone else is dropping.</div>
+
+    <div class="whynow-grid">
+      <div class="whynow-card">
+        <div class="num">01 · DEMAND SURGE</div>
+        <h3>NHS lists are closed</h3>
+        <p>With 82% of new patients locked out of NHS care, private enquiries are flooding in. More calls than ever — and most go unanswered.</p>
+      </div>
+      <div class="whynow-card">
+        <div class="num">02 · BEHAVIOUR SHIFT</div>
+        <h3>Patients book on impulse</h3>
+        <p>73% of searches are on mobile, often after hours. Whoever answers first wins the booking. Speed is now the whole game.</p>
+      </div>
+      <div class="whynow-card">
+        <div class="num">03 · STAFF SHORTAGE</div>
+        <h3>Receptionists are scarce</h3>
+        <p>Burnout and turnover make hiring slow and expensive. Sara fills the gap instantly, with no recruitment cycle and no sick days.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -812,10 +990,29 @@
   </div>
 </div>
 
+<!-- SOURCES -->
+<div class="sources">
+  <div class="container">
+    <h4>Sources</h4>
+    <ul>
+      <li>British Dental Journal — burnout & wellbeing of UK dental receptionists (2024)</li>
+      <li>ONS / Commons Library — NHS dental access, England (2025)</li>
+      <li>NHS England Digital — NHS Dental Statistics 2024–25</li>
+      <li>The Times — survey of NHS surgery capacity</li>
+      <li>Reach.co — 32% of dental calls go unanswered</li>
+      <li>Resonate AI — missed calls in dental practices statistics</li>
+      <li>Oral Health Group — UK AI receptionist rollout results</li>
+      <li>University of Portsmouth — missed scheduled NHS dental appointments (DNA) study</li>
+      <li>Dominate Dental — UK dental online booking & acquisition data (2026)</li>
+      <li>MyTribe Insurance — average cost of UK private dental treatment</li>
+    </ul>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <div class="footer">
-  Sara AI · UK Dental Voice Receptionist · Presented by Jordan<br>
-  Data sources: British Dental Journal (2024), Reach.co, Resonate AI, Oral Health Group, Open Access Government · Report generated June 2026
+  Sara AI · UK Dental Voice Receptionist · Presented by Jordan · Report refreshed June 2026<br>
+  All figures cited from published UK sources. No clinic-specific numbers are estimated or invented.
 </div>
 
 </body>
