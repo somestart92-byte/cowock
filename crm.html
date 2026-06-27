@@ -142,6 +142,25 @@ tbody tr:hover{background:rgba(0,180,166,.03);cursor:pointer}
 .mact{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}
 
 .empty{text-align:center;padding:36px;color:var(--grey);font-size:.85rem}
+
+/* EMAIL COMPOSE MODAL */
+#eov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;display:none;align-items:center;justify-content:center}
+#eov.open{display:flex}
+#emodal{background:var(--white);border-radius:14px;width:560px;max-width:96vw;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.22)}
+.emhd{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.emhd h3{font-size:1rem;font-weight:700}
+.embd{padding:20px 22px}
+.emft{display:flex;justify-content:flex-end;gap:9px;padding:14px 22px;border-top:1px solid var(--border)}
+.etarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:.84rem;resize:vertical;min-height:200px;font-family:inherit;outline:none;color:var(--text);line-height:1.6}
+.etarea:focus{border-color:var(--teal)}
+
+/* TRACKING BADGES */
+.tb{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:50px;font-size:.68rem;font-weight:700}
+.tb-opened{background:#d1fae5;color:#065f46}
+.tb-clicked{background:#dbeafe;color:#1e40af}
+.tb-bounced{background:#fee2e2;color:#991b1b}
+.tb-sent{background:#f1f5f9;color:#475569}
+.tb-loading{background:#f1f5f9;color:#94a3b8}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
 </style>
@@ -186,6 +205,27 @@ tbody tr:hover{background:rgba(0,180,166,.03);cursor:pointer}
     <div class="fg"><label>Job Posting URL</label><input id="fu" type="url" placeholder="https://…"/></div>
     <div class="fg"><label>Phone</label><input id="fph" placeholder="+44 …"/></div>
     <div class="mact"><button class="bghost" onclick="closeModal()">Cancel</button><button class="bsm" onclick="saveNew()">Add Lead</button></div>
+  </div>
+</div>
+
+<!-- Email Compose Modal -->
+<div id="eov" onclick="if(event.target===this)closeEmail()">
+  <div id="emodal">
+    <div class="emhd"><h3>✉️ Send Email</h3><button class="pclose" onclick="closeEmail()">✕</button></div>
+    <div class="embd">
+      <div class="fg"><label>To</label><input id="eto" readonly style="background:var(--off)"/></div>
+      <div class="fg"><label>Subject</label><input id="esubj" placeholder="Subject line…"/></div>
+      <div class="fg"><label>Message (HTML or plain text)</label>
+        <textarea class="etarea" id="ebody"></textarea>
+      </div>
+      <div style="font-size:.75rem;color:var(--grey);margin-top:-8px">
+        Open &amp; click tracking is automatic via Brevo. Requires <strong>BREVO_API_KEY</strong> in Netlify env vars.
+      </div>
+    </div>
+    <div class="emft">
+      <button class="bghost" onclick="closeEmail()">Cancel</button>
+      <button class="bsm" id="esend" onclick="sendEmail()">Send Email</button>
+    </div>
   </div>
 </div>
 
@@ -511,15 +551,16 @@ function openPanel(id){
   document.getElementById('pb').innerHTML=`
   <div class="psect"><h4>Quick Actions</h4>
     <div class="arow">
-      ${c.thread_id?`<a class="abtn pri" href="https://mail.google.com/mail/u/0/#inbox/${c.thread_id}" target="_blank">📧 Open Gmail</a>`:''}
+      <button class="abtn pri" onclick="openEmail(${c.id})">✉️ Send Email</button>
+      ${c.thread_id?`<a class="abtn" href="https://mail.google.com/mail/u/0/#inbox/${c.thread_id}" target="_blank">📥 Gmail Draft</a>`:''}
       ${c.job_url?`<a class="abtn" href="${c.job_url}" target="_blank">🔗 Job Post</a>`:''}
-      <button class="abtn" onclick="chStage(${c.id},'emailed')">✉️ Mark Emailed</button>
       <button class="abtn" onclick="chStage(${c.id},'replied')">💬 Mark Replied</button>
       <button class="abtn" onclick="chStage(${c.id},'demo')">📅 Demo Booked</button>
       <button class="abtn" onclick="chStage(${c.id},'won')">🏆 Mark Won</button>
       <button class="abtn" style="color:#ef4444" onclick="chStage(${c.id},'lost')">✕ Mark Lost</button>
     </div>
   </div>
+  ${trackingHTML(c)}
   <div class="psect"><h4>Stage</h4>
     <select class="ssel" onchange="chStage(${c.id},this.value)">
       ${STAGES.map(s=>`<option value="${s.id}"${c.stage===s.id?' selected':''}>${s.label}</option>`).join('')}
@@ -610,6 +651,117 @@ function saveNew(){
 
 // ── INIT ──
 load();render();
+
+// ── EMAIL COMPOSE ──
+let emailContactId=null;
+
+const SARA_TEMPLATE=`Hi,
+
+I noticed [CLINIC] is looking to hire a receptionist — before you go through that process, I wanted to reach out about something that might be worth a look.
+
+We've built Sara, an AI voice receptionist for dental clinics. She answers every call (even when the desk is busy or it's after hours), books patients into your diary, and handles routine questions — working alongside your team, not replacing them.
+
+The pitch is simple: clinics lose new patients at the phone every day. Callers don't leave voicemail, they ring the next dentist. Sara makes sure that doesn't happen.
+
+First month is free. No long contract. Happy to show you a quick demo — link below.
+
+[Demo: https://wonderful-meerkat-938250.netlify.app/]
+
+Jordan`;
+
+function openEmail(id){
+  emailContactId=id;
+  const c=contacts.find(x=>x.id===id);if(!c)return;
+  document.getElementById('eto').value=c.email;
+  document.getElementById('esubj').value=`A thought on covering phones at ${c.clinic_name}`;
+  document.getElementById('ebody').value=SARA_TEMPLATE.replace('[CLINIC]',c.clinic_name);
+  document.getElementById('esend').textContent='Send Email';
+  document.getElementById('esend').disabled=false;
+  document.getElementById('eov').classList.add('open');
+}
+
+function closeEmail(){
+  document.getElementById('eov').classList.remove('open');
+  emailContactId=null;
+}
+
+async function sendEmail(){
+  const c=contacts.find(x=>x.id===emailContactId);if(!c)return;
+  const subj=document.getElementById('esubj').value.trim();
+  const body=document.getElementById('ebody').value.trim();
+  if(!subj||!body){alert('Subject and message required.');return}
+
+  const btn=document.getElementById('esend');
+  btn.textContent='Sending…';btn.disabled=true;
+
+  const html=body.includes('<')?body:body.split('\n').map(l=>l?`<p>${l}</p>`:'<br>').join('');
+
+  try{
+    const res=await fetch('/api/send-email',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({to:c.email,toName:c.clinic_name,subject:subj,html,contactId:c.id}),
+    });
+    const data=await res.json();
+    if(!res.ok)throw new Error(data.error||'Send failed');
+
+    // store messageId & mark emailed
+    c.emailsSent=c.emailsSent||[];
+    c.emailsSent.push({messageId:data.messageId,subject:subj,sentAt:today(),opened:false,clicked:false});
+    c.activity=c.activity||[];
+    c.activity.unshift({text:`📧 Email sent: "${subj}"`,time:today()});
+    if(c.stage==='new'||c.stage==='draft') chStage(c.id,'emailed');
+    else{save();openPanel(c.id);}
+    closeEmail();
+    alert('Email sent! Tracking is active.');
+  }catch(err){
+    alert('Error: '+err.message);
+    btn.textContent='Send Email';btn.disabled=false;
+  }
+}
+
+// ── EMAIL STATS / TRACKING ──
+async function fetchEmailStats(contactId){
+  try{
+    const res=await fetch(`/api/email-stats?contactId=${contactId}`);
+    if(!res.ok)return null;
+    return await res.json();
+  }catch{return null}
+}
+
+function trackingHTML(c){
+  if(!c.emailsSent||c.emailsSent.length===0) return '';
+  return`<div class="psect"><h4>Email Tracking</h4>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      ${c.emailsSent.map((e,i)=>`
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
+        <div style="font-size:.78rem;font-weight:600;margin-bottom:5px">${e.subject||'Email '+(i+1)}</div>
+        <div style="font-size:.7rem;color:var(--grey);margin-bottom:6px">${e.sentAt}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span class="tb tb-sent">✉ Sent</span>
+          <span class="tb ${e.opened?'tb-opened':'tb-loading'}" id="tr-open-${c.id}-${i}">${e.opened?'👁 Opened':'⏳ Not opened'}</span>
+          <span class="tb ${e.clicked?'tb-clicked':'tb-loading'}" id="tr-click-${c.id}-${i}">${e.clicked?'🖱 Clicked':'— No click'}</span>
+          ${e.bounced?'<span class="tb tb-bounced">⚠ Bounced</span>':''}
+        </div>
+        ${e.messageId?`<button class="abtn" style="margin-top:8px;font-size:.7rem" onclick="refreshStats(${c.id},${i})">↻ Refresh</button>`:''}
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+async function refreshStats(contactId,idx){
+  const c=contacts.find(x=>x.id===contactId);if(!c||!c.emailsSent[idx])return;
+  const e=c.emailsSent[idx];
+  const data=await fetchEmailStats(contactId);
+  if(!data||!data.emails)return;
+  const match=data.emails.find(m=>m.messageId===e.messageId)||data.emails[idx];
+  if(match){
+    e.opened=match.opened;
+    e.clicked=match.clicked;
+    e.bounced=match.bounced;
+    save();openPanel(contactId);
+  }
+}
 </script>
 </body>
 </html>
