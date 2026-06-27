@@ -13,7 +13,7 @@ import nodemailer from 'nodemailer';
 
 const PIPELINE_FILE  = 'pipeline.csv';
 const SENDER_EMAIL   = process.env.GMAIL_USER || 'voiceaifrin1@gmail.com';
-const SENDER_NAME    = process.env.SENDER_NAME || 'The Sara team';
+const SENDER_NAME    = process.env.SENDER_NAME || 'Jordan';
 const BREVO_LOGIN    = process.env.BREVO_SMTP_LOGIN;
 const BREVO_KEY      = process.env.BREVO_SMTP_KEY;
 const LANDING_PAGE   = 'https://wonderful-meerkat-938250.netlify.app/';
