@@ -176,6 +176,8 @@ tbody tr:hover{background:rgba(0,180,166,.03);cursor:pointer}
     <div class="s-sect">Outreach</div>
     <div class="nav" data-view="conversations" onclick="go('conversations')"><span class="nav-ic">📧</span>Conversations</div>
     <div class="nav" data-view="calendar" onclick="go('calendar')"><span class="nav-ic">📅</span>Demos</div>
+    <div class="s-sect">System</div>
+    <div class="nav" data-view="settings" onclick="go('settings')"><span class="nav-ic">⚙️</span>Settings<span id="cfg-dot" style="width:7px;height:7px;border-radius:50%;background:#ef4444;margin-left:auto;display:none"></span></div>
     <div class="s-foot">Sender: Jordan<br>voiceaifrin1@gmail.com</div>
   </aside>
 
@@ -219,7 +221,7 @@ tbody tr:hover{background:rgba(0,180,166,.03);cursor:pointer}
         <textarea class="etarea" id="ebody"></textarea>
       </div>
       <div style="font-size:.75rem;color:var(--grey);margin-top:-8px">
-        Open &amp; click tracking is automatic via Brevo. Requires <strong>BREVO_API_KEY</strong> in Netlify env vars.
+        Email sends from your Gmail. Open tracking is automatic. Requires <strong>GAS_WEB_APP_URL</strong> in Netlify env vars — see ⚙️ Settings.
       </div>
     </div>
     <div class="emft">
@@ -330,7 +332,7 @@ function go(v){
   view=v;sq='';sf='';
   document.getElementById('sq').value='';
   document.querySelectorAll('.nav').forEach(el=>el.classList.toggle('active',el.dataset.view===v));
-  const T={dashboard:'Dashboard',pipeline:'Pipeline',contacts:'Contacts',conversations:'Conversations',calendar:'Demos'};
+  const T={dashboard:'Dashboard',pipeline:'Pipeline',contacts:'Contacts',conversations:'Conversations',calendar:'Demos',settings:'Settings'};
   document.getElementById('ptitle').textContent=T[v]||v;
   render();
 }
@@ -354,6 +356,7 @@ function render(){
     else if(view==='contacts'){el.innerHTML=contactsHTML()}
     else if(view==='conversations'){el.innerHTML=convsHTML()}
     else if(view==='calendar'){el.innerHTML=calHTML()}
+    else if(view==='settings'){el.innerHTML=settingsHTML()}
   }
   document.getElementById('cbadge').textContent=contacts.length;
 }
@@ -532,6 +535,92 @@ function calHTML(){
         <button class="bsm" onclick="openPanel(${c.id})">View</button>
       </div>`).join('')}
   </div></div>`;
+}
+
+// ── SETTINGS ──
+function settingsHTML(){
+  return`
+<div style="max-width:680px;display:flex;flex-direction:column;gap:20px">
+
+  <div class="card">
+    <h3>📧 Email Provider — Gmail via Google Apps Script</h3>
+    <p style="font-size:.84rem;color:var(--grey);margin-bottom:18px;line-height:1.6">
+      Emails send from your Gmail account (voiceaifrin1@gmail.com) using a free Google Apps Script.
+      No Brevo, no SMTP password — just paste the script and deploy.
+    </p>
+    <div id="cfg-status" style="margin-bottom:18px">
+      <button class="bsm" onclick="testConfig()">Test Connection</button>
+      <span id="cfg-msg" style="margin-left:12px;font-size:.82rem;color:var(--grey)"></span>
+    </div>
+    <div style="background:var(--off);border:1px solid var(--border);border-radius:10px;padding:16px;font-size:.82rem;line-height:1.9;color:var(--text)">
+      <strong>One-time setup (3 minutes):</strong><br>
+      1. Go to <strong>script.google.com</strong> → New project → paste the code from <code>gas/Code.gs</code> (in your repo)<br>
+      2. Click <strong>Deploy → New deployment → Web app</strong><br>
+      &nbsp;&nbsp;&nbsp;· Execute as: <em>Me</em><br>
+      &nbsp;&nbsp;&nbsp;· Who has access: <em>Anyone</em><br>
+      3. Click Deploy → copy the <strong>Web App URL</strong><br>
+      4. In <strong>Netlify → Site settings → Environment variables</strong>, add:<br>
+      &nbsp;&nbsp;&nbsp;· <code>GAS_WEB_APP_URL</code> = &lt;paste URL&gt;<br>
+      &nbsp;&nbsp;&nbsp;· <code>SENDER_NAME</code> = Jordan<br>
+      5. Click "Test Connection" above to verify ✓
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📊 Open Tracking</h3>
+    <p style="font-size:.84rem;color:var(--grey);line-height:1.6">
+      Every email sent through the CRM gets an invisible 1×1 tracking pixel.
+      When a recipient opens the email, their email client loads the pixel → the Google Apps Script
+      logs the open in a <strong>Sara CRM — Email Log</strong> Google Sheet in your Drive (auto-created on first send).
+      Hit <strong>↻ Refresh</strong> in a contact's panel to pull the latest open status.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>🗂 Data Storage</h3>
+    <p style="font-size:.84rem;color:var(--grey);line-height:1.6">
+      Pipeline data (contacts, notes, stage moves) is stored in <strong>your browser's localStorage</strong>.
+      It's private to your device. To back up or share: open the browser console and run
+      <code>copy(localStorage.getItem('sara-crm-v2'))</code> to copy your data.
+    </p>
+    <button class="bghost" style="margin-top:12px" onclick="exportData()">Export contacts as JSON</button>
+  </div>
+
+</div>`;
+}
+
+async function testConfig(){
+  const msg=document.getElementById('cfg-msg');
+  const dot=document.getElementById('cfg-dot');
+  msg.textContent='Testing…';
+  try{
+    const res=await fetch('/api/check-config');
+    const data=await res.json();
+    if(!data.configured){
+      msg.style.color='#ef4444';
+      msg.textContent='GAS_WEB_APP_URL not set in Netlify env vars.';
+      if(dot)dot.style.display='block';
+    } else if(!data.gasOk){
+      msg.style.color='#f59e0b';
+      msg.textContent='URL is set but GAS ping failed: '+(data.error||'unknown error');
+      if(dot)dot.style.display='block';
+    } else {
+      msg.style.color='#10b981';
+      msg.textContent='Connected ✓ Sending as '+data.gasUser;
+      if(dot)dot.style.display='none';
+    }
+  }catch(e){
+    msg.style.color='#ef4444';
+    msg.textContent='Error: '+e.message;
+  }
+}
+
+function exportData(){
+  const blob=new Blob([JSON.stringify(contacts,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='sara-crm-export-'+today()+'.json';
+  a.click();
 }
 
 // ── DETAIL PANEL ──
