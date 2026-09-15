@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "cowock-social": {
+      "command": "python3",
+      "args": ["-m", "src.social.mcp_server"],
+      "env": {}
+    }
+  }
+}

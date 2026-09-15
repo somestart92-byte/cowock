@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Activity</h1>
+<p class="sub">Everything the app did, newest first.</p>
+{% if events %}
+<table><tr><th>When</th><th>Event</th><th>Detail</th><th>Post</th></tr>
+{% for e in events %}
+<tr><td>{{ e.created_at|local }}</td><td>{{ e.kind }}</td><td>{{ e.message }}</td>
+    <td>{% if e.post_id %}<a href="/post/{{ e.post_id }}">{{ e.post_id[:12] }}</a>{% endif %}</td></tr>
+{% endfor %}
+</table>
+{% else %}<div class="empty">No activity yet.</div>{% endif %}
+{% endblock %}

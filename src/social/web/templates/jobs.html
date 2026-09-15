@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>MCP jobs</h1>
+<p class="sub">This app never touches a social API. When a post comes due it writes the exact MCP tool call for your agent to run — then you record the result.</p>
+{% if jobs %}
+  {% for job in jobs %}
+  <div class="panel">
+    <div class="meta" style="color:var(--muted);font-size:13px;margin-bottom:10px">
+      <strong>{{ job.platform }}</strong> · due {{ job.scheduled_at|local }} · <a href="/post/{{ job.post_id }}">{{ job.post_id }}</a>
+    </div>
+    <pre class="code">{{ job.instruction }}</pre>
+    {% if job.media %}<p class="note">media: {{ job.media|join(', ') }}</p>{% endif %}
+    <form method="post" action="/post/{{ job.post_id }}/ack">
+      <div class="grid2">
+        <div><label>Returned post id</label><input name="external_id" placeholder="id from the tool result"></div>
+        <div><label>Live URL</label><input name="url" placeholder="https://"></div>
+      </div>
+      <div class="row"><button>Mark published</button></div>
+    </form>
+  </div>
+  {% endfor %}
+{% else %}
+  <div class="empty">
+    No jobs waiting.<br><br>
+    <span class="note">Set <code class="inline">publish_mode: live</code> in config.yaml, approve some posts, then hit “Process due now”.</span>
+  </div>
+{% endif %}
+{% endblock %}

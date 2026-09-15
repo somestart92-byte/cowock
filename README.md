@@ -1,4 +1,4 @@
-# cowock — Halal Digital-Products Agent
+# cowock — Halal Digital-Products Agent + Social Automation
 
 An automation agent that **builds and markets halal digital products** for you.
 It generates the product (ebook / checklist / planner), writes the marketing
@@ -38,6 +38,30 @@ sellable content with `claude-opus-4-8`.
 
 > **Publishing setup:** to enable Buffer posting & analytics, do the one-time
 > permission + channel steps in [`SETUP.md`](SETUP.md).
+
+## Social automation app
+
+Generate posts, render short-form videos, schedule them, and publish through
+your connected MCP tools — **no platform API keys**. Full guide:
+[`SOCIAL.md`](SOCIAL.md).
+
+```bash
+python -m src.main social post "Screen-free summer activities for kids"
+python -m src.main social video "Three ways to cut your grocery bill" --post
+python -m src.main social approve --all
+python -m src.main social serve      # dashboard at http://127.0.0.1:8000
+```
+
+| | |
+|---|---|
+| **Writes** | platform-native copy for X, Instagram, TikTok, YouTube, LinkedIn, Facebook, Threads, Pinterest, Telegram |
+| **Renders** | 1080×1920 MP4s from a generated script — branded slides, motion, optional voiceover |
+| **Schedules** | per-platform posting slots, no double-booking, retries with backoff |
+| **Publishes** | by handing `mcp__Buffer__create_post` (or your server) the exact call to make |
+| **Guards** | drafts by default, compliance screen, platform-limit validation, dry-run mode |
+
+It is also an MCP server itself (`python3 -m src.social.mcp_server`), so Claude
+can run the whole loop: *"write this week\'s posts, render a video, queue them."*
 
 ### Output
 ```

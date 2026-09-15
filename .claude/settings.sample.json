@@ -1,5 +1,5 @@
 {
-  "_README": "Buffer allow-rule for cowock. To ACTIVATE: rename this file to 'settings.json' (in the .claude/ folder), then start a NEW Claude Code session on this branch. Permission rules load at session start, so a fresh session is required. Renaming is done by you (the human) on purpose — an agent is not allowed to grant itself these permissions.",
+  "_README": "Permission rules for cowock. To ACTIVATE: rename this file to 'settings.json' (in the .claude/ folder), then start a NEW Claude Code session on this branch. Permission rules load at session start, so a fresh session is required. Renaming is done by you (the human) on purpose \u2014 an agent is not allowed to grant itself these permissions. The Buffer rules let the agent publish; the cowock-social rules let it drive the social app's own MCP server.",
   "permissions": {
     "allow": [
       "mcp__Buffer__create_post",
@@ -8,7 +8,23 @@
       "mcp__Buffer__get_channel",
       "mcp__Buffer__list_posts",
       "mcp__Buffer__get_post",
-      "mcp__Buffer__get_aggregated_post_metrics"
+      "mcp__Buffer__get_aggregated_post_metrics",
+      "mcp__cowock-social__generate_posts",
+      "mcp__cowock-social__generate_video",
+      "mcp__cowock-social__create_video_campaign",
+      "mcp__cowock-social__generate_image",
+      "mcp__cowock-social__list_queue",
+      "mcp__cowock-social__approve_posts",
+      "mcp__cowock-social__cancel_posts",
+      "mcp__cowock-social__edit_post",
+      "mcp__cowock-social__next_jobs",
+      "mcp__cowock-social__publish_now",
+      "mcp__cowock-social__mark_published",
+      "mcp__cowock-social__mark_failed",
+      "mcp__cowock-social__add_account",
+      "mcp__cowock-social__list_accounts",
+      "mcp__cowock-social__record_metrics",
+      "mcp__cowock-social__stats"
     ]
   }
 }

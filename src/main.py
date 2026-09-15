@@ -3,6 +3,8 @@
 Usage:
     python -m src.main run            # generate a product + marketing kit
     python -m src.main run --config path/to/config.yaml
+    python -m src.main social post "topic"      # social automation app
+    python -m src.main social --help
 """
 
 from __future__ import annotations
@@ -17,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.agent import analytics, market_research, pipeline
 from src.agent.config import load_config
 from src.agent.llm import LLM
+from src.social import cli as social_cli
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -33,7 +36,12 @@ def main(argv: list[str] | None = None) -> int:
     an_p.add_argument("--metrics", required=True, help="path to Buffer metrics JSON")
     an_p.add_argument("--config", default=None, help="path to config.yaml")
 
+    social_cli.build_parser(sub)
+
     args = parser.parse_args(argv)
+
+    if args.command == "social":
+        return args.func(args)
 
     if args.command == "run":
         cfg = load_config(args.config)

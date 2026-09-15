@@ -1,0 +1,59 @@
+{% extends "base.html" %}{% from "_post.html" import post_card %}
+{% block content %}
+<h1>Video studio</h1>
+<p class="sub">Script → branded slides → MP4. Vertical 1080×1920 by default, ready for Reels, Shorts and TikTok.</p>
+<form method="post" class="panel">
+  <label>Topic</label>
+  <input name="topic" required placeholder="e.g. Three ways to cut your grocery bill">
+  <div class="grid3">
+    <div><label>Scenes</label><input name="scenes" type="number" min="2" max="12" value="6"></div>
+    <div><label>Theme</label><select name="theme">
+      <option value="">{{ config.video.theme }} (default)</option>
+      <option>midnight</option><option>ink</option><option>sand</option><option>berry</option><option>slate</option>
+    </select></div>
+    <div><label>Format</label><select name="preset">
+      <option value="">{{ config.video.preset }} (default)</option>
+      <option value="vertical">vertical 9:16</option><option value="square">square 1:1</option>
+      <option value="landscape">landscape 16:9</option>
+    </select></div>
+  </div>
+  <div class="grid2">
+    <div><label>Angle</label><input name="angle" placeholder="what makes this different"></div>
+    <div><label>Call to action</label><input name="cta" placeholder="Follow for more"></div>
+  </div>
+  <div class="grid2">
+    <div><label>Voiceover</label><select name="voiceover">
+      <option value="">{{ config.video.voiceover }} (default)</option>
+      <option value="none">none (silent)</option><option value="espeak">espeak (offline)</option>
+      <option value="elevenlabs">elevenlabs</option>
+    </select></div>
+    <div><label>Platforms (when queueing)</label><input name="platforms" placeholder="tiktok, instagram, youtube"></div>
+  </div>
+  <div class="check"><input type="checkbox" id="q" name="queue_posts" value="1" checked><label for="q">Also write captions and queue the posts</label></div>
+  <div class="check"><input type="checkbox" id="ap" name="approve" value="1"><label for="ap">Approve immediately</label></div>
+  <div class="row"><button>Render video</button></div>
+  <p class="note" style="margin-top:12px">Rendering takes a few seconds per scene — the page waits for it.</p>
+</form>
+{% if result and result.video %}
+  <h2>Rendered</h2>
+  <div class="panel">
+    <video controls src="/media/{{ result.video.path.name }}"></video>
+    <p class="note" style="margin-top:10px">
+      {{ '%.1f'|format(result.video.duration) }}s · {{ result.video.scenes }} scenes ·
+      {{ result.video.width }}×{{ result.video.height }} ·
+      voiceover: {{ 'yes' if result.video.voiceover else 'no' }}<br>
+      <code class="inline">{{ result.video.path }}</code>
+    </p>
+  </div>
+  {% if result.script %}
+  <h2>Script</h2>
+  <div class="panel">
+    {% for scene in result.script.scenes %}
+      <p style="margin:0 0 10px"><strong>{{ loop.index }}. {{ scene.text }}</strong>
+      {% if scene.voiceover %}<br><span class="note">🎙 {{ scene.voiceover }}</span>{% endif %}</p>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% if result.posts %}<h2>Queued captions</h2>{% for post in result.posts %}{{ post_card(post) }}{% endfor %}{% endif %}
+{% endif %}
+{% endblock %}

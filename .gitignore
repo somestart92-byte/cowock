@@ -10,3 +10,6 @@ products/output/*
 !products/output/.gitkeep
 approvals/*
 !approvals/.gitkeep
+
+# Social app local state (queue database, rendered media, MCP job outbox)
+data/

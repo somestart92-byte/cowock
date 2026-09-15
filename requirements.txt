@@ -1,2 +1,16 @@
+# Core agent
 anthropic>=0.40.0
 PyYAML>=6.0
+
+# Social app — content rendering
+Pillow>=10.0.0
+imageio-ffmpeg>=0.5.1      # bundles an ffmpeg binary; skip if ffmpeg is on PATH
+
+# Social app — dashboard
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+jinja2>=3.1.0
+python-multipart>=0.0.9
+
+# Social app — MCP server
+mcp>=1.2.0

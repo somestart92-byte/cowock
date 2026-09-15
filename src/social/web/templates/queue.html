@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% from "_post.html" import post_card %}
+{% block content %}
+<h1>Queue</h1>
+<p class="sub">Nothing goes out until you approve it. Approved posts are handed to your MCP publishing tools when their slot arrives.</p>
+<div class="cards">
+  {% for key in ['draft','approved','handoff','published','failed'] %}
+  <div class="card"><div class="n">{{ stats.counts.get(key, 0) }}</div><div class="l">{{ key }}</div></div>
+  {% endfor %}
+</div>
+<div class="row" style="margin-bottom:18px">
+  <form class="inline" method="post" action="/approve-all"><button>Approve all drafts</button></form>
+  <form class="inline" method="post" action="/run"><button class="ghost">Process due now</button></form>
+  <a class="btn ghost" href="/compose">New post</a>
+  <a class="btn ghost" href="/studio">New video</a>
+</div>
+<div class="row" style="margin-bottom:14px">
+  <a class="btn ghost" href="/">all</a>
+  {% for s in statuses %}<a class="btn ghost" href="/?status={{ s }}">{{ s }}</a>{% endfor %}
+</div>
+{% if posts %}{% for post in posts %}{{ post_card(post) }}{% endfor %}
+{% else %}<div class="empty">Queue is empty — compose a post or render a video to get started.</div>{% endif %}
+{% endblock %}

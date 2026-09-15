@@ -1,0 +1,28 @@
+{% extends "base.html" %}{% from "_post.html" import post_card %}
+{% block content %}
+<h1>Compose</h1>
+<p class="sub">One topic in, platform-native drafts out — each screened against your content rules and slotted into the schedule.</p>
+<form method="post" class="panel">
+  <label>Topic</label>
+  <input name="topic" required placeholder="e.g. Screen-free summer activities for kids" value="{{ result.posts[0].meta.topic if result and result.posts else '' }}">
+  <div class="grid2">
+    <div><label>Platforms</label><input name="platforms" placeholder="{{ config.default_platforms|join(', ') }}"></div>
+    <div><label>Variants per platform</label><input name="count" type="number" min="1" max="5" value="1"></div>
+  </div>
+  <div class="grid2">
+    <div><label>Angle (optional)</label><input name="angle" placeholder="the part most people skip"></div>
+    <div><label>Call to action</label><input name="cta" placeholder="Grab the free checklist"></div>
+  </div>
+  <div class="grid2">
+    <div><label>Link</label><input name="link" placeholder="https://"></div>
+    <div><label>Campaign</label><input name="campaign" value="default"></div>
+  </div>
+  <div class="check"><input type="checkbox" id="a" name="approve" value="1"><label for="a">Approve immediately (skip review)</label></div>
+  <div class="row"><button>Generate drafts</button></div>
+</form>
+{% if result %}
+  <h2>{{ result.posts|length }} draft(s) created</h2>
+  {% if result.flagged %}<p class="note" style="color:var(--warn)">⚠ {{ result.flagged|length }} flagged by the content review — left as drafts.</p>{% endif %}
+  {% for post in result.posts %}{{ post_card(post) }}{% endfor %}
+{% endif %}
+{% endblock %}

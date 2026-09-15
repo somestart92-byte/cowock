@@ -1,0 +1,25 @@
+{% extends "base.html" %}{% from "_post.html" import post_card %}
+{% block content %}
+<h1>Edit post</h1>
+<p class="sub">{{ post.platform }} · {{ post.status }} · limit {{ post.limits().chars }} characters</p>
+<form method="post" action="/post/{{ post.id }}/edit" class="panel">
+  <label>Body</label><textarea name="body">{{ post.body }}</textarea>
+  <div class="grid2">
+    <div><label>Hashtags</label><input name="hashtags" value="{{ post.hashtags|join(' ') }}"></div>
+    <div><label>Link</label><input name="link" value="{{ post.link }}"></div>
+  </div>
+  <div class="grid2">
+    <div><label>First comment</label><input name="first_comment" value="{{ post.first_comment }}"></div>
+    <div><label>Scheduled ({{ config.timezone }})</label><input name="scheduled_at" type="datetime-local"></div>
+  </div>
+  <div class="row"><button>Save</button><a class="btn ghost" href="/">Back to queue</a></div>
+</form>
+<h2>Preview</h2>
+{{ post_card(post) }}
+{% if events %}
+<h2>History</h2>
+<table><tr><th>When</th><th>Event</th><th>Detail</th></tr>
+{% for e in events %}<tr><td>{{ e.created_at|local }}</td><td>{{ e.kind }}</td><td>{{ e.message }}</td></tr>{% endfor %}
+</table>
+{% endif %}
+{% endblock %}

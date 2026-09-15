@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}cowock social{% endblock %}</title>
+<style>
+:root{
+  --bg:#0b0d0c; --panel:#121614; --panel2:#171d1a; --line:#233029;
+  --text:#eef3ef; --muted:#93a89b; --accent:#2ecc71; --warn:#ffb74d; --bad:#ff6b6b;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{position:sticky;top:0;z-index:5;background:rgba(11,13,12,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;align-items:center;gap:22px;height:60px;flex-wrap:wrap}
+.brand{font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--accent)}
+nav{display:flex;gap:16px;flex-wrap:wrap}
+nav a{color:var(--muted);font-size:14px;padding:4px 0;border-bottom:2px solid transparent}
+nav a.on{color:var(--text);border-color:var(--accent)}
+.mode{margin-left:auto;font-size:12px;color:var(--muted);border:1px solid var(--line);
+  padding:4px 10px;border-radius:999px}
+.mode b{color:var(--accent)}
+main{padding:26px 0 70px}
+h1{font-size:23px;margin:0 0 4px}
+h2{font-size:17px;margin:28px 0 12px}
+.sub{color:var(--muted);margin:0 0 20px;font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.card .n{font-size:24px;font-weight:700}
+.card .l{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;margin-bottom:16px}
+.post{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px 18px;margin-bottom:12px}
+.post .meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  color:var(--muted);font-size:12.5px;margin-bottom:10px}
+.post pre{white-space:pre-wrap;margin:0;font:inherit}
+.tag{border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:11.5px;
+  text-transform:uppercase;letter-spacing:.06em}
+.tag.draft{color:var(--warn);border-color:#4a3a1c}
+.tag.approved{color:var(--accent);border-color:#1e4a30}
+.tag.handoff{color:#7fb5ff;border-color:#1e3350}
+.tag.published{color:var(--muted)}
+.tag.failed,.tag.cancelled{color:var(--bad);border-color:#4a2020}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+button,.btn{background:var(--accent);color:#06210f;border:0;border-radius:9px;
+  padding:8px 14px;font-size:13.5px;font-weight:600;cursor:pointer}
+button.ghost,.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+button.ghost:hover{color:var(--text)}
+form.inline{display:inline}
+label{display:block;font-size:12.5px;color:var(--muted);margin:12px 0 5px;
+  text-transform:uppercase;letter-spacing:.06em}
+input,select,textarea{width:100%;background:var(--panel2);color:var(--text);
+  border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit}
+textarea{min-height:130px;resize:vertical}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.check{display:flex;align-items:center;gap:8px;margin-top:16px}
+.check input{width:auto}
+.check label{margin:0;text-transform:none;letter-spacing:0;font-size:14px;color:var(--text)}
+code,pre.code{background:#0a0f0c;border:1px solid var(--line);border-radius:10px;
+  padding:12px;display:block;overflow-x:auto;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;
+  color:#cfe8d8;white-space:pre}
+code.inline{display:inline;padding:2px 6px;border:0;background:#0a0f0c}
+video{width:100%;max-width:300px;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.empty{color:var(--muted);padding:26px;text-align:center;border:1px dashed var(--line);border-radius:var(--radius)}
+.note{color:var(--muted);font-size:13px}
+@media(max-width:720px){.grid2,.grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap topbar">
+  <span class="brand">cowock social</span>
+  <nav>
+    <a href="/" class="{{ 'on' if nav=='queue.html' }}">Queue</a>
+    <a href="/compose" class="{{ 'on' if nav=='compose.html' }}">Compose</a>
+    <a href="/studio" class="{{ 'on' if nav=='studio.html' }}">Video studio</a>
+    <a href="/jobs" class="{{ 'on' if nav=='jobs.html' }}">MCP jobs{% if stats.pending_jobs %} ({{ stats.pending_jobs }}){% endif %}</a>
+    <a href="/accounts" class="{{ 'on' if nav=='accounts.html' }}">Accounts</a>
+    <a href="/events" class="{{ 'on' if nav=='events.html' }}">Activity</a>
+  </nav>
+  <span class="mode">mode <b>{{ stats.publish_mode }}</b> · via <b>{{ stats.mcp_server }}</b></span>
+</div></header>
+<main class="wrap">{% block content %}{% endblock %}</main>
+</body>
+</html>

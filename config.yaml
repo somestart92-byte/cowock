@@ -67,6 +67,56 @@ market_research:
     LATER once data shows the strongest segment; keep content relatable to moms
     generally for now.
 
+# ─────────────────────────────────────────────────────────────
+# Social automation app  (python -m src.main social --help)
+# Publishing runs through MCP — no platform API keys anywhere.
+# ─────────────────────────────────────────────────────────────
+social:
+  timezone: "America/New_York"
+
+  # dry_run  → write the payload to data/outbox and change nothing
+  # live     → emit MCP tool calls for your agent to run
+  publish_mode: "dry_run"
+
+  # Leave false so every generated post waits for your approval.
+  auto_approve: false
+
+  default_platforms: [x, instagram, tiktok, linkedin]
+  posts_per_day: 2
+
+  # Local-time posting slots. "default" covers anything not listed.
+  posting_times:
+    default: ["08:30", "12:30", "20:00"]
+    x: ["08:00", "12:00", "17:00", "20:30"]
+    instagram: ["11:00", "19:00"]
+    tiktok: ["07:00", "12:00", "21:00"]
+    linkedin: ["07:30", "12:00"]
+
+  # Which MCP server publishes, and which channel id each platform maps to.
+  # Get the ids by asking your agent to run the server's list_channels tool.
+  mcp:
+    server: "Buffer"
+    tool: "create_post"
+    posting_type: "addToQueue"     # addToQueue | schedule | share
+    channels: {}
+      # instagram: "abc123"
+      # x: "def456"
+
+  # Short-form video defaults.
+  video:
+    preset: "vertical"             # vertical | square | landscape
+    fps: 30
+    seconds_per_scene: 3.4
+    transition: 0.4
+    theme: "midnight"              # midnight | ink | sand | berry | slate
+    voiceover: "none"              # none | espeak | elevenlabs
+    zoom: true
+
+  llm:
+    model: "claude-sonnet-5"
+    max_tokens: 4000
+    temperature: 0.8
+
 # Nothing is published automatically. Outputs land here for you to review.
 output_dir: "products/output"
 approvals_dir: "approvals"

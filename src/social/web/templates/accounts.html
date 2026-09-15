@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Accounts</h1>
+<p class="sub">Each account maps a platform to a channel id on your publishing MCP server. Ask your agent to list its channels, then paste the ids here.</p>
+<div class="panel">
+  <form method="post" action="/accounts/add">
+    <div class="grid3">
+      <div><label>Platform</label><input name="platform" placeholder="instagram" required></div>
+      <div><label>Handle</label><input name="handle" placeholder="@you" required></div>
+      <div><label>MCP channel id</label><input name="channel_id" placeholder="from list_channels"></div>
+    </div>
+    <div class="row"><button>Add account</button></div>
+  </form>
+</div>
+{% if accounts %}
+<table>
+  <tr><th>Platform</th><th>Handle</th><th>Channel id</th><th>Status</th></tr>
+  {% for a in accounts %}
+  <tr><td>{{ a.platform }}</td><td>{{ a.handle }}</td>
+      <td><code class="inline">{{ a.settings.get('channel_id', '—') }}</code></td>
+      <td>{{ 'enabled' if a.enabled else 'disabled' }}</td></tr>
+  {% endfor %}
+</table>
+{% else %}<div class="empty">No accounts yet.</div>{% endif %}
+{% endblock %}

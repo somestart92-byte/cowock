@@ -1,0 +1,36 @@
+{% macro post_card(post, actions=True) %}
+<article class="post">
+  <div class="meta">
+    <span class="tag {{ post.status }}">{{ post.status }}</span>
+    <strong>{{ post.platform }}</strong>
+    <span>{{ post.scheduled_at|local }}</span>
+    {% if post.campaign and post.campaign != 'default' %}<span>· {{ post.campaign }}</span>{% endif %}
+    <span>· {{ post.full_text|length }} chars</span>
+    <a href="/post/{{ post.id }}" style="margin-left:auto">edit</a>
+  </div>
+  <pre>{{ post.full_text }}</pre>
+  {% if post.media %}
+    {% for m in post.media %}
+      {% if m.kind == 'video' %}
+        <div style="margin-top:12px"><video controls src="/media/{{ m.path.split('/')[-1] }}"></video></div>
+      {% else %}
+        <div style="margin-top:12px"><img src="/media/{{ m.path.split('/')[-1] }}" style="max-width:240px;border-radius:12px"></div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% if post.error %}<p style="color:var(--bad);font-size:13px;margin:10px 0 0">⚠ {{ post.error }}</p>{% endif %}
+  {% if post.validate() %}<p style="color:var(--warn);font-size:13px;margin:10px 0 0">needs: {{ post.validate()|join('; ') }}</p>{% endif %}
+  {% if actions %}
+  <div class="row">
+    {% if post.status in ['draft','failed'] %}
+      <form class="inline" method="post" action="/post/{{ post.id }}/approve"><button>Approve</button></form>
+    {% endif %}
+    {% if post.status in ['draft','approved'] %}
+      <form class="inline" method="post" action="/post/{{ post.id }}/publish"><button class="ghost">Publish now</button></form>
+      <form class="inline" method="post" action="/post/{{ post.id }}/cancel"><button class="ghost">Cancel</button></form>
+    {% endif %}
+    {% if post.external_url %}<a class="btn ghost" href="{{ post.external_url }}" target="_blank">View live</a>{% endif %}
+  </div>
+  {% endif %}
+</article>
+{% endmacro %}
