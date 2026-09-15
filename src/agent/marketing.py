@@ -23,6 +23,15 @@ def _post(channel: str, product: Product, brand: dict, llm: LLM) -> str:
         "twitter": "A punchy hook + 3-5 tweet thread. No hashtag spam.",
         "instagram": "An engaging caption + a 5-slide carousel outline.",
         "email": "A warm launch email: subject line + body, one clear CTA.",
+        "facebook": (
+            "A plain-spoken post for a local business-owner group. Conversational, "
+            "one concrete situation, no marketing voice. These are communities — "
+            "lead with something useful, not with the product."
+        ),
+        "linkedin": (
+            "A short professional post: one specific problem, one concrete "
+            "observation, no hype and no buzzwords. 3-6 short paragraphs."
+        ),
     }
     system = (
         "You are a marketer for a halal brand. Honest, value-first copy. "

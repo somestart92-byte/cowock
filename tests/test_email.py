@@ -249,6 +249,16 @@ def test_throttle_and_daily_limit_are_enforced():
         assert "daily limit" in capped.results[1].reason
 
 
+def test_placeholder_sender_name_blocks_a_live_send():
+    # Shipping "Your Name at VoiceDesk AI" to real subscribers is the kind of
+    # mistake you only notice afterwards, so it is caught before the send.
+    configured = _settings(from_name="Sara at VoiceDesk AI").missing_for_live()
+    assert not [m for m in configured if "from_name" in m]
+    for placeholder in ("Your Name at VoiceDesk AI", "FIRSTNAME at Brand", "  "):
+        missing = _settings(from_name=placeholder).missing_for_live()
+        assert any("from_name" in m for m in missing), placeholder
+
+
 def test_outbox_backend_writes_readable_eml():
     with tempfile.TemporaryDirectory() as tmp:
         outbox = Path(tmp) / "outbox"

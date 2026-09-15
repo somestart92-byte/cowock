@@ -4,27 +4,38 @@
 # ─────────────────────────────────────────────────────────────
 
 brand:
-  name: "Cowock"
-  voice: "warm, trustworthy, faith-aware, practical"
-  audience: "Muslim professionals and students who want practical, halal self-improvement"
+  name: "VoiceDesk AI"
+  voice: >-
+    plain-spoken, concrete, respectful of a busy owner's time. Talks like a
+    tradesperson, not a tech company: no jargon, no "revolutionize", no
+    "leverage". Short sentences. Names the real problem (a missed call is a
+    lost job) before naming the product.
+  audience: >-
+    Owners of small local service businesses — salons and barbers, dental and
+    medical clinics, plumbers, electricians, HVAC and roofers, auto shops, law
+    and real-estate offices, restaurants. Usually 1-20 staff, the owner works
+    the job and cannot pick up the phone while doing it.
 
 # The single most important setting. Make it specific.
-# Examples:
-#   "Islamic productivity & habit-building for busy professionals"
-#   "Modest-fashion styling guides for working women"
-#   "Halal personal-finance (no-riba) planning for young families"
-niche: "Islamic productivity & habit-building for busy Muslim professionals"
+niche: >-
+  AI voice receptionists for local service businesses — answering the calls the
+  owner misses while they are on a job, booking appointments, and taking
+  messages 24/7.
 
-# What kinds of digital products to produce.
+# What the agent produces. For a SaaS these are LEAD MAGNETS: the free thing
+# that earns an email address, which the email sequences then follow up on.
+# (Nobody buys an AI receptionist from a tweet; they book a demo after
+# recognizing their own problem in something you gave them.)
 product_types:
-  - ebook          # multi-chapter guide (markdown -> PDF later)
-  - checklist      # one-page actionable checklist
-  - planner        # printable weekly/monthly planner pages
+  - checklist      # one-page audit, e.g. "the 7 calls your shop is losing"
+  - ebook          # short practical guide for owners
+  - template       # scripts, call-handling SOPs, front-desk policies
 
-# Marketing channels the agent drafts content for.
+# Marketing channels the agent drafts content for. Local-business owners live
+# on Facebook groups and LinkedIn far more than on Instagram.
 channels:
-  - twitter        # short hooks / threads
-  - instagram      # caption + carousel outline
+  - facebook       # plain post for local-owner groups
+  - linkedin       # professional post, one concrete problem per post
   - email          # launch / nurture email
 
 llm:
@@ -55,27 +66,59 @@ halal_rules:
 market_research:
   enabled: true
   notes: >-
-    Audience is mostly USA (most clicks come from the US). Write for US moms:
-    US spelling (mom, color, vacation, favorite), price in USD ($), and use US
-    seasonal hooks (4th of July, summer break, back-to-school in August,
-    Thanksgiving, Black Friday). Schedule for US-evening peak times (≈8–11pm ET)
-    and weekend mornings. Top-performing angles: budgeting/money-for-moms,
-    contrarian "nobody tells you" hooks, low-barrier "start this week / zero
-    money / nap-time" promises.
-    POSITIONING (now): target ALL moms broadly — everyday mom life (money, kids'
-    activities, organization, time/sanity) plus the side-hustle angle. Niche down
-    LATER once data shows the strongest segment; keep content relatable to moms
-    generally for now.
+    NOTE ON STATUS: this is positioning to validate, not measured data. The
+    numbers in the previous version came from a different audience (US moms,
+    printables) and no longer apply. Replace this block with real findings once
+    the first campaigns have run — `python -m src.main analytics` writes them in
+    the right shape.
+
+    BUYER: the owner, not a manager. They answer their own phone, or their
+    spouse does, or it rings out. They are not shopping for "AI" — they are
+    annoyed about something specific: calls missed while under a sink or in a
+    chair, after-hours calls going to a competitor who picked up, the cost of a
+    part-time receptionist, no-shows because nobody confirmed.
+
+    THE HOOK IS THE MISSED CALL, NOT THE TECHNOLOGY. Lead with the lost job,
+    not the model. "You were on a roof, so the call went to the other guy" beats
+    any feature list. Do NOT quantify what we have not measured: no "businesses
+    lose X% of calls", no "customers see Y more bookings". Those are exactly the
+    unverifiable claims halal_rules forbids — and this buyer has heard them from
+    every SaaS that ever cold-called them, which is why they distrust the
+    category.
+
+    OBJECTIONS TO ANSWER IN THE COPY: "my customers will hate talking to a
+    robot", "it will book things wrong", "I don't have time to set it up",
+    "what happens when it doesn't understand someone". Answer plainly; do not
+    dodge. Being honest that it hands off to a human is more persuasive than
+    claiming it never fails.
+
+    DISCLOSURE: say plainly, in the product and the marketing, that callers are
+    talking to an AI. Several US states regulate undisclosed AI callers, and
+    hiding it would break the truthfulness rule below regardless of the law.
+
+    CHANNELS: local-owner Facebook groups and LinkedIn, plus trade-specific
+    communities (r/plumbing, salon owner groups, dental practice-management
+    forums). These are communities, not billboards — post something useful or
+    get ignored. NEVER cold-email a business that did not opt in; the list
+    module enforces opt-in for a reason.
+
+    SEASONAL HOOKS: trades peak with weather (HVAC in the first heatwave,
+    roofers after storms, plumbers over holiday weekends); salons and clinics
+    spike in December and early January; restaurants around holidays. Peak
+    missed-call windows are exactly when they are busiest — which is the pitch.
 
 # ─── Email marketing ──────────────────────────────────────────
 # The agent writes the campaigns and can send them over YOUR SMTP account.
 # Credentials never live here — they come from .env (see .env.example).
 email:
   enabled: true
-  from_name: "Cowock"
+  # Put YOUR first name in front of the brand — owners open mail from a person,
+  # not from software. Leave the placeholder in and a live send is refused
+  # rather than mailing "Your Name at VoiceDesk AI" to real people.
+  from_name: "Your Name at VoiceDesk AI"
   from_email: ""            # or set EMAIL_FROM in .env (that wins)
-  reply_to: ""              # a real inbox you read — replies build trust
-  product_url: ""           # where the CTA button points (your store listing)
+  reply_to: ""              # a real inbox you read — replies book demos
+  product_url: ""           # where the CTA points — your demo-booking page
   default_tag: ""           # only mail subscribers with this tag; "" = everyone
 
   # Required before any live send — both are honesty requirements as much as

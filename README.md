@@ -54,11 +54,20 @@ approvals/<...>.json   # set "approved": true to greenlight
 Everything is driven by `config.yaml`. The one setting that matters most:
 
 ```yaml
-niche: "Islamic productivity & habit-building for busy Muslim professionals"
+niche: >-
+  AI voice receptionists for local service businesses — answering the calls the
+  owner misses while they are on a job, booking appointments, and taking
+  messages 24/7.
 ```
 
 Change it to your idea and re-run. Also set brand voice, product types,
 channels, and the `halal_rules` the compliance reviewer enforces.
+
+> The agent itself is still `cowock` — a generic build-and-market pipeline.
+> `config.yaml` is what points it at **VoiceDesk AI**, the current business.
+> For a SaaS like this, `product_types` are lead magnets: the free thing that
+> earns an email address, which the sequences in [`EMAIL.md`](EMAIL.md) follow
+> up on.
 
 ## How it works
 

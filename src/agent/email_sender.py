@@ -34,6 +34,17 @@ from .email_campaign import Campaign, Email
 from .email_list import Subscriber, SubscriberList
 
 
+# Placeholders a config ships with. Mailing real people from "Your Name at
+# Brand" is the kind of thing you only notice after the send, so it is blocked.
+_PLACEHOLDER_NAMES = ("your name", "yourname", "your-name", "first name",
+                      "firstname", "<name>", "todo")
+
+
+def _is_placeholder(name: str) -> bool:
+    lowered = (name or "").strip().lower()
+    return any(marker in lowered for marker in _PLACEHOLDER_NAMES)
+
+
 # ------------------------------------------------------------------ settings
 
 @dataclass
@@ -129,6 +140,11 @@ class EmailSettings:
     def missing_for_live(self) -> list[str]:
         """What still has to be filled in before a live send is allowed."""
         missing: list[str] = []
+        if not self.from_name.strip() or _is_placeholder(self.from_name):
+            missing.append(
+                f"email.from_name is still the placeholder ({self.from_name!r}) — "
+                "put your own first name in front of the brand"
+            )
         if not self.from_email:
             missing.append("EMAIL_FROM (sender address)")
         if not self.smtp_host:
