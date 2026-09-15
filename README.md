@@ -19,6 +19,7 @@ only you can do**:
 | Write all marketing copy | Approve |
 | Screen for halal compliance | Final judgement |
 | Queue posts / drafts / uploads | Click publish |
+| Write & send email campaigns | Approve, then it sends |
 | — | Connect payment + bank account (one time) |
 
 Nothing is published and no money moves without your explicit yes. That's the
@@ -75,6 +76,9 @@ config.yaml
    │
    ▼
  pipeline.py  → writes artifacts + approval request   (STOPS here — your turn)
+   │
+   ▼
+ email_pipeline.py → campaign + approval → email_sender.py (your SMTP, on your yes)
 ```
 
 ## Going live (publishing)
@@ -88,10 +92,33 @@ Two supported paths — see [`PLAYBOOK.md`](PLAYBOOK.md) for step-by-step:
 2. **Standalone/cron:** wire the product to a halal store (e.g. Gumroad) and
    Buffer's API for fully scheduled runs.
 
+## Email marketing (own your list)
+
+Social platforms rent you an audience; an email list is yours. cowock writes the
+campaigns, keeps the list as a plain CSV, and sends over **your** SMTP account —
+no ESP subscription required.
+
+```bash
+python -m src.main email build --kind welcome        # write a 3-email sequence
+python -m src.main subscribers add you@example.com --source freebie
+python -m src.main email send --campaign <slug>      # rehearsal → .eml outbox
+python -m src.main email send --campaign <slug> --live --drip
+```
+
+The default send is a **rehearsal**: every message is written to
+`emails/outbox/*.eml` for you to proofread, and nothing touches the network.
+A live send is refused until the campaign is approved, compliance passed, and
+your sender + unsubscribe + postal address are configured. Every message ships
+a working unsubscribe link, `List-Unsubscribe` headers, plain-text and HTML
+parts, and is logged so nobody is ever mailed the same email twice.
+
+Full guide: [`EMAIL.md`](EMAIL.md).
+
 ## Tests
 
 ```bash
 python tests/test_pipeline.py     # or: pytest tests/
+python tests/test_email.py        # email marketing + sender
 ```
 
 ## The measure → improve loop (analytics)

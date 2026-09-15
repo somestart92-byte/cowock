@@ -50,6 +50,34 @@ class Config:
         return self.raw.get("market_research", {}).get("notes", "")
 
     @property
+    def email_settings_raw(self) -> dict[str, Any]:
+        return self.raw.get("email", {})
+
+    @property
+    def email_enabled(self) -> bool:
+        return bool(self.email_settings_raw.get("enabled", True))
+
+    @property
+    def email_default_tag(self) -> str:
+        return str(self.email_settings_raw.get("default_tag", ""))
+
+    @property
+    def email_list_path(self) -> Path:
+        return ROOT / self.email_settings_raw.get("list_path", "emails/subscribers.csv")
+
+    @property
+    def email_campaigns_dir(self) -> Path:
+        return ROOT / self.email_settings_raw.get("campaigns_dir", "emails/campaigns")
+
+    @property
+    def email_outbox_dir(self) -> Path:
+        return ROOT / self.email_settings_raw.get("outbox_dir", "emails/outbox")
+
+    @property
+    def email_log_path(self) -> Path:
+        return ROOT / self.email_settings_raw.get("log_path", "emails/send-log.jsonl")
+
+    @property
     def output_dir(self) -> Path:
         return ROOT / self.raw.get("output_dir", "products/output")
 
@@ -64,6 +92,8 @@ class Config:
             )
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.approvals_dir.mkdir(parents=True, exist_ok=True)
+        self.email_campaigns_dir.mkdir(parents=True, exist_ok=True)
+        self.email_list_path.parent.mkdir(parents=True, exist_ok=True)
 
 
 def load_config(path: str | os.PathLike[str] | None = None) -> Config:

@@ -67,6 +67,34 @@ market_research:
     LATER once data shows the strongest segment; keep content relatable to moms
     generally for now.
 
+# ─── Email marketing ──────────────────────────────────────────
+# The agent writes the campaigns and can send them over YOUR SMTP account.
+# Credentials never live here — they come from .env (see .env.example).
+email:
+  enabled: true
+  from_name: "Cowock"
+  from_email: ""            # or set EMAIL_FROM in .env (that wins)
+  reply_to: ""              # a real inbox you read — replies build trust
+  product_url: ""           # where the CTA button points (your store listing)
+  default_tag: ""           # only mail subscribers with this tag; "" = everyone
+
+  # Required before any live send — both are honesty requirements as much as
+  # legal ones (CAN-SPAM): people must be able to leave, and know who wrote.
+  unsubscribe_url: ""       # e.g. "https://yoursite.com/unsubscribe?t={token}"
+  unsubscribe_mailto: ""    # fallback if you have no website yet
+  postal_address: ""        # e.g. "Cowock, 123 Main St, Austin, TX 78701"
+
+  # Throttling. Keeps you under consumer-SMTP caps (Gmail allows ~500/day)
+  # and looks like a person rather than a blast.
+  rate_limit_per_minute: 20
+  daily_limit: 400
+
+  # Where the list, campaigns, outbox and send log live.
+  list_path: "emails/subscribers.csv"
+  campaigns_dir: "emails/campaigns"
+  outbox_dir: "emails/outbox"
+  log_path: "emails/send-log.jsonl"
+
 # Nothing is published automatically. Outputs land here for you to review.
 output_dir: "products/output"
 approvals_dir: "approvals"

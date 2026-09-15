@@ -10,3 +10,11 @@ products/output/*
 !products/output/.gitkeep
 approvals/*
 !approvals/.gitkeep
+
+# Mailing list = other people's personal data. Never commit it.
+emails/subscribers.csv
+emails/outbox/*
+!emails/outbox/.gitkeep
+emails/send-log.jsonl
+emails/campaigns/*
+!emails/campaigns/.gitkeep
