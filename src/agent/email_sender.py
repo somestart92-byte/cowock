@@ -62,6 +62,11 @@ class EmailSettings:
     smtp_user: str = ""
     smtp_password: str = ""
     smtp_ssl: bool = False             # True = implicit TLS (port 465)
+    # "optin" thanks them for subscribing; "cold" says plainly that this is
+    # outreach. Telling a stranger they subscribed is simply a lie, and it is
+    # the first thing a spam complaint quotes back at you.
+    footer_mode: str = "optin"
+    cold_intro: str = ""
 
     @classmethod
     def from_config(cls, raw: dict[str, Any] | None = None) -> "EmailSettings":
@@ -82,6 +87,8 @@ class EmailSettings:
             daily_limit=int(raw.get("daily_limit", 400) or 400),
             smtp_port=int(raw.get("smtp_port", 587) or 587),
             smtp_ssl=bool(raw.get("smtp_ssl", False)),
+            footer_mode=str(raw.get("footer_mode", "optin")),
+            cold_intro=str(raw.get("cold_intro", "")),
         )
         env = os.environ
         settings.from_email = env.get("EMAIL_FROM", settings.from_email)
@@ -110,11 +117,19 @@ class EmailSettings:
             url = url.replace(key, value)
         return url
 
+    def _why_line(self) -> str:
+        if self.footer_mode == "cold":
+            return self.cold_intro or (
+                f"You are getting this because I am reaching out to businesses in your "
+                f"trade. I am {self.from_name}."
+            )
+        return f"You are receiving this because you subscribed to {self.from_name}."
+
     def footer_markdown(self, subscriber: Subscriber) -> str:
-        """Unsubscribe + who is writing. Appended to every single message."""
+        """Why they got it, how to stop it, and who is writing."""
         lines: list[str] = []
         if self.from_name:
-            lines.append(f"You are receiving this because you subscribed to {self.from_name}.")
+            lines.append(self._why_line())
         link = self.unsubscribe_link(subscriber)
         if link:
             lines.append(f"[Unsubscribe]({link}) at any time — one click, no questions.")
@@ -127,7 +142,7 @@ class EmailSettings:
     def footer_text(self, subscriber: Subscriber) -> str:
         lines: list[str] = []
         if self.from_name:
-            lines.append(f"You are receiving this because you subscribed to {self.from_name}.")
+            lines.append(self._why_line())
         link = self.unsubscribe_link(subscriber)
         if link:
             lines.append(f"Unsubscribe: {link}")
@@ -399,6 +414,7 @@ class Sender:
             "price": f"${campaign.price_usd:.0f}" if campaign.price_usd else "",
             "unsubscribe_url": self.settings.unsubscribe_link(subscriber),
         }
+        ctx.update(subscriber.fields)  # company, city, trade… from the CSV
         ctx.update(extra or {})
         return ctx
 

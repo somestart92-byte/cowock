@@ -18,3 +18,8 @@ emails/outbox/*
 emails/send-log.jsonl
 emails/campaigns/*
 !emails/campaigns/.gitkeep
+
+# Prospect exports are other people's personal data too.
+emails/*prospects*.csv
+emails/*.csv
+!emails/subscribers.example.csv

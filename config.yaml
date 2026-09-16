@@ -115,7 +115,7 @@ email:
   # Put YOUR first name in front of the brand — owners open mail from a person,
   # not from software. Leave the placeholder in and a live send is refused
   # rather than mailing "Your Name at VoiceDesk AI" to real people.
-  from_name: "Your Name at VoiceDesk AI"
+  from_name: "Sara at VoiceDesk AI"
   from_email: ""            # or set EMAIL_FROM in .env (that wins)
   reply_to: ""              # a real inbox you read — replies book demos
   product_url: ""           # where the CTA points — your demo-booking page
@@ -124,13 +124,15 @@ email:
   # Required before any live send — both are honesty requirements as much as
   # legal ones (CAN-SPAM): people must be able to leave, and know who wrote.
   unsubscribe_url: ""       # e.g. "https://yoursite.com/unsubscribe?t={token}"
-  unsubscribe_mailto: ""    # fallback if you have no website yet
-  postal_address: ""        # e.g. "Cowock, 123 Main St, Austin, TX 78701"
+  unsubscribe_mailto: "voiceaifrin1@gmail.com"   # no website yet, so reply-to-stop
+  postal_address: ""        # STILL REQUIRED before any live send — your PO box or business address
 
   # Throttling. Keeps you under consumer-SMTP caps (Gmail allows ~500/day)
   # and looks like a person rather than a blast.
-  rate_limit_per_minute: 20
-  daily_limit: 400
+  footer_mode: "cold"       # these are prospects, not subscribers
+  cold_intro: "You are getting this because I am reaching out to roofing and HVAC owners directly. I am Sara."
+  rate_limit_per_minute: 4  # slow — this is a personal Gmail, not a warmed domain
+  daily_limit: 20
 
   # Where the list, campaigns, outbox and send log live.
   list_path: "emails/subscribers.csv"

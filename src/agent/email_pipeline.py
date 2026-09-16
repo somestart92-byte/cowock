@@ -183,10 +183,11 @@ def build(
     return directory
 
 
-def _field_warnings(campaign: Campaign) -> list[str]:
+def _field_warnings(campaign: Campaign, known_extra: set[str] | None = None) -> list[str]:
     """Merge fields the sender cannot fill would ship as blanks — flag them."""
     known = {"first_name", "name", "email", "sender_name", "brand",
              "product_title", "product_url", "price", "unsubscribe_url"}
+    known |= (known_extra or set())
     warnings: list[str] = []
     for i, mail in enumerate(campaign.emails, start=1):
         unknown = [f for f in mail.merge_fields() if f not in known]

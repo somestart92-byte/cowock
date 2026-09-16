@@ -24,6 +24,10 @@ BOUNCED = "bounced"
 
 FIELDS = ["email", "name", "status", "tags", "source", "joined", "token"]
 
+# Anything else in the CSV — company, city, trade — rides along as a merge
+# field. Cold outreach lives or dies on "{{company}}", so the list has to carry
+# whatever columns your prospect export happens to have.
+
 # Deliberately permissive: catches typos and junk, not exotic-but-valid addresses.
 _EMAIL_RE = re.compile(r"^[^@\s,;]+@[^@\s,;]+\.[A-Za-z]{2,}$")
 
@@ -45,6 +49,7 @@ class Subscriber:
     source: str = ""
     joined: str = field(default_factory=_today)
     token: str = ""
+    fields: dict[str, str] = field(default_factory=dict)  # extra CSV columns
 
     def __post_init__(self) -> None:
         self.email = self.email.strip().lower()
@@ -69,7 +74,8 @@ class Subscriber:
             return _dt.date.today()
 
     def to_row(self) -> dict[str, str]:
-        return {
+        row = dict(self.fields)
+        row.update({
             "email": self.email,
             "name": self.name,
             "status": self.status,
@@ -77,7 +83,8 @@ class Subscriber:
             "source": self.source,
             "joined": self.joined,
             "token": self.token,
-        }
+        })
+        return row
 
     @classmethod
     def from_row(cls, row: dict[str, str]) -> "Subscriber":
@@ -90,6 +97,8 @@ class Subscriber:
             source=row.get("source", "") or "",
             joined=(row.get("joined") or _today()).strip() or _today(),
             token=(row.get("token") or "").strip(),
+            fields={k: (v or "").strip() for k, v in row.items()
+                    if k and k not in FIELDS and (v or "").strip()},
         )
 
 
@@ -116,8 +125,13 @@ class SubscriberList:
 
     def save(self) -> Path:
         self.path.parent.mkdir(parents=True, exist_ok=True)
+        extra: list[str] = []
+        for sub in self._by_email.values():
+            for key in sub.fields:
+                if key not in extra:
+                    extra.append(key)
         with self.path.open("w", encoding="utf-8", newline="") as fh:
-            writer = csv.DictWriter(fh, fieldnames=FIELDS)
+            writer = csv.DictWriter(fh, fieldnames=FIELDS + extra)
             writer.writeheader()
             for sub in sorted(self._by_email.values(), key=lambda s: s.email):
                 writer.writerow(sub.to_row())
@@ -198,6 +212,9 @@ class SubscriberList:
                     sub.token = row["token"].strip()
                 if created and (row.get("joined") or "").strip():
                     sub.joined = row["joined"].strip()
+                for key, value in row.items():
+                    if key and key not in FIELDS and (value or "").strip():
+                        sub.fields.setdefault(key, value.strip())
                 added += int(created)
                 updated += int(not created)
         return {"added": added, "updated": updated, "skipped": skipped}
