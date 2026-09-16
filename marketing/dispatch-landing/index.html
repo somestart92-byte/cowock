@@ -1,0 +1,892 @@
+<title>Dispatch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --bg:        #EDF0F3;
+    --surface:   #FFFFFF;
+    --surface-2: #F5F7F9;
+    --fg:        #111820;
+    --fg-2:      #4E5967;
+    --muted:     #77838F;
+    --line:      #D2D9E0;
+    --line-soft: #E2E7EC;
+    --accent:    #DE4A16;
+    --accent-2:  #B2380D;
+    --on-accent: #FFFFFF;
+    --live:      #0B7048;
+    --live-bg:   #E3F2EA;
+    --missed:    #A32832;
+    --missed-bg: #F8E6E7;
+
+    --display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+    --body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+    --wrap: 1120px;
+    --r: 4px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:        #0D1217;
+      --surface:   #151C23;
+      --surface-2: #1B242D;
+      --fg:        #E8ECF1;
+      --fg-2:      #AEBAC6;
+      --muted:     #8593A1;
+      --line:      #2B3742;
+      --line-soft: #222D37;
+      --accent:    #FF6B39;
+      --accent-2:  #FF8A60;
+      --on-accent: #16100C;
+      --live:      #45C48D;
+      --live-bg:   #10312360;
+      --missed:    #F07078;
+      --missed-bg: #3A1B1F60;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:        #0D1217;
+    --surface:   #151C23;
+    --surface-2: #1B242D;
+    --fg:        #E8ECF1;
+    --fg-2:      #AEBAC6;
+    --muted:     #8593A1;
+    --line:      #2B3742;
+    --line-soft: #222D37;
+    --accent:    #FF6B39;
+    --accent-2:  #FF8A60;
+    --on-accent: #16100C;
+    --live:      #45C48D;
+    --live-bg:   #10312360;
+    --missed:    #F07078;
+    --missed-bg: #3A1B1F60;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: var(--wrap);
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--display);
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+    margin: 0;
+    line-height: 1.08;
+  }
+
+  p { margin: 0; }
+
+  a { color: inherit; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  :where(a, button, summary):focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* ---------- top bar ---------- */
+
+  .topbar {
+    border-bottom: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 60px;
+  }
+  .logo {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .logo-mark {
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+    flex: none;
+  }
+  .topbar-note {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---------- hero ---------- */
+
+  .hero { padding-block: 64px 56px; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.08fr 0.92fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .hero h1 {
+    font-size: clamp(38px, 5.6vw, 62px);
+    font-weight: 800;
+    margin-top: 14px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .lede {
+    margin-top: 22px;
+    font-size: 18px;
+    color: var(--fg-2);
+    max-width: 34em;
+  }
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 22px;
+    border-radius: var(--r);
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .btn-primary:hover { background: var(--accent-2); }
+  .btn-ghost {
+    border-color: var(--line);
+    background: var(--surface);
+    color: var(--fg);
+  }
+  .btn-ghost:hover { border-color: var(--fg-2); }
+
+  .hero-foot {
+    margin-top: 22px;
+    font-size: 13.5px;
+    color: var(--muted);
+    max-width: 38em;
+  }
+
+  /* ---------- console ---------- */
+
+  .console {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(17,24,32,.05), 0 14px 34px -22px rgba(17,24,32,.3);
+  }
+  .console-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--line-soft);
+    background: var(--surface-2);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .live-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--live);
+    font-weight: 500;
+  }
+  .live-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--live);
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+  @media (prefers-reduced-motion: reduce) {
+    .live-dot { animation: none; }
+  }
+
+  .console-body { padding: 22px 20px 20px; }
+  .console-meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .console-meta dt { color: var(--muted); }
+  .console-meta dd { margin: 0; color: var(--fg-2); }
+
+  .bubble {
+    background: var(--surface-2);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r);
+    padding: 14px 16px;
+    font-size: 15.5px;
+    color: var(--fg);
+  }
+  .bubble-who {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 7px;
+  }
+  .console-hint {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .console-hint ul {
+    margin: 9px 0 0;
+    padding-left: 17px;
+  }
+  .console-hint li { margin-bottom: 3px; }
+  .console .btn { width: 100%; justify-content: center; margin-top: 18px; }
+
+  /* ---------- section frame ---------- */
+
+  section.band {
+    border-top: 1px solid var(--line);
+    padding-block: 64px;
+  }
+  .band-head { max-width: 46em; }
+  .band-head h2 {
+    font-size: clamp(27px, 3.4vw, 36px);
+    font-weight: 700;
+    margin-top: 12px;
+  }
+  .band-head p {
+    margin-top: 16px;
+    color: var(--fg-2);
+    font-size: 17px;
+  }
+
+  /* ---------- call log ---------- */
+
+  .logs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-top: 38px;
+  }
+  .logcard {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+  .logcard > header {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--line-soft);
+    background: var(--surface-2);
+  }
+  .logcard h3 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .logcard header span {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 5px;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 12px;
+    align-items: baseline;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 13.5px;
+  }
+  .row:last-child { border-bottom: 0; }
+  .row time {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+    font-size: 12.5px;
+  }
+  .row .what { color: var(--fg-2); }
+  .row .what b {
+    display: block;
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 12.5px;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+  .flag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .flag-missed { color: var(--missed); background: var(--missed-bg); }
+  .flag-booked { color: var(--live);   background: var(--live-bg); }
+
+  .tally {
+    padding: 13px 16px;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: var(--surface-2);
+  }
+  .tally-missed { color: var(--missed); }
+  .tally-booked { color: var(--live); }
+
+  .caption {
+    margin-top: 18px;
+    font-size: 12.5px;
+    color: var(--muted);
+    font-family: var(--mono);
+    line-height: 1.55;
+  }
+
+  /* ---------- channels ---------- */
+
+  .channels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    margin-top: 38px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+  .channel {
+    background: var(--surface);
+    padding: 26px 22px 28px;
+  }
+  .channel .eyebrow { color: var(--accent); }
+  .channel h3 {
+    font-size: 19px;
+    font-weight: 700;
+    margin-top: 11px;
+  }
+  .channel p {
+    margin-top: 11px;
+    font-size: 14.5px;
+    color: var(--fg-2);
+  }
+  .channel dl {
+    margin: 18px 0 0;
+    padding-top: 15px;
+    border-top: 1px dashed var(--line);
+    font-family: var(--mono);
+    font-size: 12px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px 12px;
+  }
+  .channel dt { color: var(--muted); }
+  .channel dd { margin: 0; color: var(--fg); text-align: right; }
+
+  /* ---------- install sequence ---------- */
+
+  .steps {
+    margin-top: 38px;
+    border-top: 1px solid var(--line);
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 62px 200px 1fr;
+    gap: 24px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  .step-n {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    padding-top: 3px;
+  }
+  .step h3 {
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .step h3 span {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .step p { color: var(--fg-2); font-size: 15px; }
+
+  /* ---------- limits ---------- */
+
+  .limits {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 40px;
+    margin-top: 34px;
+  }
+  .limit {
+    padding-left: 16px;
+    border-left: 2px solid var(--accent);
+  }
+  .limit h3 { font-size: 16px; font-weight: 700; }
+  .limit p { margin-top: 7px; color: var(--fg-2); font-size: 14.5px; }
+
+  /* ---------- faq ---------- */
+
+  .faq { margin-top: 34px; border-top: 1px solid var(--line); }
+  details {
+    border-bottom: 1px solid var(--line);
+  }
+  summary {
+    cursor: pointer;
+    padding: 18px 34px 18px 0;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 16.5px;
+    letter-spacing: -0.012em;
+    position: relative;
+    list-style: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "+";
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--mono);
+    font-size: 17px;
+    color: var(--accent);
+  }
+  details[open] summary::after { content: "–"; }
+  details p {
+    padding: 0 0 20px;
+    color: var(--fg-2);
+    font-size: 15px;
+    max-width: 52em;
+  }
+
+  /* ---------- close ---------- */
+
+  .close {
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+    padding-block: 64px;
+  }
+  .close-inner {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 44px;
+    align-items: center;
+  }
+  .close h2 {
+    font-size: clamp(27px, 3.6vw, 38px);
+    font-weight: 700;
+  }
+  .close p { margin-top: 15px; color: var(--fg-2); font-size: 17px; }
+  .close-actions { display: grid; gap: 11px; }
+  .close-actions .btn { justify-content: center; }
+  .close-actions small {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-block: 26px 34px;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  footer p { max-width: 62em; }
+  footer p + p { margin-top: 9px; }
+
+  /* ---------- responsive ---------- */
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+    .logs { grid-template-columns: 1fr; }
+    .channels { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 44px 1fr; }
+    .step p { grid-column: 2; }
+    .limits { grid-template-columns: 1fr; }
+    .close-inner { grid-template-columns: 1fr; gap: 28px; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding-block: 42px 40px; }
+    section.band, .close { padding-block: 46px; }
+    .row { grid-template-columns: 50px 1fr; }
+    .row .flag { grid-column: 2; justify-self: start; margin-top: 4px; }
+  }
+</style>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="logo"><span class="logo-mark" aria-hidden="true"></span>Dispatch</div>
+    <div class="topbar-note">AI front desk · home services</div>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">For HVAC, plumbing, electrical &amp; roofing</p>
+        <h1>Every call answered.<br>Especially the <em>9pm</em> ones.</h1>
+        <p class="lede">
+          Dispatch is an AI front desk for home-service businesses. It picks up on the first ring,
+          works the call the way your best CSR does, and puts the job on your calendar —
+          nights, weekends, and while every line is already busy.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://elevenlabs.io/app/talk-to?agent_id=agent_8901m2mzwfhgeecbayjmgdnqkedw" target="_blank" rel="noopener">
+            Call the demo now
+          </a>
+          <a class="btn btn-ghost" href="#book">Book a 15-minute call</a>
+        </div>
+        <p class="hero-foot">
+          The demo is live and answering right now. Talk to it like a homeowner whose AC just died —
+          argue with it, ask what it costs, try to trip it up. That is the point.
+        </p>
+      </div>
+
+      <div class="console">
+        <div class="console-head">
+          <span>Line 1 · Inbound</span>
+          <span class="live-tag"><span class="live-dot" aria-hidden="true"></span>Live</span>
+        </div>
+        <div class="console-body">
+          <dl class="console-meta">
+            <dt>Answering</dt><dd>Northside Heating &amp; Air</dd>
+            <dt>Agent</dt><dd>Kai · after-hours intake</dd>
+            <dt>Handles</dt><dd>Triage · booking · transfer</dd>
+            <dt>Pickup</dt><dd>First ring</dd>
+          </dl>
+
+          <div class="bubble">
+            <span class="bubble-who">Kai · 00:00</span>
+            “Thanks for calling Northside Heating and Air, this is Kai. I can get someone out to you.
+            What’s going on with your system?”
+          </div>
+
+          <a class="btn btn-primary" href="https://elevenlabs.io/app/talk-to?agent_id=agent_8901m2mzwfhgeecbayjmgdnqkedw" target="_blank" rel="noopener">
+            Start the call →
+          </a>
+
+          <div class="console-hint">
+            Things worth trying:
+            <ul>
+              <li>“How much is this going to cost me?”</li>
+              <li>“Can someone come out tonight?”</li>
+              <li>“Wait — am I talking to a real person?”</li>
+              <li>“I smell gas.”</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="band-head">
+        <p class="eyebrow">The leak</p>
+        <h2>You already paid for those calls. Twice.</h2>
+        <p>
+          Once to the ad platform that made the phone ring, and once to the competitor who picked up
+          when you didn’t. The calls that go missing are rarely the 10am ones — they’re after five,
+          during the dinner rush, and while every line is already tied up.
+        </p>
+      </div>
+
+      <div class="logs">
+        <div class="logcard">
+          <header>
+            <h3>A Tuesday night, as it goes now</h3>
+            <span>Inbound log · 17:00 – 23:00</span>
+          </header>
+          <div class="row"><time>18:42</time><span class="what"><b>(614) 555-01••</b>rang out · 38s</span><span class="flag flag-missed">Missed</span></div>
+          <div class="row"><time>19:16</time><span class="what"><b>(614) 555-04••</b>voicemail · no message</span><span class="flag flag-missed">Missed</span></div>
+          <div class="row"><time>20:03</time><span class="what"><b>(614) 555-02••</b>rang out · 22s</span><span class="flag flag-missed">Missed</span></div>
+          <div class="row"><time>21:47</time><span class="what"><b>(614) 555-07••</b>voicemail · no message</span><span class="flag flag-missed">Missed</span></div>
+          <div class="row"><time>22:29</time><span class="what"><b>(614) 555-03••</b>rang out · 15s</span><span class="flag flag-missed">Missed</span></div>
+          <div class="tally"><span class="tally-missed">5 missed</span> · 0 booked · 0 callbacks queued</div>
+        </div>
+
+        <div class="logcard">
+          <header>
+            <h3>The same night, with Dispatch</h3>
+            <span>Inbound log · 17:00 – 23:00</span>
+          </header>
+          <div class="row"><time>18:42</time><span class="what"><b>(614) 555-01••</b>No cool air · booked Wed 8–10a</span><span class="flag flag-booked">Booked</span></div>
+          <div class="row"><time>19:16</time><span class="what"><b>(614) 555-04••</b>Quote request · callback queued</span><span class="flag flag-booked">Captured</span></div>
+          <div class="row"><time>20:03</time><span class="what"><b>(614) 555-02••</b>Gas smell · flagged, told to call 911</span><span class="flag flag-booked">Escalated</span></div>
+          <div class="row"><time>21:47</time><span class="what"><b>(614) 555-07••</b>No cool air · booked Wed 1–3p</span><span class="flag flag-booked">Booked</span></div>
+          <div class="row"><time>22:29</time><span class="what"><b>(614) 555-03••</b>Commercial job · referred out</span><span class="flag flag-booked">Handled</span></div>
+          <div class="tally"><span class="tally-booked">0 missed</span> · 2 booked · 1 callback queued</div>
+        </div>
+      </div>
+
+      <p class="caption">
+        Illustration of how the same night reads before and after, not a customer’s data.
+        Your own numbers come out of your phone system — we pull them together on the call.
+      </p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="band-head">
+        <p class="eyebrow">What gets installed</p>
+        <h2>Three places a lead goes cold. We cover all three.</h2>
+      </div>
+
+      <div class="channels">
+        <div class="channel">
+          <p class="eyebrow">01 — Voice</p>
+          <h3>Answers the phone</h3>
+          <p>
+            Picks up inbound calls your team can’t get to. Triages the problem, checks it’s in your
+            trade and your service area, offers two real windows, and books it. Hands off to a human
+            the moment it should.
+          </p>
+          <dl>
+            <dt>Covers</dt><dd>After-hours, overflow</dd>
+            <dt>Escalates</dt><dd>Gas, smoke, no heat</dd>
+          </dl>
+        </div>
+        <div class="channel">
+          <p class="eyebrow">02 — Text</p>
+          <h3>Works the web form</h3>
+          <p>
+            A form fill at 11pm is a lead with a shelf life measured in minutes. Dispatch texts back
+            immediately, holds the conversation, and turns it into a booked slot instead of a note in
+            somebody’s inbox for the morning.
+          </p>
+          <dl>
+            <dt>Covers</dt><dd>Forms, missed-call text</dd>
+            <dt>Replies in</dt><dd>Seconds, not hours</dd>
+          </dl>
+        </div>
+        <div class="channel">
+          <p class="eyebrow">03 — Outbound</p>
+          <h3>Reopens the dead list</h3>
+          <p>
+            The estimates nobody followed up on and the maintenance customers who drifted. Dispatch
+            works the list on a schedule you set, and only puts the ones who say yes in front of your
+            team.
+          </p>
+          <dl>
+            <dt>Covers</dt><dd>Aged leads, recalls</dd>
+            <dt>You get</dt><dd>Only live interest</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="band-head">
+        <p class="eyebrow">Getting it live</p>
+        <h2>Built for your shop, not configured from a template.</h2>
+        <p>
+          You don’t write prompts, pick a model, or learn a dashboard. We build it, you approve it.
+          Most installs are answering live calls in about two weeks, depending on how fast we can get
+          into your phone system and scheduler.
+        </p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-n">01</div>
+          <h3>Listen<span>Days 1–3</span></h3>
+          <p>We go through your recorded calls, your price book, your service area and your booking rules — including the jobs you don’t want. The agent learns how your best person actually talks, not how a script says to.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">02</div>
+          <h3>Build<span>Days 4–8</span></h3>
+          <p>We write the agent, wire it into your phone system and your scheduler, and set the handoff rules: what it books itself, what it flags, what goes straight to a human.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">03</div>
+          <h3>You try to break it<span>Days 9–12</span></h3>
+          <p>You call it. Your CSRs call it. You throw it the weird ones — the commercial job, the angry callback, the caller who won’t give an address. We fix what it gets wrong and you call again.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">04</div>
+          <h3>Go live, narrow<span>Around day 14</span></h3>
+          <p>It starts on overflow only — the calls that are ringing out today. Once you’ve read a week of transcripts and you like what you see, you widen it.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">05</div>
+          <h3>Tune, monthly<span>Ongoing</span></h3>
+          <p>We read the transcripts with you, find where it fumbled or where a real person should have taken over sooner, and adjust. Your price book and your hours change; so does the agent.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="band-head">
+        <p class="eyebrow">Straight answers</p>
+        <h2>What Dispatch does not do.</h2>
+        <p>Worth reading before you book the call, so neither of us wastes the half hour.</p>
+      </div>
+
+      <div class="limits">
+        <div class="limit">
+          <h3>It doesn’t quote repairs.</h3>
+          <p>It can state your diagnostic or trip fee because that’s a fixed number. Anything that needs eyes on the equipment gets quoted on site, by your tech.</p>
+        </div>
+        <div class="limit">
+          <h3>It doesn’t pretend to be a person.</h3>
+          <p>Ask it directly and it says it’s an AI assistant, then keeps booking. We build it that way on purpose — callers who find out later feel tricked, and that costs you the job.</p>
+        </div>
+        <div class="limit">
+          <h3>It doesn’t replace your CSR.</h3>
+          <p>Your people keep the calls they’re already answering well. Dispatch takes what’s currently rolling to voicemail, and hands anything delicate straight back to a human.</p>
+        </div>
+        <div class="limit">
+          <h3>It won’t fix a broken funnel.</h3>
+          <p>If the leads are bad or the techs can’t get there for nine days, answering faster only surfaces that sooner. We’ll tell you on the call if that’s what we think is happening.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="band-head">
+        <p class="eyebrow">Questions we get</p>
+        <h2>Before you book.</h2>
+      </div>
+
+      <div class="faq">
+        <details open>
+          <summary>What does it cost?</summary>
+          <p>It depends on how many calls you take, which of the three channels you turn on, and what we have to integrate with. There’s a build-and-training fee up front and a monthly for running and tuning it. We quote it on the call once we know your volume — we’d rather give you a real number than a page price you’ll have to renegotiate.</p>
+        </details>
+        <details>
+          <summary>Will it work with my phone system?</summary>
+          <p>If your numbers live with a cloud provider — RingCentral, Dialpad, Vonage, Twilio, 8×8, Zoom Phone and the like — yes, and forwarding is usually a same-day change. If you’re on an old on-prem PBX, tell us the make on the call; sometimes the answer is a small hardware change first, and sometimes it’s “not yet.”</p>
+        </details>
+        <details>
+          <summary>Does it book into ServiceTitan / Jobber / Housecall Pro?</summary>
+          <p>Those are the common ones and they’re the ones we wire up most often. If you’re on something unusual, it may book into a shared calendar and push the job details to your team instead of writing directly into the system. We’ll confirm which it is before you sign anything.</p>
+        </details>
+        <details>
+          <summary>What happens when it gets something wrong?</summary>
+          <p>It will, occasionally — so the design assumes it. Every call is transcribed and you can read any of them. Emergencies and anything outside its rules get handed to a person rather than guessed at. When something does go sideways, we find it in the monthly transcript review and change the rule that allowed it.</p>
+        </details>
+        <details>
+          <summary>Can I hear it on my own business before I commit?</summary>
+          <p>Yes. The demo above is a fictional HVAC company so you can beat on it without touching anything real. If you want to hear it as <em>your</em> shop, we can put a rough version together using your price book and service area before you commit to the full build.</p>
+        </details>
+        <details>
+          <summary>How long until it’s answering live calls?</summary>
+          <p>Around two weeks for a typical single-trade shop, assuming we get phone system access and your booking rules in the first few days. Multi-location or heavy integration work takes longer, and we’ll say so up front rather than after you’ve signed.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" id="book">
+    <div class="wrap close-inner">
+      <div>
+        <p class="eyebrow">Next step</p>
+        <h2>Talk to the demo first. Then talk to us.</h2>
+        <p>
+          Fifteen minutes, screen shared. We look at your actual call log, count what’s rolling to
+          voicemail, and tell you whether this is worth doing for your shop. If it isn’t, we’ll say so.
+        </p>
+      </div>
+      <div class="close-actions">
+        <a class="btn btn-primary" href="https://elevenlabs.io/app/talk-to?agent_id=agent_8901m2mzwfhgeecbayjmgdnqkedw" target="_blank" rel="noopener">Call the demo</a>
+        <a class="btn btn-ghost" href="#REPLACE-WITH-YOUR-BOOKING-LINK">Book a 15-minute call</a>
+        <small>Replace the booking link with your own calendar URL.</small>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>
+      Northside Heating &amp; Air is a fictional company used for the demo so you can test the agent
+      without calling a real business. The call log above illustrates the before-and-after; it is not
+      a customer’s data.
+    </p>
+    <p>
+      Dispatch — AI front desk for home-service businesses.
+    </p>
+  </div>
+</footer>
