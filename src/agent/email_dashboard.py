@@ -65,6 +65,7 @@ border-radius:4px;padding:22px;text-align:center}
 """
 
 _PILL = {SUBSCRIBED: "wait", REPLIED: "go", UNSUBSCRIBED: "stop", BOUNCED: "stop"}
+DRAFTED = "drafted"   # a draft is waiting in the mail client, not yet sent
 _KIND_LABEL = {"interested": "interested", "question": "asked a question",
                "not_interested": "not interested", "auto_reply": "auto-reply",
                "unclear": "replied"}
@@ -82,15 +83,16 @@ def render(subscribers: SubscriberList, log_path: str | Path,
     sent_to = {r.get("email", "").lower() for r in sent}
     replies = [s for s in people if s.status == REPLIED]
     hot = [s for s in replies if s.fields.get("reply_kind") in ("interested", "question")]
+    drafted = [s for s in people if s.fields.get(DRAFTED) and s.status == SUBSCRIBED]
 
     reply_rate = f"{len(replies) / len(sent_to) * 100:.0f}%" if sent_to else "—"
 
     tiles = [
         ("go", len(hot), "worth calling"),
         ("go", len(replies), "replied"),
+        ("wait", len(drafted), "drafts waiting"),
         ("", len(sent_to), "people emailed"),
-        ("", len(sent), "emails sent"),
-        ("wait", counts.get(SUBSCRIBED, 0), "still pending"),
+        ("wait", counts.get(SUBSCRIBED, 0) - len(drafted), "not started"),
         ("stop", counts.get(UNSUBSCRIBED, 0), "opted out"),
         ("", reply_rate, "reply rate"),
     ]
@@ -121,7 +123,7 @@ def render(subscribers: SubscriberList, log_path: str | Path,
             f"<td>{html.escape(s.fields.get('trade', '—'))}</td>"
             f"<td>{html.escape(s.email)}</td>"
             f"<td><span class='pill {_PILL.get(s.status, 'wait')}'>"
-            f"{html.escape(_LABEL.get(s.status, s.status))}</span></td>"
+            f"{html.escape('draft ready' if (s.fields.get(DRAFTED) and s.status == SUBSCRIBED) else _LABEL.get(s.status, s.status))}</span></td>"
             f"<td>{times}</td></tr>"
         )
     table = ("<div class='scroll'><table><thead><tr><th>Name</th><th>Company</th>"
