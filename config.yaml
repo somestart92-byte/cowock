@@ -131,6 +131,8 @@ email:
   # and looks like a person rather than a blast.
   footer_mode: "cold"       # these are prospects, not subscribers
   cold_intro: "You are getting this because I am reaching out to roofing and HVAC owners directly. I am Sara."
+  send_window: "09:00-17:00"   # business hours only — 3am mail reads as a machine
+  send_weekdays_only: true
   rate_limit_per_minute: 4  # slow — this is a personal Gmail, not a warmed domain
   daily_limit: 20
 

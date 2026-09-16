@@ -67,6 +67,10 @@ class EmailSettings:
     # the first thing a spam complaint quotes back at you.
     footer_mode: str = "optin"
     cold_intro: str = ""
+    # Mail that lands at 3am reads as a machine. Real outreach tools all send
+    # inside working hours, and it costs nothing to do the same.
+    send_window: str = ""        # e.g. "09:00-17:00"; empty means any time
+    send_weekdays_only: bool = False
 
     @classmethod
     def from_config(cls, raw: dict[str, Any] | None = None) -> "EmailSettings":
@@ -89,6 +93,8 @@ class EmailSettings:
             smtp_ssl=bool(raw.get("smtp_ssl", False)),
             footer_mode=str(raw.get("footer_mode", "optin")),
             cold_intro=str(raw.get("cold_intro", "")),
+            send_window=str(raw.get("send_window", "")),
+            send_weekdays_only=bool(raw.get("send_weekdays_only", False)),
         )
         env = os.environ
         settings.from_email = env.get("EMAIL_FROM", settings.from_email)
@@ -151,6 +157,23 @@ class EmailSettings:
         if self.postal_address:
             lines.append(self.postal_address)
         return "\n".join(lines)
+
+    def window_closed(self, now: _dt.datetime | None = None) -> str:
+        """Why sending is paused right now, or '' if it is fine to send."""
+        now = now or _dt.datetime.now()
+        if self.send_weekdays_only and now.weekday() >= 5:
+            return "outside the sending window (weekend)"
+        if not self.send_window:
+            return ""
+        try:
+            start_s, end_s = self.send_window.split("-", 1)
+            start = _dt.time.fromisoformat(start_s.strip())
+            end = _dt.time.fromisoformat(end_s.strip())
+        except ValueError:
+            return ""  # a malformed window must never block a send silently
+        if not (start <= now.time() <= end):
+            return f"outside the sending window ({self.send_window})"
+        return ""
 
     def missing_for_live(self) -> list[str]:
         """What still has to be filled in before a live send is allowed."""
@@ -473,6 +496,7 @@ class Sender:
             live=self.backend.live,
             started=_dt.datetime.now().isoformat(timespec="seconds"),
         )
+        closed = self.settings.window_closed() if self.backend.live else ""
         delay = 60.0 / max(self.settings.rate_limit_per_minute, 1)
         budget = self.settings.daily_limit - self.sent_today() if self.backend.live else None
         first = True
@@ -481,6 +505,11 @@ class Sender:
             for subscriber in recipients:
                 if limit is not None and report.sent >= limit:
                     break
+                if closed:
+                    report.results.append(SendResult(
+                        email=subscriber.email, status="skipped", reason=closed,
+                        subject=mail.subject, email_index=index))
+                    continue
                 result = self._send_one(campaign, mail, subscriber, index, extra, budget, delay, first)
                 if result.status == "sent":
                     first = False

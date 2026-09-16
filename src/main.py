@@ -66,6 +66,15 @@ def main(argv: list[str] | None = None) -> int:
     el = email_sub.add_parser("list", help="list built campaigns")
     el.add_argument("--config", default=None)
 
+    ei = email_sub.add_parser("inbox", help="read replies and stop chasing people who answered")
+    ei.add_argument("--days", type=int, default=30, help="how far back to look")
+    ei.add_argument("--config", default=None)
+
+    ed = email_sub.add_parser("dashboard", help="write an HTML inbox you open in a browser")
+    ed.add_argument("--open", action="store_true", help="print the file:// link")
+    ed.add_argument("--name", default="Cold outreach", help="campaign name for the heading")
+    ed.add_argument("--config", default=None)
+
     ep = email_sub.add_parser("preview", help="print a campaign as Markdown")
     ep.add_argument("--campaign", required=True)
     ep.add_argument("--config", default=None)
@@ -183,6 +192,43 @@ def _email(args) -> int:
             approval = email_pipeline.read_approval(cfg, directory.name)
             state = "approved" if approval.get("approved") else "awaiting approval"
             print(f"{directory.name}  [{state}]")
+        return 0
+
+    if args.email_command == "inbox":
+        from src.agent import email_inbox
+        from src.agent.email_list import SubscriberList
+
+        settings = email_inbox.ImapSettings.from_config(cfg.email_settings_raw)
+        if not settings.ready:
+            print("✋ inbox not configured yet:")
+            for gap in settings.missing():
+                print(f"  - {gap}")
+            return 2
+        subscribers = SubscriberList.load(cfg.email_list_path)
+        print(f"▶ reading {settings.user} for replies…")
+        try:
+            report = email_inbox.check(settings, subscribers, cfg.email_log_path, args.days)
+        except Exception as exc:
+            print(f"✗ could not read the inbox: {exc}")
+            return 2
+        subscribers.save()
+        print(f"✓ {report.summary()}")
+        for reply in report.replies:
+            flag = "  [asked to stop]" if reply.opted_out else ""
+            print(f"\n  ← {reply.email}{flag}\n    {reply.snippet[:160]}")
+        return 0
+
+    if args.email_command == "dashboard":
+        from src.agent import email_dashboard
+        from src.agent.email_list import SubscriberList
+
+        subscribers = SubscriberList.load(cfg.email_list_path)
+        out = email_dashboard.write(
+            subscribers, cfg.email_log_path,
+            cfg.email_campaigns_dir.parent / "inbox.html", args.name,
+        )
+        print(f"✓ dashboard: {out}")
+        print(f"  open it: file://{out}")
         return 0
 
     if args.email_command == "preview":

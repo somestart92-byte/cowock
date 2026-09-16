@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import html as _html
 import json
+import random
 import re
 from dataclasses import dataclass, field
 
@@ -57,13 +58,37 @@ def slugify(text: str) -> str:
 
 _FIELD_RE = re.compile(r"\{\{\s*([a-zA-Z0-9_]+)\s*\}\}")
 
+# {Hi|Hey|Quick one} — one variant is chosen per recipient. Every cold-email
+# tool has this, for a real reason: a provider that sees a thousand byte-for-byte
+# identical messages treats them as a bulk blast. Varying the wording makes each
+# message genuinely different mail rather than a broadcast.
+_SPIN_RE = re.compile(r"\{([^{}|]*\|[^{}]*)\}")
+
+
+def spin(text: str, seed: str = "") -> str:
+    """Resolve {a|b|c} choices. The same seed always picks the same variant,
+    so a preview and the real send are never different emails."""
+    if not text:
+        return text
+    rng = random.Random(seed or "cowock")
+
+    def choose(match: re.Match[str]) -> str:
+        return rng.choice(match.group(1).split("|")).strip()
+
+    previous = None
+    out = text
+    while previous != out:  # nested spins resolve outside-in
+        previous = out
+        out = _SPIN_RE.sub(choose, out)
+    return out
+
 
 def merge_fields(text: str) -> list[str]:
     """Every {{field}} referenced in a piece of copy."""
     return sorted(set(_FIELD_RE.findall(text or "")))
 
 
-def render_fields(text: str, ctx: dict[str, str]) -> str:
+def render_fields(text: str, ctx: dict[str, str], seed: str = "") -> str:
     """Substitute {{field}} from ctx. Unknown fields render empty, never raw.
 
     A stray '{{first_name}}' arriving in a customer's inbox is the classic
@@ -72,7 +97,8 @@ def render_fields(text: str, ctx: dict[str, str]) -> str:
     def _sub(match: re.Match[str]) -> str:
         return str(ctx.get(match.group(1), "") or "")
 
-    out = _FIELD_RE.sub(_sub, text or "")
+    out = spin(text or "", seed or ctx.get("email", ""))
+    out = _FIELD_RE.sub(_sub, out)
     # Collapse the double spaces / stray commas a missing name leaves behind.
     out = re.sub(r"[ \t]{2,}", " ", out)
     out = re.sub(r"(?m)^([^\S\n]*)(Hi|Hello|Assalamu alaikum|Salam)\s*,", r"\1\2,", out)
@@ -215,10 +241,10 @@ class Email:
         return render_fields(self.cta_label, ctx).strip() or "Read more", url
 
     def render_subject(self, ctx: dict[str, str]) -> str:
-        return render_fields(self.subject, ctx).strip()
+        return render_fields(self.subject, ctx, ctx.get("email", "")).strip()
 
     def render_text(self, ctx: dict[str, str], footer: str = "") -> str:
-        body = render_fields(self.body_markdown, ctx).strip()
+        body = render_fields(self.body_markdown, ctx, ctx.get("email", "")).strip()
         parts = [body]
         label, url = self.rendered_cta(ctx)
         if url:
@@ -228,7 +254,7 @@ class Email:
         return "\n\n".join(p for p in parts if p).strip() + "\n"
 
     def render_html(self, ctx: dict[str, str], footer: str = "") -> str:
-        body = markdown_to_html(render_fields(self.body_markdown, ctx))
+        body = markdown_to_html(render_fields(self.body_markdown, ctx, ctx.get("email", "")))
         label, url = self.rendered_cta(ctx)
         cta = ""
         if url:

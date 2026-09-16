@@ -21,6 +21,9 @@ from pathlib import Path
 SUBSCRIBED = "subscribed"
 UNSUBSCRIBED = "unsubscribed"
 BOUNCED = "bounced"
+# Someone who wrote back. Not unsubscribed — they are a live conversation, and
+# they must never receive the rest of an automated sequence.
+REPLIED = "replied"
 
 FIELDS = ["email", "name", "status", "tags", "source", "joined", "token"]
 
@@ -179,6 +182,15 @@ class SubscriberList:
         sub.status = UNSUBSCRIBED
         return sub
 
+    def mark_replied(self, email: str) -> Subscriber | None:
+        sub = self.get(email)
+        if sub is not None and sub.status == SUBSCRIBED:
+            sub.status = REPLIED
+        return sub
+
+    def replied(self) -> list[Subscriber]:
+        return [s for s in self.all() if s.status == REPLIED]
+
     def mark_bounced(self, email: str) -> Subscriber | None:
         sub = self.get(email)
         if sub is not None:
@@ -243,7 +255,8 @@ class SubscriberList:
         return subs
 
     def stats(self) -> dict[str, int]:
-        counts = {"total": len(self._by_email), SUBSCRIBED: 0, UNSUBSCRIBED: 0, BOUNCED: 0}
+        counts = {"total": len(self._by_email), SUBSCRIBED: 0, REPLIED: 0,
+                  UNSUBSCRIBED: 0, BOUNCED: 0}
         for sub in self._by_email.values():
             counts[sub.status] = counts.get(sub.status, 0) + 1
         return counts

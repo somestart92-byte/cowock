@@ -379,6 +379,136 @@ def test_test_send_targets_only_the_given_address():
         assert reports[0].results[0].email == "me@example.com"
 
 
+# ------------------------------------------------------------------ inbox
+
+def test_reply_stops_the_sequence_and_stop_unsubscribes():
+    from src.agent import email_inbox
+    from src.agent.email_list import REPLIED
+
+    with tempfile.TemporaryDirectory() as tmp:
+        subs = SubscriberList(Path(tmp) / "list.csv")
+        subs.add("mike@example.com", "Mike")
+        subs.add("dana@example.com", "Dana")
+        subs.add("ray@example.com", "Ray")
+        replies = [
+            email_inbox.Reply(email="mike@example.com", snippet="Yeah, a few a week. Mike"),
+            email_inbox.Reply(email="dana@example.com", snippet="stop", opted_out=True),
+            email_inbox.Reply(email="nobody@example.com", snippet="who?"),
+        ]
+        report = email_inbox.reconcile(subs, replies)
+        assert report.matched == 2 and report.opted_out == 1
+        assert subs.get("mike@example.com").status == REPLIED
+        assert subs.get("dana@example.com").status == "unsubscribed"
+
+        # The whole point: neither of them gets the next email in the sequence.
+        assert [s.email for s in subs.active()] == ["ray@example.com"]
+        campaign = _campaign()
+        sender = Sender(_settings(), ConsoleBackend(), Path(tmp) / "log.jsonl",
+                        sleep=lambda _: None)
+        report2 = sender.send_campaign(campaign, subs.all(), index=1)
+        assert report2.sent == 1 and report2.skipped == 2
+
+
+def test_opt_out_phrases_are_caught():
+    from src.agent.email_inbox import _OPT_OUT
+
+    for phrase in ("stop", "please unsubscribe me", "remove me from this list",
+                   "take me off", "not interested", "opt out"):
+        assert _OPT_OUT.search(phrase), phrase
+    for phrase in ("sounds interesting", "how much does it cost?", "call me tomorrow"):
+        assert not _OPT_OUT.search(phrase), phrase
+
+
+def test_imap_settings_infer_host_from_smtp():
+    from src.agent.email_inbox import ImapSettings
+
+    os.environ["SMTP_HOST"] = "smtp.gmail.com"
+    os.environ["SMTP_USER"] = "me@gmail.com"
+    os.environ["SMTP_PASSWORD"] = "app-password"
+    try:
+        settings = ImapSettings.from_config({})
+        assert settings.host == "imap.gmail.com"
+        assert settings.user == "me@gmail.com" and settings.ready
+        assert settings.missing() == []
+    finally:
+        for key in ("SMTP_HOST", "SMTP_USER", "SMTP_PASSWORD"):
+            os.environ.pop(key, None)
+    assert "IMAP_HOST" in " ".join(ImapSettings.from_config({}).missing())
+
+
+def test_dashboard_shows_replies_and_counts():
+    from src.agent import email_dashboard
+
+    with tempfile.TemporaryDirectory() as tmp:
+        subs = SubscriberList(Path(tmp) / "list.csv")
+        mike, _ = subs.add("mike@example.com", "Mike Alvarez")
+        mike.fields.update({"company": "Alvarez Roofing", "trade": "roofing",
+                            "last_reply": "Yeah, maybe 4 a week."})
+        subs.mark_replied("mike@example.com")
+        subs.add("dana@example.com", "Dana")
+
+        log = Path(tmp) / "log.jsonl"
+        log.write_text(json.dumps({"status": "sent", "email": "mike@example.com",
+                                   "campaign": "c", "email_index": 0}) + "\n",
+                       encoding="utf-8")
+        out = email_dashboard.write(subs, log, Path(tmp) / "inbox.html", "Cold outreach")
+        page = out.read_text(encoding="utf-8")
+        assert "Alvarez Roofing" in page and "Yeah, maybe 4 a week." in page
+        assert "Mike Alvarez" in page and "Dana" in page
+        assert "<script" not in page  # nothing executable in a local report
+
+
+def test_spintax_varies_per_person_but_is_stable():
+    from src.agent.email_campaign import spin
+
+    template = "{Hi|Hey|Hello} there"
+    picks = {spin(template, seed=f"p{i}@x.com") for i in range(30)}
+    assert len(picks) > 1, "spintax should produce different wording"
+    assert all(p.endswith("there") for p in picks)
+    # Same person, same result — a preview must match what actually sends.
+    assert spin(template, "mike@x.com") == spin(template, "mike@x.com")
+    assert spin("no choices here", "x") == "no choices here"
+
+
+def test_sending_window_pauses_live_sends():
+    import datetime as dt
+
+    s = _settings(send_window="09:00-17:00", send_weekdays_only=True)
+    assert s.window_closed(dt.datetime(2026, 9, 16, 11, 0)) == ""        # Wed 11am
+    assert "sending window" in s.window_closed(dt.datetime(2026, 9, 16, 3, 0))
+    assert "weekend" in s.window_closed(dt.datetime(2026, 9, 19, 11, 0))  # Saturday
+    # A malformed window must never silently block every send.
+    assert _settings(send_window="nonsense").window_closed() == ""
+
+
+def test_auto_reply_does_not_stop_the_sequence():
+    from src.agent import email_inbox
+    from src.agent.email_list import SUBSCRIBED
+
+    with tempfile.TemporaryDirectory() as tmp:
+        subs = SubscriberList(Path(tmp) / "list.csv")
+        subs.add("mike@example.com", "Mike")
+        report = email_inbox.reconcile(subs, [email_inbox.Reply(
+            email="mike@example.com", snippet="I am out of the office until Monday.")])
+        # He was on holiday, not uninterested — he stays in the sequence.
+        assert subs.get("mike@example.com").status == SUBSCRIBED
+        assert report.interested == 0
+
+
+def test_interested_replies_are_counted():
+    from src.agent import email_inbox
+
+    with tempfile.TemporaryDirectory() as tmp:
+        subs = SubscriberList(Path(tmp) / "list.csv")
+        subs.add("a@example.com"); subs.add("b@example.com"); subs.add("c@example.com")
+        report = email_inbox.reconcile(subs, [
+            email_inbox.Reply(email="a@example.com", snippet="Sounds good, how much?"),
+            email_inbox.Reply(email="b@example.com", snippet="What does it do?"),
+            email_inbox.Reply(email="c@example.com", snippet="ok"),
+        ])
+        assert report.interested == 2 and report.matched == 3
+
+
 if __name__ == "__main__":
     tests = [value for name, value in sorted(globals().items()) if name.startswith("test_")]
     for test in tests:
